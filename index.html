@@ -1,1838 +1,1056 @@
+<!--
+═══════════════════════════════════════════════════════════
+🌟 سامانه استخاره سما
+👤 طراحی و توسعه: مهدی سلیمانی آشتیانی
+📅 تاریخ ساخت: ۱۴۰۴
+🔗 آدرس: https://solimaniashteyani-crypto.github.io/estekhareh/
+📌 شناسه یکتا: SAMA-EST-1404-MHD-7842
+═══════════════════════════════════════════════════════════
+-->
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>پنل سما | مرکز سامانه‌ها</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>استخاره سما</title>
     <style>
-        :root {
-            --primary: #0a2540;
-            --primary-dark: #061829;
-            --primary-light: #1e4976;
-            --accent: #00a8e8;
-            --accent-light: #4dc3ff;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --danger: #ef4444;
-            --gold: #fbbf24;
-            --bg: #f0f4f8;
-            --card-bg: #ffffff;
-            --text: #0a2540;
-            --text-light: #64748b;
-            --border: #e2e8f0;
-            --shadow: 0 10px 40px rgba(10, 37, 64, 0.1);
-            --shadow-lg: 0 20px 60px rgba(10, 37, 64, 0.15);
-        }
-
-        body.dark-mode {
-            --primary: #0f172a;
-            --primary-dark: #020617;
-            --primary-light: #1e293b;
-            --bg: #0a0f1e;
-            --card-bg: #111827;
-            --text: #f1f5f9;
-            --text-light: #94a3b8;
-            --border: #1e293b;
-            --shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
-            --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.5);
-        }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body {
-            font-family: 'Vazirmatn', Tahoma, sans-serif;
-            background: var(--bg);
-            color: var(--text);
+            font-family: 'Tahoma', 'Segoe UI', sans-serif;
+            background: #f4f6f9;
+            padding: 12px;
             min-height: 100vh;
-            transition: background 0.3s ease, color 0.3s ease;
-            background-image:
-                radial-gradient(circle at 10% 20%, rgba(0, 168, 232, 0.08) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(10, 37, 64, 0.08) 0%, transparent 40%);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
         }
-
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+            padding: 16px 14px 24px;
+        }
         .header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 50%, var(--accent) 100%);
-            color: white;
-            padding: 25px 40px;
-            box-shadow: 0 10px 40px rgba(10, 37, 64, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            border-radius: 50%;
-            animation: float 15s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(-30px, 30px) scale(1.1); }
-        }
-
-        .header-inner {
             display: flex;
+            align-items: center;
             justify-content: space-between;
-            align-items: center;
-            max-width: 1400px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
+            flex-wrap: wrap;
+            gap: 10px;
+            border-bottom: 4px solid #2e7d32;
+            padding-bottom: 12px;
+            margin-bottom: 14px;
         }
-
-        .brand { display: flex; align-items: center; gap: 15px; }
-
-        .brand-logo {
-            width: 55px;
-            height: 55px;
-            background: rgba(255,255,255,0.15);
-            border: 2px solid rgba(255,255,255,0.3);
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        .logo { display: flex; align-items: center; gap: 10px; }
+        .logo-icon {
+            font-size: 34px; background: #1b4f1f; color: white;
+            width: 52px; height: 52px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 3px 10px rgba(27, 79, 31, 0.25); flex-shrink: 0;
         }
-
-        .brand-text h1 { font-size: 1.6rem; font-weight: 800; letter-spacing: 1px; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); }
-        .brand-text p { font-size: 0.85rem; opacity: 0.9; margin-top: 2px; }
-
-        .header-tools { display: flex; gap: 10px; align-items: center; }
-
-        .tool-btn {
-            background: rgba(255,255,255,0.15);
-            border: 2px solid rgba(255,255,255,0.25);
-            color: white;
-            width: 45px;
-            height: 45px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-size: 1.2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-        }
-
-        .tool-btn:hover { background: rgba(255,255,255,0.3); transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
-        .tool-btn.danger { background: rgba(239, 68, 68, 0.3); border-color: rgba(239, 68, 68, 0.5); }
-        .tool-btn.danger:hover { background: rgba(239, 68, 68, 0.6); }
-        .tool-btn.gold { background: rgba(251, 191, 36, 0.3); border-color: rgba(251, 191, 36, 0.5); }
-        .tool-btn.gold:hover { background: rgba(251, 191, 36, 0.6); }
-
+        .logo-text { font-size: 24px; font-weight: 700; color: #1a3c2a; line-height: 1.2; }
+        .logo-text small { font-size: 13px; font-weight: 400; color: #5a7a5a; display: block; }
         .version-badge {
-            background: rgba(255,255,255,0.2);
-            border: 2px solid rgba(255,255,255,0.3);
-            padding: 8px 18px;
-            border-radius: 25px;
-            font-size: 0.9rem;
-            font-weight: 700;
-            backdrop-filter: blur(10px);
+            font-size: 14px; background: #e8f0e8; color: #2e5a2e;
+            padding: 4px 16px; border-radius: 30px;
+            border: 1px solid #cde0cd; font-weight: 600; white-space: nowrap;
         }
+        @media (max-width: 550px) {
+            .header { flex-direction: column; align-items: center; text-align: center; }
+            .logo-text { font-size: 20px; }
+            .logo-icon { width: 44px; height: 44px; font-size: 28px; }
+            .version-badge { font-size: 12px; padding: 3px 12px; }
+        }
+        .conditions-box {
+            background: #f8f4e8; border-right: 6px solid #8d6e3b;
+            padding: 14px 18px; border-radius: 14px; margin-bottom: 18px;
+            font-size: 15px; line-height: 2.1; color: #3d2e1a;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .conditions-box .title {
+            font-weight: 700; font-size: 17px; color: #5a3e1a;
+            display: block; margin-bottom: 4px;
+        }
+        .conditions-box ol { padding-right: 28px; margin: 4px 0; }
+        .conditions-box ol li { margin-bottom: 2px; }
+        .conditions-box .highlight { color: #8d6e3b; font-weight: 700; }
+        .conditions-box .dua-text { font-size: 1.1em; color: #5a3e1a; }
+        @media (max-width: 700px) {
+            .conditions-box { font-size: 14px; padding: 12px 14px; line-height: 2; }
+            .conditions-box ol { padding-right: 22px; }
+        }
+        .search-section {
+            display: flex; flex-wrap: wrap; align-items: center;
+            justify-content: center; gap: 10px;
+            background: #f0f4f0; padding: 14px 16px;
+            border-radius: 50px; margin-bottom: 20px;
+            border: 1px solid #d0e0d0;
+        }
+        .search-section label { font-weight: bold; color: #1f4f2a; font-size: 14px; }
+        .search-section input {
+            flex: 1; min-width: 120px; padding: 12px 16px;
+            border: 2px solid #c0d6c0; border-radius: 40px;
+            font-size: 16px; background: white; outline: none;
+            -webkit-appearance: none; appearance: none; height: 48px;
+        }
+        .search-section input:focus {
+            border-color: #2e7d32;
+            box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.15);
+        }
+        .search-section input::placeholder { color: #999; font-size: 14px; }
+        .search-section button {
+            padding: 10px 28px; background: #2e7d32; color: white;
+            border: none; border-radius: 40px; font-size: 15px;
+            font-weight: bold; cursor: pointer;
+            touch-action: manipulation; min-height: 48px; min-width: 60px;
+        }
+        .search-section button:hover { background: #1b5e20; }
+        .search-section button:active { transform: scale(0.96); }
 
-        .container { max-width: 1400px; margin: 0 auto; padding: 30px 40px; }
+        .error-msg {
+            display: none; background: #f8d7da; color: #721c24;
+            padding: 10px 16px; border-radius: 30px; margin-bottom: 14px;
+            text-align: center; font-size: 14px; border: 1px solid #f5c6cb;
+        }
+        .error-msg.show { display: block; }
 
-        .welcome-section {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 25px;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border);
-            position: relative;
+        .hidden-section { display: none; }
+        .visible-section { display: block; }
+
+        .counter {
+            text-align: center; font-size: 14px; color: #3d5a3d;
+            margin-bottom: 12px; background: #eaf4ea;
+            padding: 8px 20px; border-radius: 30px; display: inline-block;
+        }
+        .counter-wrap { text-align: center; margin-bottom: 8px; }
+
+        /* ===== کارت نتیجه ===== */
+        .result-card {
+            background: #ffffff;
+            border: 1px solid #e2e8e6;
+            border-radius: 18px;
             overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+            margin-bottom: 18px;
         }
-
-        .welcome-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 6px;
-            height: 100%;
-            background: linear-gradient(180deg, var(--accent), var(--primary));
-        }
-
-        .welcome-section h2 { font-size: 1.5rem; color: var(--primary); margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
-        .welcome-section p { color: var(--text-light); font-size: 0.95rem; }
-
-        .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px; }
-
-        .stat-card {
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 22px;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border);
+        .card-row-1 {
             display: flex;
             align-items: center;
-            gap: 15px;
-            transition: transform 0.3s ease;
-        }
-
-        .stat-card:hover { transform: translateY(-5px); }
-
-        .stat-icon { width: 55px; height: 55px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; color: white; flex-shrink: 0; }
-        .stat-icon.blue { background: linear-gradient(135deg, #0a2540, #1e4976); }
-        .stat-icon.cyan { background: linear-gradient(135deg, #00a8e8, #4dc3ff); }
-        .stat-icon.green { background: linear-gradient(135deg, #10b981, #34d399); }
-        .stat-icon.gold { background: linear-gradient(135deg, #f59e0b, #fbbf24); }
-
-        .stat-info .stat-label { font-size: 0.85rem; color: var(--text-light); margin-bottom: 5px; font-weight: 600; }
-        .stat-info .stat-value { font-size: 1.8rem; font-weight: 800; color: var(--primary); }
-
-        .toolbar {
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 25px;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border);
-            display: flex;
             gap: 12px;
-            align-items: center;
+            padding: 14px 18px;
+            background: linear-gradient(135deg, #eaf2fd 0%, #f0f8ff 100%);
+            border-bottom: 1px solid #d0e0d0;
             flex-wrap: wrap;
         }
-
-        .search-box {
-            flex: 1;
-            min-width: 250px;
-            padding: 12px 18px;
-            border: 2px solid var(--border);
-            border-radius: 12px;
-            font-family: inherit;
-            font-size: 0.95rem;
-            background: var(--bg);
-            color: var(--text);
-            outline: none;
-            transition: all 0.3s ease;
-        }
-
-        .search-box:focus { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(0, 168, 232, 0.15); }
-
-        .filter-select {
-            padding: 12px 18px;
-            border: 2px solid var(--border);
-            border-radius: 12px;
-            font-family: inherit;
-            font-size: 0.95rem;
-            background: var(--bg);
-            color: var(--text);
-            cursor: pointer;
-            outline: none;
-            transition: all 0.3s ease;
-        }
-
-        .filter-select:focus { border-color: var(--accent); }
-
-        .btn-primary {
-            padding: 12px 24px;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
+        .page-badge {
+            background: #1b4f1f;
             color: white;
-            border: none;
-            border-radius: 12px;
-            font-family: inherit;
-            font-size: 0.95rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 6px 20px rgba(0, 168, 232, 0.3);
-        }
-
-        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0, 168, 232, 0.4); }
-
-        .systems-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; }
-
-        .system-card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 25px;
-            box-shadow: var(--shadow);
-            border: 2px solid var(--border);
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            min-height: 280px;
-        }
-
-        .system-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 100%;
-            height: 6px;
-            background: linear-gradient(90deg, var(--accent), var(--primary));
-            transform: scaleX(0);
-            transform-origin: right;
-            transition: transform 0.4s ease;
-        }
-
-        .system-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); border-color: var(--accent); }
-        .system-card:hover::before { transform: scaleX(1); }
-        .system-card.favorite { border-color: var(--gold); }
-        .system-card.favorite::before { background: linear-gradient(90deg, var(--gold), #f59e0b); transform: scaleX(1); }
-
-        .system-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 15px; }
-
-        .system-icon {
-            width: 70px;
-            height: 70px;
-            border-radius: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.2rem;
-            color: white;
-            box-shadow: 0 8px 25px rgba(0, 168, 232, 0.3);
-            flex-shrink: 0;
-        }
-
-        .system-actions { display: flex; gap: 6px; opacity: 0; transition: opacity 0.3s ease; flex-wrap: wrap; max-width: 150px; justify-content: flex-end; }
-        .system-card:hover .system-actions { opacity: 1; }
-
-        .action-btn {
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
-            border: none;
-            cursor: pointer;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s ease;
-            background: var(--bg);
-            color: var(--text-light);
-        }
-
-        .action-btn:hover { transform: scale(1.15); }
-        .action-btn.fav-btn:hover { background: rgba(251, 191, 36, 0.2); color: var(--gold); }
-        .action-btn.move-btn:hover { background: rgba(0, 168, 232, 0.2); color: var(--accent); }
-        .action-btn.del-btn:hover { background: rgba(239, 68, 68, 0.2); color: var(--danger); }
-
-        .system-title { font-size: 1.15rem; font-weight: 800; color: var(--primary); margin-bottom: 8px; line-height: 1.4; }
-
-        .system-category {
-            display: inline-block;
-            padding: 3px 10px;
-            background: rgba(0, 168, 232, 0.1);
-            color: var(--accent);
-            border-radius: 8px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        .system-desc { color: var(--text-light); font-size: 0.85rem; line-height: 1.6; flex: 1; margin-bottom: 15px; }
-
-        .system-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 15px; border-top: 1px solid var(--border); }
-
-        .system-meta { font-size: 0.75rem; color: var(--text-light); display: flex; align-items: center; gap: 5px; }
-
-        .enter-btn {
             padding: 8px 18px;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-family: inherit;
-            font-size: 0.85rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            border-radius: 12px;
+            font-weight: bold;
+            font-size: 16px;
+            white-space: nowrap;
+            box-shadow: 0 2px 6px rgba(27, 79, 31, 0.25);
             display: flex;
             align-items: center;
             gap: 6px;
         }
+        .page-badge .label { font-size: 13px; opacity: 0.9; font-weight: normal; }
+        .page-badge .value { font-size: 20px; }
 
-        .enter-btn:hover { transform: scale(1.05); box-shadow: 0 6px 20px rgba(0, 168, 232, 0.4); }
-
-        .empty-state { grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: var(--text-light); }
-        .empty-state .icon { font-size: 5rem; margin-bottom: 15px; opacity: 0.4; }
-        .empty-state h3 { font-size: 1.3rem; margin-bottom: 10px; color: var(--text); }
-
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(10, 37, 64, 0.7);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            backdrop-filter: blur(8px);
-            padding: 20px;
-        }
-
-        .modal-overlay.active { display: flex; }
-
-        .modal-box {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 35px;
-            max-width: 480px;
-            width: 100%;
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
-            animation: modalIn 0.3s ease;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-
-        .modal-box.wide { max-width: 800px; }
-
-        @keyframes modalIn {
-            from { transform: scale(0.85) translateY(20px); opacity: 0; }
-            to { transform: scale(1) translateY(0); opacity: 1; }
-        }
-
-        .modal-icon {
-            width: 80px;
-            height: 80px;
-            border-radius: 20px;
+        .ayah-input-wrap {
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            margin: 0 auto 20px;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            color: white;
-            box-shadow: 0 10px 30px rgba(0, 168, 232, 0.3);
-        }
-
-        .modal-title { text-align: center; font-size: 1.4rem; font-weight: 800; color: var(--primary); margin-bottom: 8px; }
-        .modal-subtitle { text-align: center; color: var(--text-light); font-size: 0.9rem; margin-bottom: 25px; }
-
-        .form-group { margin-bottom: 18px; }
-
-        .form-group label { display: block; font-size: 0.85rem; font-weight: 700; color: var(--primary); margin-bottom: 6px; }
-
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid var(--border);
-            border-radius: 10px;
-            font-family: inherit;
-            font-size: 0.95rem;
-            background: var(--bg);
-            color: var(--text);
-            outline: none;
-            transition: all 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(0, 168, 232, 0.15); }
-
-        .form-group textarea { resize: vertical; min-height: 80px; }
-
-        .icon-picker {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
             gap: 8px;
-            max-height: 180px;
-            overflow-y: auto;
-            padding: 10px;
-            background: var(--bg);
-            border-radius: 10px;
-            border: 2px solid var(--border);
-        }
-
-        .icon-option {
-            aspect-ratio: 1;
-            border: 2px solid transparent;
-            border-radius: 10px;
-            background: var(--card-bg);
-            cursor: pointer;
-            font-size: 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s ease;
-        }
-
-        .icon-option:hover { transform: scale(1.1); border-color: var(--accent); }
-        .icon-option.selected { border-color: var(--accent); background: rgba(0, 168, 232, 0.15); transform: scale(1.05); }
-
-        .color-picker {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            padding: 10px;
-            background: var(--bg);
-            border-radius: 10px;
-            border: 2px solid var(--border);
-        }
-
-        .color-option {
-            width: 36px;
-            height: 36px;
-            border-radius: 10px;
-            cursor: pointer;
-            border: 3px solid transparent;
-            transition: all 0.2s ease;
-        }
-
-        .color-option:hover { transform: scale(1.15); }
-        .color-option.selected { border-color: var(--primary); transform: scale(1.1); box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
-
-        .modal-actions { display: flex; gap: 10px; margin-top: 25px; }
-
-        .modal-actions button {
             flex: 1;
-            padding: 13px;
-            border: none;
-            border-radius: 12px;
-            font-family: inherit;
-            font-size: 0.95rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            min-width: 200px;
         }
-
-        .modal-actions .btn-cancel { background: var(--bg); color: var(--text); border: 2px solid var(--border); }
-        .modal-actions .btn-cancel:hover { background: var(--border); }
-        .modal-actions .btn-confirm { background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; box-shadow: 0 6px 20px rgba(0, 168, 232, 0.3); }
-        .modal-actions .btn-confirm:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0, 168, 232, 0.4); }
-        .modal-actions .btn-danger { background: linear-gradient(135deg, #dc2626, #ef4444); color: white; }
-        .modal-actions .btn-danger:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(239, 68, 68, 0.4); }
-        .modal-actions .btn-warning { background: linear-gradient(135deg, #d97706, #f59e0b); color: white; }
-        .modal-actions .btn-warning:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(245, 158, 11, 0.4); }
-
-        .password-display {
-            text-align: center;
-            font-size: 2rem;
-            letter-spacing: 12px;
-            font-weight: 800;
-            padding: 15px;
-            background: var(--bg);
-            border-radius: 15px;
-            border: 2px dashed var(--accent);
-            color: var(--accent);
-            margin-bottom: 15px;
-            direction: ltr;
-            font-family: 'Courier New', monospace;
-            min-height: 65px;
-        }
-
-        /* فیلد متنی رمز */
-        .password-text-input {
-            width: 100%;
-            padding: 15px 18px;
-            border: 3px solid var(--border);
-            border-radius: 12px;
-            font-family: inherit;
-            font-size: 1.3rem;
-            font-weight: 700;
-            text-align: center;
-            letter-spacing: 3px;
-            background: var(--card-bg);
-            color: var(--text);
-            outline: none;
-            transition: all 0.3s ease;
-            margin-bottom: 12px;
-            direction: ltr;
-        }
-
-        .password-text-input:focus {
-            border-color: var(--accent);
-            box-shadow: 0 0 0 5px rgba(0, 168, 232, 0.15);
-        }
-
-        .numpad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 15px; }
-
-        .numpad button {
-            aspect-ratio: 1.6;
-            border: 2px solid var(--border);
-            border-radius: 12px;
-            background: var(--bg);
-            color: var(--text);
-            font-size: 1.4rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.15s ease;
-            font-family: inherit;
-        }
-
-        .numpad button:hover { background: var(--accent); color: white; border-color: var(--accent); transform: scale(1.05); }
-        .numpad button:active { transform: scale(0.95); }
-        .numpad button.zero { grid-column: span 2; aspect-ratio: 3.3; }
-
-        .password-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-            font-size: 0.9rem;
-        }
-
-        .password-table th {
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            color: white;
-            padding: 12px 10px;
-            text-align: right;
-            font-weight: 700;
-            font-size: 0.85rem;
-        }
-
-        .password-table th:first-child { border-top-right-radius: 10px; }
-        .password-table th:last-child { border-top-left-radius: 10px; }
-
-        .password-table td {
-            padding: 12px 10px;
-            border-bottom: 1px solid var(--border);
-            color: var(--text);
-            vertical-align: middle;
-        }
-
-        .password-table tr:hover { background: rgba(0, 168, 232, 0.05); }
-
-        .password-table .sys-name-cell {
+        .ayah-input-wrap label {
+            color: #1a3c2a;
+            font-weight: 600;
+            font-size: 15px;
+            white-space: nowrap;
             display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* ===== فیلد آیه رنگی ===== */
+        .ayah-composite {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            min-width: 150px;
+        }
+        .ayah-editable {
+            flex: 1;
+            padding: 10px 14px;
+            border: 2px solid #c0d6c0;
+            border-radius: 10px;
+            background: white;
+            outline: none;
+            transition: 0.2s;
+            min-height: 44px;
+            font-size: 22px;
+            font-weight: 600;
+            font-family: 'Tahoma', 'Segoe UI', sans-serif;
+            direction: rtl;
+            text-align: center;
+            line-height: 1.5;
+            cursor: text;
+            color: #222;
+            word-break: break-word;
+        }
+        .ayah-editable:focus {
+            border-color: #2e7d32;
+            background: #f0f8f0;
+            box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.12);
+        }
+        .ayah-editable:empty:before {
+            content: attr(data-placeholder);
+            color: #aaa;
+            font-size: 15px;
+            font-weight: normal;
+        }
+        .ayah-surah-text {
+            color: #0d47a1;
+            font-weight: 700;
+        }
+        .ayah-slash-text {
+            color: #333;
+            font-weight: 400;
+            margin: 0 1px;
+        }
+        .ayah-num-text {
+            color: #c62828;
+            font-weight: 700;
+        }
+
+        /* ===== ردیف ۲ ===== */
+        .card-row-2 {
+            padding: 16px 18px;
+            background: #fffbf0;
+            border-right: 5px solid #f39c12;
+            font-size: 15px;
+            line-height: 2;
+            color: #2c3e2c;
+            text-align: justify;
+        }
+        .card-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: #f39c12;
+            color: white;
+            padding: 3px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 4px rgba(243, 156, 18, 0.3);
+        }
+        .card-text {
+            font-size: 15px;
+            line-height: 2;
+            color: #2c3e2c;
+        }
+        .card-text.empty {
+            color: #aaa;
+            font-style: italic;
+            font-size: 14px;
+        }
+
+        /* ===== ردیف ۳ ===== */
+        .card-row-3 {
+            padding: 12px 18px;
+            background: #f5f9f5;
+            border-top: 1px solid #e0e8e0;
+            display: flex;
+            justify-content: center;
             align-items: center;
             gap: 10px;
-            font-weight: 700;
         }
-
-        .password-table .sys-icon-mini {
-            width: 35px;
-            height: 35px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            color: white;
-            flex-shrink: 0;
-        }
-
-        .password-cell {
-            font-family: 'Courier New', monospace;
-            font-weight: 700;
-            font-size: 1.1rem;
-            letter-spacing: 3px;
-            color: var(--accent);
-            direction: ltr;
-            text-align: center;
-            min-width: 100px;
-        }
-
-        .password-cell.hidden { color: var(--text-light); letter-spacing: 5px; }
-
-        .pw-action-btn {
-            width: 34px;
-            height: 34px;
-            border-radius: 8px;
-            border: none;
-            cursor: pointer;
-            font-size: 0.85rem;
+        .copy-btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.2s ease;
-            margin: 0 2px;
-            background: var(--bg);
-            color: var(--text-light);
-        }
-
-        .pw-action-btn:hover { transform: scale(1.15); }
-        .pw-action-btn.show-btn:hover { background: rgba(0, 168, 232, 0.2); color: var(--accent); }
-        .pw-action-btn.copy-btn:hover { background: rgba(16, 185, 129, 0.2); color: var(--success); }
-        .pw-action-btn.edit-btn:hover { background: rgba(245, 158, 11, 0.2); color: var(--warning); }
-        .pw-action-btn.reset-btn:hover { background: rgba(239, 68, 68, 0.2); color: var(--danger); }
-
-        .admin-info-box {
-            background: linear-gradient(135deg, rgba(251, 191, 36, 0.1), rgba(245, 158, 11, 0.05));
-            border: 2px solid var(--gold);
-            border-radius: 12px;
-            padding: 15px 20px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .admin-info-box .icon { font-size: 1.8rem; }
-        .admin-info-box .info-text { flex: 1; }
-        .admin-info-box .info-text strong { color: var(--warning); font-size: 0.95rem; display: block; margin-bottom: 3px; }
-        .admin-info-box .info-text small { color: var(--text-light); font-size: 0.8rem; }
-
-        .notification {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            padding: 14px 22px;
-            border-radius: 12px;
+            gap: 8px;
+            padding: 11px 28px;
+            background: #2e7d32;
             color: white;
-            font-weight: 700;
-            font-size: 0.9rem;
-            z-index: 9999;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            animation: slideIn 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            max-width: 400px;
+            border: none;
+            border-radius: 30px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            touch-action: manipulation;
+            min-width: 200px;
+            font-family: inherit;
+            box-shadow: 0 3px 10px rgba(46, 125, 50, 0.25);
         }
-
-        .notification.success { background: linear-gradient(135deg, #10b981, #34d399); }
-        .notification.error { background: linear-gradient(135deg, #dc2626, #ef4444); }
-        .notification.info { background: linear-gradient(135deg, #0a2540, #00a8e8); }
-        .notification.warning { background: linear-gradient(135deg, #d97706, #f59e0b); }
-
-        @keyframes slideIn {
-            from { transform: translateX(-120%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
+        .copy-btn:hover { background: #1b5e20; transform: translateY(-1px); }
+        .copy-btn:active { transform: scale(0.96); }
+        .copy-btn.copied {
+            background: #43a047;
+            box-shadow: 0 3px 10px rgba(67, 160, 71, 0.35);
         }
+        .copy-btn .icon { font-size: 18px; }
 
-        .footer { text-align: center; padding: 25px; color: var(--text-light); font-size: 0.85rem; }
-        .footer strong { color: var(--accent); }
-
-        @media (max-width: 768px) {
-            .header { padding: 20px; }
-            .header-inner { flex-direction: column; gap: 15px; }
-            .container { padding: 20px; }
-            .toolbar { flex-direction: column; align-items: stretch; }
-            .systems-grid { grid-template-columns: 1fr; }
-            .stats-row { grid-template-columns: 1fr 1fr; }
-            .stat-card { padding: 15px; flex-direction: column; text-align: center; }
-            .stat-icon { margin: 0 auto; }
-            .system-actions { opacity: 1; }
-            .password-table { font-size: 0.75rem; }
-            .password-table th, .password-table td { padding: 8px 5px; }
+        .no-result {
+            text-align: center; padding: 30px 16px;
+            font-size: 18px; color: #7f8c8d;
+            background: #fafbfc;
+            border-radius: 14px;
+            border: 1px dashed #d0d7de;
         }
+        .footer-note {
+            margin-top: 20px; padding: 14px 16px;
+            background: #eef6ee; border-radius: 14px;
+            text-align: center; font-size: 14px;
+            color: #2e5a2e; border: 1px solid #cde0cd;
+        }
+        .footer-note strong { color: #1b5e20; }
 
-        @media (max-width: 480px) {
-            .stats-row { grid-template-columns: 1fr; }
-            .modal-box { padding: 25px; }
+        @media (max-width: 600px) {
+            body { padding: 8px; }
+            .container { padding: 12px 8px; border-radius: 18px; }
+            .search-section { padding: 12px 14px; gap: 8px; flex-wrap: wrap; }
+            .search-section input {
+                font-size: 16px; padding: 10px 14px;
+                min-width: 100px; height: 44px; flex: 1 1 100%;
+            }
+            .search-section button { font-size: 15px; padding: 8px 22px; min-height: 44px; width: 100%; }
+            .card-row-1 { padding: 12px 14px; flex-direction: column; align-items: stretch; gap: 10px; }
+            .page-badge { justify-content: center; width: 100%; padding: 10px; }
+            .ayah-input-wrap { width: 100%; }
+            .ayah-composite { width: 100%; }
+            .ayah-editable { font-size: 20px; min-height: 42px; }
+            .card-row-2 { padding: 14px; font-size: 14.5px; }
+            .card-text { font-size: 14.5px; line-height: 1.9; }
+            .card-row-3 { padding: 12px 14px; }
+            .copy-btn { width: 100%; min-width: unset; font-size: 15px; padding: 12px 18px; }
         }
     </style>
 </head>
 <body>
+<div class="container">
 
-    <header class="header">
-        <div class="header-inner">
-            <div class="brand">
-                <div class="brand-logo">🌿</div>
-                <div class="brand-text">
-                    <h1>پنل سما</h1>
-                    <p>مرکز سامانه‌های تخصصی</p>
-                </div>
-            </div>
-            <div class="header-tools">
-                <button class="tool-btn gold" onclick="openPasswordManager()" title="مدیریت رمزها">🔑</button>
-                <button class="tool-btn" onclick="toggleDarkMode()" title="حالت شب/روز" id="darkModeBtn">🌙</button>
-                <button class="tool-btn" onclick="backupData()" title="پشتیبان‌گیری">💾</button>
-                <button class="tool-btn" onclick="restoreData()" title="بازیابی">📂</button>
-                <button class="tool-btn danger" onclick="openClearModal()" title="پاک کردن همه">🗑️</button>
-                <div class="version-badge">نسخه <span id="panelVersion">3</span></div>
+    <div class="header">
+        <div class="logo">
+            <div class="logo-icon">📿</div>
+            <div class="logo-text">
+                سما
+                <small>سامانه استخاره</small>
             </div>
         </div>
-    </header>
-
-    <div class="container">
-        <div class="welcome-section">
-            <h2>👋 خوش آمدید به پنل سما</h2>
-            <p>اینجا مرکز همه سامانه‌های تخصصی شماست. برای ورود به هر سامانه، روی کارت آن کلیک کنید و رمز اختصاصی را وارد نمایید. رمز پیش‌فرض: <strong>1234</strong></p>
-        </div>
-
-        <div class="stats-row">
-            <div class="stat-card">
-                <div class="stat-icon blue">📊</div>
-                <div class="stat-info">
-                    <div class="stat-label">تعداد سامانه‌ها</div>
-                    <div class="stat-value" id="statTotal">0</div>
-                </div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon cyan">🔐</div>
-                <div class="stat-info">
-                    <div class="stat-label">کل ورودها</div>
-                    <div class="stat-value" id="statLogins">0</div>
-                </div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon green">⭐</div>
-                <div class="stat-info">
-                    <div class="stat-label">مورد علاقه</div>
-                    <div class="stat-value" id="statFavorites">0</div>
-                </div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon gold">📁</div>
-                <div class="stat-info">
-                    <div class="stat-label">دسته‌بندی‌ها</div>
-                    <div class="stat-value" id="statCategories">0</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="toolbar">
-            <input type="text" class="search-box" id="searchBox" placeholder="🔍 جستجو در سامانه‌ها..." oninput="renderSystems()">
-            <select class="filter-select" id="categoryFilter" onchange="renderSystems()">
-                <option value="">همه دسته‌بندی‌ها</option>
-            </select>
-            <button class="btn-primary" onclick="openAddModal()">➕ افزودن سامانه جدید</button>
-        </div>
-
-        <div class="systems-grid" id="systemsGrid"></div>
+        <div class="version-badge">نسخه ۳.۱</div>
     </div>
 
-    <footer class="footer">
-        طراحی شده توسط <strong>برند سما</strong> | پنل سما &copy; سامانه ۱۱ - نسخه <span id="footerVersion">3</span>
-    </footer>
-
-    <!-- ===== مودال ورود رمز سامانه ===== -->
-    <div class="modal-overlay" id="passwordModal">
-        <div class="modal-box">
-            <div class="modal-icon" id="pwModalIcon">🔐</div>
-            <h3 class="modal-title" id="pwModalTitle">ورود به سامانه</h3>
-            <p class="modal-subtitle" id="pwModalSubtitle">رمز اختصاصی را وارد کنید</p>
-
-            <!-- فیلد متنی برای تایپ -->
-            <input type="text" class="password-text-input" id="passwordTextInput" 
-                   placeholder="🔤 رمز را تایپ کنید" 
-                   oninput="onPasswordType(this.value)" 
-                   autocomplete="off" 
-                   spellcheck="false">
-
-            <div class="password-display" id="passwordDisplay">----</div>
-
-            <div class="numpad">
-                <button onclick="addDigit('1')">1</button>
-                <button onclick="addDigit('2')">2</button>
-                <button onclick="addDigit('3')">3</button>
-                <button onclick="addDigit('4')">4</button>
-                <button onclick="addDigit('5')">5</button>
-                <button onclick="addDigit('6')">6</button>
-                <button onclick="addDigit('7')">7</button>
-                <button onclick="addDigit('8')">8</button>
-                <button onclick="addDigit('9')">9</button>
-                <button onclick="clearPassword()" style="background: rgba(239, 68, 68, 0.1); color: #ef4444;">✕</button>
-                <button class="zero" onclick="addDigit('0')">0</button>
-                <button onclick="deleteDigit()" style="background: rgba(245, 158, 11, 0.1); color: #f59e0b;">⌫</button>
-            </div>
-
-            <div class="modal-actions">
-                <button class="btn-cancel" onclick="closePasswordModal()">انصراف</button>
-                <button class="btn-confirm" onclick="submitPassword()">🔓 ورود</button>
-            </div>
+    <div class="conditions-box">
+        <span class="title">📌 قبل از استخاره بگویید:</span>
+        <ol>
+            <li><span class="highlight">سه بار</span> سوره «<span class="dua-text">قُلْ هُوَ اللَّهُ أَحَدٌ</span>»</li>
+            <li><span class="highlight">سه مرتبه</span> صلوات</li>
+            <li><span class="highlight">سه بار</span>: «<span class="dua-text">أَسْتَخِیرُ اللَّهَ بِرَحْمَتِهِ خِیرَةً فِی عَافِیَةٍ</span>»</li>
+            <li>سپس بگویید: «<span class="dua-text">یَا مُتَحَیِّرِینَ</span>» و «<span class="dua-text">یَا ذَلِیل</span>»</li>
+        </ol>
+        <div style="margin-top:6px; font-size:14px; color:#5a4a2a;">
+            ⬅️ سپس قرآن را باز کنید و <strong>اولین آیه سمت چپ</strong> استخاره شماست. عدد صفحه را وارد کرده و دکمه جستجو را بزنید.
         </div>
     </div>
 
-    <!-- ===== مودال پنل مدیر رمزها ===== -->
-    <div class="modal-overlay" id="passwordManagerModal">
-        <div class="modal-box wide">
-            <div class="modal-icon" style="background: linear-gradient(135deg, #d97706, #fbbf24);">🔑</div>
-            <h3 class="modal-title">مدیریت رمزهای عبور</h3>
-            <p class="modal-subtitle">رمزهای سامانه‌ها و رمز ادمین را مدیریت کنید</p>
-
-            <div class="admin-info-box">
-                <div class="icon">👤</div>
-                <div class="info-text">
-                    <strong>رمز ادمین فعلی</strong>
-                    <small>برای ویرایش، حذف و افزودن سامانه جدید نیاز دارید</small>
-                </div>
-                <div class="password-cell" id="adminPasswordCell" style="min-width: 130px;">••••••••</div>
-                <button class="pw-action-btn show-btn" onclick="toggleAdminPasswordVisibility()" id="adminPwToggleBtn" title="نمایش/مخفی">👁️</button>
-                <button class="pw-action-btn copy-btn" onclick="copyAdminPassword()" title="کپی">📋</button>
-                <button class="pw-action-btn edit-btn" onclick="changeAdminPassword()" title="تغییر">✏️</button>
-            </div>
-
-            <div style="overflow-x: auto;">
-                <table class="password-table">
-                    <thead>
-                        <tr>
-                            <th style="width: 35%;">سامانه</th>
-                            <th style="width: 25%;">رمز عبور</th>
-                            <th style="width: 40%;">عملیات</th>
-                        </tr>
-                    </thead>
-                    <tbody id="passwordTableBody">
-                        <tr><td colspan="3" style="text-align: center; padding: 30px; color: #95a5a6;">هنوز سامانه‌ای ثبت نشده است</td></tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="modal-actions">
-                <button class="btn-warning" onclick="resetAllPasswords()">🔄 بازنشانی همه به 1234</button>
-                <button class="btn-cancel" onclick="closePasswordManager()">بستن</button>
-            </div>
-        </div>
+    <div class="search-section">
+        <label for="pageSearch">🔍 صفحه:</label>
+        <input type="tel" id="pageSearch" placeholder="عدد صفحه (مثال: ۵۷)" inputmode="numeric" autocomplete="off">
+        <button id="searchBtn" type="button">جستجو</button>
     </div>
 
-    <!-- ===== مودال افزودن/ویرایش سامانه ===== -->
-    <div class="modal-overlay" id="systemModal">
-        <div class="modal-box">
-            <div class="modal-icon" id="sysModalIcon">➕</div>
-            <h3 class="modal-title" id="sysModalTitle">افزودن سامانه جدید</h3>
-            <p class="modal-subtitle" id="sysModalSubtitle">اطلاعات سامانه را وارد کنید</p>
+    <div id="errorMsg" class="error-msg"></div>
 
-            <div class="form-group">
-                <label>نام سامانه *</label>
-                <input type="text" id="sysName" placeholder="مثال: فام: فرق، ادیان و مذاهب" maxlength="80">
-            </div>
-
-            <div class="form-group">
-                <label>توضیحات کوتاه</label>
-                <textarea id="sysDesc" placeholder="توضیح مختصر درباره این سامانه..." maxlength="200"></textarea>
-            </div>
-
-            <div class="form-group">
-                <label>دسته‌بندی</label>
-                <input type="text" id="sysCategory" placeholder="مثال: مذهبی، آموزشی، پژوهشی" maxlength="30" list="categoryList">
-                <datalist id="categoryList"></datalist>
-            </div>
-
-            <div class="form-group">
-                <label>لینک فایل سامانه (مثلاً fam.html)</label>
-                <input type="text" id="sysUrl" placeholder="fam.html" dir="ltr" style="direction: ltr; text-align: left;">
-            </div>
-
-            <div class="form-group">
-                <label>رمز ورود سامانه</label>
-                <input type="text" id="sysPassword" placeholder="1234" value="1234" dir="ltr" style="direction: ltr; text-align: center; font-weight: 700; letter-spacing: 5px;">
-            </div>
-
-            <div class="form-group">
-                <label>آیکون سامانه</label>
-                <div class="icon-picker" id="iconPicker"></div>
-            </div>
-
-            <div class="form-group">
-                <label>رنگ سامانه</label>
-                <div class="color-picker" id="colorPicker"></div>
-            </div>
-
-            <div class="modal-actions">
-                <button class="btn-cancel" onclick="closeSystemModal()">انصراف</button>
-                <button class="btn-confirm" onclick="saveSystem()" id="sysSaveBtn">💾 ذخیره</button>
-            </div>
+    <div id="resultArea" class="hidden-section">
+        <div class="counter-wrap">
+            <span class="counter" id="resultCounter"></span>
         </div>
+        <div id="cardsContainer"></div>
     </div>
 
-    <!-- ===== مودال تأیید ===== -->
-    <div class="modal-overlay" id="confirmModal">
-        <div class="modal-box">
-            <div class="modal-icon" style="background: linear-gradient(135deg, #dc2626, #ef4444);">⚠️</div>
-            <h3 class="modal-title" id="confirmTitle">تأیید عملیات</h3>
-            <p class="modal-subtitle" id="confirmMessage">آیا مطمئن هستید؟</p>
-            <div class="modal-actions">
-                <button class="btn-cancel" onclick="closeConfirmModal()">انصراف</button>
-                <button class="btn-danger" onclick="confirmAction()" id="confirmBtn">🗑️ تأیید</button>
-            </div>
-        </div>
+    <div class="footer-note">
+        ⚡ <strong>نکته:</strong> آیه را از روی قرآن وارد کنید (مثلاً «بقره/۶»). نام سوره آبی و شماره آیه قرمز نمایش داده می‌شود.
+        <br>✅ این سامانه تحت برند <strong>«سما»</strong> ارائه می‌شود.
     </div>
+</div>
 
-    <!-- ===== مودال رمز ادمین (اصلاح‌شده) ===== -->
-    <div class="modal-overlay" id="adminModal">
-        <div class="modal-box">
-            <div class="modal-icon">👤</div>
-            <h3 class="modal-title" id="adminModalTitle">دسترسی ادمین</h3>
-            <p class="modal-subtitle" id="adminModalSubtitle">برای این عملیات رمز ادمین را وارد کنید</p>
+<script>
+// ================================================================
+// دیتابیس توضیحات
+// ================================================================
+var explanations = {
+    1: "بسیار خوب، آینده درخشانی در این کار دیده می‌شود، باعث گشایش در کارها خواهد شد و اندوه خلاص می‌شوید، مواظب باشید مرتکب حرام نشوید، به خدا توکل کنید.",
+    3: "بد، فایده و ثمره ای ندارد، زحمتی بی خود و بی جهت می‌کشید، به نتیجه ای که در نظر دارید نخواهید رسید، با افرادی ضعیف ایمان برخورد خواهید کرد که به دین و معنویات و ارزشهای معنوی و مادی شما ضربه خواهند زد.",
+    5: "بسیار خوب، بشارتی نیک به شما داده می‌شود، رزق و روزی شما توسعه می‌یابد، از گرفتاریها خلاص می‌شوید، در صورتی که عهدی در این کار بستید حتماً به آن عمل کنید وگرنه خسارت مالی و آبرویی خواهید دید.",
+    7: "میانه، فعلاً صبر کنید و اقدام نکنید، چرا که از پیشنهادی بهتر محروم خواهید شد، البته در صورتی که تحت شرایطی خاص و با مراقبتهای لازم انجام دهید مانعی ندارد، مواظب باشید خطری در این کار دیده می‌شود، در صورت اقدام حتماً صدقه دهید.",
+    9: "بد، تعهدی در کار است که به آن عمل نمی‌شود به شما ظلم خواهد شد، آنچه گفته شده عمل نمی‌شود، با آنکه اگر عمل شود خوب است لکن عمل نخواهد شد و اختلاف دیده می‌شود، حتماً ترک شود.",
+    11: "بد، خسارت معنوی و روحی خواهید دید، شما را مورد بازخواست قرار خواهند داد، ضرر آبرویی و حتی جانی در بر خواهد داشت حتماً ترک شود.",
+    13: "بد، ذلت و خواری در این کار مشاهده می‌شود، به شما نفرین خواهند کرد، به شما تهمت می‌زنند.",
+    15: "بد، با افرادی پرادعا و تو خالی برخورد خواهید کرد، به شما سخت خواهد گذشت، صبر کنید در آینده ای نزدیک پیشنهادی خوب به شما خواهد شد.",
+    17: "بد، از وقت این کار گذشته و دیر شده است فعلاً صبر کنید.",
+    19: "بد، هرچه زحمت می‌کشید جز کفران نعمت چیزی نخواهید دید صبر کنید در آینده شخصی خوب به شما کمک و پیشنهادی خود می‌دهد.",
+    21: "بد، مورد محاجه و مؤاخذه (بحث گفتگو و پرسشهای خسته کننده و بیجا) قرار می‌گیرد، به راه خود بروید و اقدام نکنید که از راه راست منحرف می‌شوید.",
+    23: "بد، مطلب مهمی در این کار از شما مخفی مانده است که به شما لطمه وارد می‌شود فعلاً صبر کنید.",
+    25: "میانه خوب، موقعیتی خوب ایجاد شده در صورتی که به شرایطی که در نظر دارید مو به مو عمل کنید و مواظب جوانب کار باشید و از هرگونه غفلت پرهیز و دوری کنید خوب است وگرنه بد است. در ضمن شما اسرارتان را برای کسی بازگو نکنید که بیشترین خسارت را تاکنون از بازگویی اسرارتان خورده‌اید.",
+    27: "خوب، در صورتی که به تعهدات و شرایط مورد نظر حتماً عمل کنید و مواظب باشید مرتکب حرام نشوید، بیشتر صدقه بدهید و به فقرا و نیازمندان واقعی بیشتر کمک کنید که راز پیشرفت شما در انفاق به فقرا و نیازمندان واقعی می‌باشد؛ البته این کار مشکلات و سختیهایی دارد که ارزش انجام دادن را دارد.",
+    29: "خوب، خیر و صلاح شما فعلاً در این کار دیده می‌شود رعایت حقوق خانوادگی در این کار برای نتیجه بخش بودن مهم است.",
+    31: "میانه، با یک سری شرایطی خوب است در صورت اقدام مراقب باشید حقوق دیگران ضایع نشود، تقوای الهی را بیشتر رعایت کنید.",
+    33: "بسیار بد، کفران نعمت می‌شود نعمتی را از دست خواهید داد، با افرادی ضعیف ایمان برخورد می‌کنید که تحت تأثیر آنها واقع می‌شوید و شما را به کارهای زشت و شیطانی تشویق می‌کنند حتماً ترک شود.",
+    35: "میانه، این کار طی یک سری شرایطی خوب است، در صورتی که کاملاً به شرایط این کار عمل شود خوب و در غیر این صورت بسیار بد است و دچار بدبختی و عذاب شدید الهی خواهید شد و پشیمانی دارد، مواظب باشید مرتکب حرام نشوید.",
+    37: "میانه خوب، آینده ای روشن و خوب دارد ولی مشکلات زیادی دارد باید مراقب باشید کاری نکنید که مورد مسخره دیگران واقع شوید، در صورت اقدام باید برای جزئیات این کار نیز حتماً استخاره کنید.",
+    39: "خوب، فقط باید مواظب باشید مرتکب حرام نشوید، کسانی هستند که قصد فریب شما را دارند مراقب باشید فریب نخورید به خدا توکل کنید و اقدام نمایید.",
+    41: "بد، تعهدی بسته می‌شود و حرفی زده می‌شود که به آن عمل نمی‌شود فعلاً صبر کنید.",
+    43: "بد، از وقت این کار گذشته است اگر چه ظاهر فریبنده ای دارد لکن دچار مشکلات زیادی خواهید شد که آرزو می‌کنید ای کاش انجام نداده بودم، شما را سئوال پیچ می‌کنند و از طرفی حرف شما را باور نمی‌کنند حتماً ترک شود.",
+    45: "خوب نیست، فعلاً اقدام نکنید که به نتیجه ای نمی‌رسید صبر کنید و در موقعیت دیگری با استخاره ای دیگر انجام دهید.",
+    47: "بسیار بد، موازین شرع را زیر پا می‌گذارید و بطور ناخواسته و نادانسته مرتکب حرام می‌شوید صبر کنید انشاءالله موقعیت بهتری پیش می‌آید.",
+    49: "خوب، در ابتدا مشکلاتی دیده می‌شود لکن کمی بعد زمینه مساعد شده و به نتیجه دلخواه خواهید رسید انشاءالله تعالی.",
+    51: "بسیار بد، حتماً ترک کنید که دچار افرادی بی خرد و کم ایمان خواهید شد، در مشکلات زیادی می‌افتید که راه فرار نخواهید داشت.",
+    53: "بد، حرف شما را به مسخره می‌گیرند و مورد افتراء و تهمت قرار می‌گیرید صبر کنید پیشنهادی بهتر به شما می‌شود.",
+    55: "بسیار خوب، اگرچه باور نمی‌کنید لکن خداوند خیر شما را در انجام این کار قرارداده است خداوند به شما کمک خواهد کرد به خدا توکل کنید و اسرار شخصی خود را برای کسی بازگو نکنید.",
+    57: "خوب، زود انجام دهید زمان این کار تنگ است مواظب باشید نیرنگی در این کار دیده می‌شود، صدقه دهید تا از هرگونه مشکلی در امان باشید.",
+    59: "بد، این کار را انجام ندهید موقعیت بهتری پیش می‌آید به شما دروغ و افتراء می‌بندند.",
+    61: "خوب، مواظب باشید این کار بر عده ای سنگین تمام می‌شود این کار را از دیگران مخفی نگه دارید و صدقه بدهید.",
+    63: "بسیار خوب، لکن مشکلات زیادی دارد که ارزش عمل کردن را دارد مقداری هم گذشت لازم دارد به نتیجه ای بسیار خوب خواهید رسید.",
+    65: "بسیار بد، فایده ای ندارد، سرابی بیش نیست و به نتیجه ای نخواهید رسید آبروی شما می‌رود و سبک می‌شوید، دشمن شاد خواهید شد.",
+    67: "بسیار خوب، سبب راحتی و آسایش شما خواهد شد صدقه بدهید تا از چشم بد محفوظ باشید، در برابر اطرافیانتان بیشتر از خود انعطاف نشان دهید ولی در باطن به آنچه خدا راضی است عمل کنید.",
+    69: "بد، از اقدامات قبلی خود سرمشق بگیرید، این تصمیم عجولانه است و بدون تفکر است در مخمصه می‌افتید حتماً ترک کنید.",
+    71: "میانه، بیشتر مشورت کنید فعلاً اقدام نکنید مواردی بر شما مخفی مانده است با بینشی بهتر و در موقعیت بعدی با تحقیق بیشتر اقدام کنید.",
+    73: "خوب، ترس به خود راه ندهید به خدا و فضل و کرمش توکل کنید مراقب باشید مرتکب حرام نشوید که ضربه می‌خورید.",
+    75: "بد، با افرادی بی وفا برخورد می‌کنید که شما را با ثمن بخسی (خیلی ارزان به کمترین چیزی می‌فروشند) عوض می‌کنند خطر جانی دارد همچنین از وقت این کار نیز گذشته است.",
+    77: "بسیار عالی، حتماً اقدام کنید که در صورت انجام ندادن پشیمان می‌شوید مورد رحمت خدا و عزت و آبروی خدادادی قرار گرفته‌اید برای پیشرفت در کارهایتان به حضرت جواد الائمه علیه السلام توسل بجویید و تقوای الهی را بیشتر رعایت نمایید مراقب باشید مرتکب حرام نشوید.",
+    79: "میانه، در صورتی که به شرایطی که در نظر دارید کاملاً سنجیده عمل کنید و مراقب باشید مرتکب حرام نشوید خوب است وگرنه ضرر بسیار سختی خواهید کرد.",
+    81: "بد، وقت این کار گذشته است فعلاً انجام ندهید که مورد بهتان قرار می‌گیرید.",
+    83: "بد، اگرچه نیت شما خیر است لکن استقبال نخواهد شد به حرام می‌افتید ترک کنید نتیجه ای ندارد.",
+    85: "بسیار بد، آنطور که گفته می‌شود و نشان داده می‌شود نیست، کاسه ای زیر نیم کاسه است به گمراهی کشیده می‌شوید پشیمانی دارد حتماً ترک شود.",
+    87: "بسیار بد، با افرادی کم خرد و بی ایمان برخورد می‌کنید که به آبرو و حیثیت شما لطمه می‌زنند صبر کنید مطلب برای شما آشکار می‌شود.",
+    89: "خوب، لکن نیاز به گذشت زمان دارد، فعلاً اقدام نکنید که الان بد است صبر کنید و در موقعیت بعدی بدون استخاره عمل کنید چرا که در موقعیت بعدی خوب است و از اضطراب و نگرانی نجات پیدا می‌کنید و شخص خوبی نیز به شما کمک خواهد کرد.",
+    91: "بد، خود را درگیر این کار نکنید که صدمه زیادی می‌خورید این کار اختلاف برانگیز است و کار پر دغدغه ای می‌باشد عهد شکنی دیده می‌شود.",
+    93: "بد، انجام ندهید خطر جانی و آبرویی دارد، بهای سنگینی برای این کار می‌پردازید که ارزش ندارد و جز پشیمانی سودی ندارد حتماً ترک کنید.",
+    95: "بد، در نتیجه این کار با افرادی منافق صفت و دو رو برخورد می‌کنید، سختی و مشکلات زیادی دارد حتماً ترک شود.",
+    97: "خوب، ترس به خود راه ندهید حتماً برای اقدام به این کار باید مشورت کرده و صدقه داده شود و برای رضای خدا انجام بگیرد، مواظب باشید مرتکب حرام نشوید که صدمات زیادی خواهید دید.",
+    99: "میانه خوب، در صورتی که مواظب باشید مرتکب حرام نشوید خوب است و آینده خوبی دارد وگرنه بسیار بد است.",
+    101: "بسیار بد، بطور ناخواسته و نادانسته مرتکب حرام می‌شوید صبر کنید خداوند به شما کمک خواهد کرد.",
+    103: "بسیار بد، با انسانهایی بسیار بد و گمراه برخورد می‌کنید که شما را وسیله رسیدن به اهدافشان می‌خواهند، و به شما رحم نخواهند کرد حتماً ترک شود.",
+    105: "بد، حرف شما را باور نمی‌کنند، اگرچه نیت شما خیر است لکن از شما نمی‌پذیرند و یا آنکه شما را درک نمی‌کنند و یارای کمک به شما را ندارند ترک کنید.",
+    107: "خوب، آینده درخشانی دارد البته باید یک سری شرایطی را رعایت کنید تا به نتیجه برسید.",
+    109: "از وقت این کار گذشته است، شما را به گمراهی می‌کشند، حتماً ترک کنید صبر کنید خداوند به شما کمک خواهد کرد.",
+    111: "بد، دروغ در کار است ادعای بی خود می‌کنند شما را در بدترین شرایط تنها می‌گذارند.",
+    113: "بد، به بیچارگی و ذلت دچار می‌شوید آبروی شما کم و زیاد می‌شود با افرادی که در خور شأن شما نیستند برخورد می‌کنید که برای شما چیزی جز خستگی روحی و جسمی ندارند.",
+    115: "میانه بد، انجام ندهید شما را در مخمصه می‌اندازند و سپس از گود بیرون می‌روند ترک شود، از کسانی که انتظار ندارید ضربه می‌خورید.",
+    117: "بسیار بد، این پیشنهاد را هرگز قبول نکنید که پشیمان می‌شوید با این کار بطور ناخواسته مرتکب حرام می‌شوید مرتکب ظلم و تجاوز به حقوق دیگران می‌شوید صبر کنید.",
+    119: "خوب، البته در صورتی که مراقب باشید مرتکب حرام نشوید و شرایطی را در این کار رعایت کنید که مرتکب حرام نشوید.",
+    121: "بد، گمراه می‌شوید و باعث ضلالت دیگران هم می‌شوید و همچنین مورد نفرت عده ای واقع می‌شوید مایه خسران و عذاب شدید الهی قرار می‌گیرید حتماً ترک کنید.",
+    123: "بد، حتماً دوری کنید مایه اختلاف خانوادگی است صدقه بدهید به نتیجه نمی‌رسید ترک شود.",
+    125: "بد، حرف شما را قبول نمی‌کنند، اگرچه دلیل محکم بیاورید، با عده ای ابله روبرو خواهید شد.",
+    127: "بسیار عالی و خوب، رزق و روزی وسیع و بدون دردسری در این کار دیده می‌شود آبرو و اعتبار شما نیز زیاد می‌شود فقط باید در چگونگی انجام این کار دقت لازم را بعمل بیاورید، مراقب باشید مرتکب حرام نشوید که ضربه می‌خورید.",
+    129: "بد، شما را مورد مسخره گی و بازیچه دست خود قرار می‌دهند تا بتوانند از شما نفع ببرند، صبر کنید.",
+    131: "بد، در نتیجه این کار با افرادی دروغگو برخورد کرده که شما را وسیله رسیدن به هدف خود قرار می‌دهند و پس از حل شدن مشکلشان نه تنها به شما اعتنایی ندارند بلکه به شما بهتان می‌زنند.",
+    133: "بسیار خوب، به واسطه این کار چشم بدخواهان شما کور می‌شود و خداوند به شما عزت و آبرو خواهد داد مواظب باشید مرتکب حرام نشوید.",
+    135: "بد، به فساد و تباهی کشیده می‌شوید و دچار مشکلات زیادی می‌شوید که نجات از آنها سخت است حتماً ترک کنید.",
+    137: "بد، شما را مورد مؤاخذه قرار می‌دهند زحمات زیادی می‌کشید ولی به نتیجه نمی‌رسید صبر کنید خداوند به شما کمک خواهد کرد به حضرت علی بن موسی الرضا علیه السلام توسل پیدا کنید و نماز آن حضرت را بخوانید تا خداوند در همه کارها به شما کمک کند انشاءالله تعالی.",
+    139: "بد، مواردی از شما مخفی مانده است این کار را انجام ندهید که دچار افرادی بی خرد و ضعیف ایمان خواهید شد که به شما ضربه خواهند زد حتماً ترک شود.",
+    141: "خوب، با تدبیر عمل کنید به خداوند تعالی توکل کنید و به حضرت علی علیه السلام متوسل شوید تا بعضی از مشکلات شما در این کار و در دیگر کارهایتان حل شود صدقه نیز بدهید.",
+    143: "میانه بد، بهتر است انجام ندهید شما را بازیچه خود قرار می‌دهند.",
+    145: "بد، شما را فریب می‌دهند خطر جانی در بر دارد حتماً ترک کنید این کار آنطور که نشان می‌دهد نیست.",
+    147: "میانه خوب، البته در صورتی که به تمام شرایطی که در نظر دارید کاملاً عمل کنید عزت و آبروی شما زیاد می‌شود شخصی برای نتیجه بخشی این کار به شما کمک می‌کند به خدا توکل کنید و اقدام نمایید.",
+    149: "بد، به حرام کشیده می‌شوید حق کسی در این میان ضایع می‌شود و در نتیجه دچار مشکلات عجیبی خواهید شد ترک شود.",
+    151: "بسیار بسیار خوب، حتماً اقدام کنید که خداوند خیر و صلاح شما را در این کار قرار داده است برکت زیادی دیده می‌شود دعای یکی از نزدیکانتان در مورد شما قول شده است.",
+    153: "بد، طرد می‌شوید، مورد غضب و نارضایتی دیگران واقع می‌شوید از امور خوبی که باید به شما برسد باز می‌مانید نزاع و اختلاف شدید در پی دارد حتماً ترک شود.",
+    155: "بد، دروغ گفته شده مطلب بزرگ جلوه داده شده است به شما نیز نسبت دروغگویی داده می‌شود حتماً ترک کنید.",
+    157: "خوب، البته زمان این کار کم است وقت تنگ است زود اقدام کنید تا نتیجه بخش باشد وگرنه از اثر می‌افتد و جز ضرر چیزی عاید شما نمی‌شود.",
+    159: "خوب، اگرچه مشکلاتی دارد لکن خداوند به شما کمک می‌کند در آینده شما سهم بسزایی دارد حتماً اقدام کنید.",
+    161: "میانه، در صورتی که متعهد شوید در این کار مرتکب حرام نمی‌شوید انجام دهید که خوب و نتیجه بخش است در غیر این صورت بهتر است انجام ندهید که آبروی شما می‌رود و خسارت مالی در بر دارد.",
+    163: "بد، به گفته هایی که مطرح است عمل نمی‌شود به شما دروغ گفته شده است ترک کنید نتیجه ای ندارد.",
+    165: "بسیار خوب، مورد تحیر هم کیشان خود قرار می‌گیرید اگرچه سختیهایی دارد ولی ارزش انجام دادن را دارد.",
+    167: "بد، با افرادی جاهل برخورد می‌کنید که حرف شما را قبول نمی‌کنند به نتیجه نمی‌رسید و پشیمانی دارد.",
+    169: "بد، زحمتی بیهوده می‌کشید که جز کفران نعمت چیزی ندارد شما را اذیت و آزار می‌دهند.",
+    171: "بد، رنج فراوان دارد و ثمره ای جز پشیمانی ندارد به شما ظلم می‌شود حتماً ترک شود.",
+    173: "میانه بد، از وقت این کار گذشته است فعلاً صبر کنید وقت بهتری پیش می‌آید.",
+    175: "بد، به نتیجه دلخواهتان نمی‌رسید وقت شما تلف می‌شود.",
+    177: "بسیار خوب، خداوند به شما کمک خواهد کرد منافع مادی و معنوی فراوانی دیده می‌شود بشرطی که تقوای الهی را رعایت کنید این کار شرایطی دارد که حتماً برای نتیجه گیری باید به آنها عمل شود.",
+    179: "خوب، خداوند به شما کمک خواهد کرد اگرچه عده ای مخالفت می‌کنند لکن اهمیت ندهید مواظب باشید که مرتکب حرام نشوید شخصی یا اشخاصی قصد دارند که شما را به گناه بکشند مراقب باشید که به وسوسه آنها عمل نکنید.",
+    181: "بد، اگرچه ظاهری فریبنده دارند لکن در باطن شما را از راه خیر و صلاحت باز می‌دارند اجتناب و دوری کنید حتماً ترک شود.",
+    183: "بد، به قصد خود نمایی انجام می‌شود فعلاً صبر کنید اگرچه این کار جلوه خوبی دارد لکن در باطن خوب نیست، حتماً ترک شود.",
+    185: "خوب، بعضی از کدورت‌ها از میان می‌رود خداوند به شما کمک خواهد کرد اگرچه این کار بر عده ای گران تمام می‌شود و خطرهایی هم دیده می‌شود ولی خداوند به شما کمک خواهد کرد اقدام کنید.",
+    187: "بسیار بسیار بد، سبب اختلاف و نزاع و درگیری و خسران و عذاب شدید الهی خواهید شد آبروی شما لطمه می‌بیند حتماً ترک شود.",
+    189: "خوب، خداوند به شما کمک خواهد کرد جبران خسارت‌ها و کج رویهای گذشته خواهد شد اقدام کنید.",
+    191: "بسیار بسیار خوب، خداوند به شما کمک خواهد کرد به شرطی که مواردی گناه و یا حرام که در این کار برایتان پیش آمد گناه نکنید و مرتکب حرام نشوید رعایت تقوای الهی بشود.",
+    193: "بد، نه تنها به نتیجه ای نمی‌رسید بلکه به گرفتاری و سختی‌های فراوانی دچار می‌شوید حتماً ترک شود.",
+    195: "بد، دچار فتنه و آشوب و اختلاف و نزاع می‌شوید فعلاً موقعیت این کار نیست ترک شود.",
+    197: "بد، شما را مورد مسخره گی قرارمی دهند همچنین رضایت خدا در این کار نیست بطورناخواسته و ناآگاهانه مرتکب حرام می‌شوید حتماً ترک شود.",
+    199: "بد، آینده این کار پشیمانی است آنچه به زبان رانده می‌شود در دل نیست اقدام نکنید حتماً ترک شود.",
+    201: "میانه، صبر کنید در موقعیت بعدی بدون استخاره انجام دهید در موقعیت بعدی بسیار خوب و نتیجه بخش است انشاءالله.",
+    203: "بسیار خوب، اقدام کنید به نتیجه دلخواه خواهید رسید، مواظب باشید به گفته‌های خود عمل کنید در غیر این صورت شما را اذیت خواهند کرد.",
+    205: "خوب، به شرطی که به شرایط مورد نظر حتماً عمل کنید، مراقب باشید گناه مرتکب نشوید که آبروی شما می‌رود.",
+    207: "خوب، در این کار حتماً باید قاطعیت بخرج بدهید سعی کنید محکم و با دلگرمی انجام دهید ولی اگر با حالت درماندگی انجام دهید فایده ای ندارد، ترس به خود راه ندهید.",
+    209: "بسیار بد، صبر کنید پیشنهاد خوبی به شما خواهد شد در موقعیت دیگری این کار را انجام دهید، فعلاً خوب نیست اذیت می‌شوید.",
+    211: "بد، مکری در کار است فریب می‌خورید و گمراه می‌شوید، پشیمانی و اختلاف در پی دارد.",
+    213: "بد، روی دست می‌خورید پشیمانی و سختی‌های بدون فایده دارد حتماً ترک کنید دروغی در کار است به شما افترا و تهمت خواهند زد.",
+    215: "بد، پشیمانی در پیش دارد حتماً ترک کنید صبر کنید و به حضرت ابا عبدالله الحسین علیه السلام متوسل شوید.",
+    217: "خوب، به شرطی که بیشتر مشورت کنید و اطلاع بیشتری در مورد این کار پیدا کنید به خدای متعال توکل کنید.",
+    219: "بسیار خوب، دعای پدر یا مادر و یا شما و همسرتان مقبول حضرت حق واقع شده نترسید و به خدا توکل کنید و انجام دهید.",
+    221: "خوب، به خدا توکل کنید و عزت و آبرو را فقط به دست خدا بدانید عزت شما زیاد می‌شود مواظب باشید مرتکب گناه نشوید.",
+    223: "بد، به نتیجه نمی‌رسید مورد افتراء و کذب و دروغگویی قرار می‌گیرد با افرادی که نه دنیا دارند و نه آخرت برخورد می‌کنید.",
+    225: "بد، هرچه زحمت به خود بدهید بیشتر اذیت می‌شوید به شما ظلم می‌شود فایده ای ندارد.",
+    227: "بد، حتماً ترک شود این کار در شأن شما نیست خسارت مالی و آبرویی دارد پشیمان می‌شوید.",
+    229: "بسیار بد، غیر از خسارت آبرویی چیزی در بر ندارد عهد و پیمانی بسته می‌شود که نقض می‌شود و عهد شکنی می‌شود ترک شود.",
+    231: "بسیار بسیار بد، مورد انحراف مادی و معنوی شدیدی واقع می‌شوید مورد ارتکاب حرام واقع شده و به آبروی شما لطمه زیادی خواهد خورد حتماً حتماً ترک شود پشیمانی شدیدی دارد.",
+    233: "بسیار بد، به بد جایگاهی کشیده می‌شوید مورد لعنت خدا و مردم قرار می‌گیرید ترک کنید به نتیجه مطلوب نمی‌رسید.",
+    235: "بد، به نزاع و اختلاف کشیده می‌شوید از ما قبل خود عبرت و سرمشق بگیرید مواظب باشید که در حدیث است که: «مؤمن از یک سوراخ دوبار گزیده نمی‌شود.»",
+    237: "بد، در نتیجه با افرادی که شعور کافی ندارند برخورد کرده که به شما لطمه آبرویی وارد آورده و از شما اخاذی می‌کنند.",
+    239: "بسیار خوب، مورد تحیر و حسرت عده ای قرار می‌گیرید، اگرچه دیر نتیجه می‌دهد لکن ارزش عمل کردن دارد، سختیهایی دارد که حتماً تحمل کنید که آینده خوبی دارد.",
+    241: "خوب، مقداری برای نتیجه گیری طول می‌کشد در صورت عمل کردن مشهور شده و از نظر مالی و آبرویی ترقی خواهید کرد، صدقه بدهید.",
+    243: "بسیار خوب، خداوند به شما کمک کرده و شما را از خطرات احتمالی حفظ خواهد کرد اگرچه می‌ترسید یا احتمال خطر می‌دهید نترسید و نگران نباشید.",
+    245: "خوب، لکن مشکلاتی دارد و دیر نتیجه می‌دهد احتمال تهمت نیز می‌رود لکن دفع تهمت خواهد شد آینده خوبی دارد.",
+    247: "خوب، مایه چشم روشنی شما خواهد شد لکن اطرافیان شما تحمل و درک این مطلب را کمتر دارند از اضطراب در می‌آیید اقدام کنید البته شما مقداری در چشم و نظر هستید که حرز حضرت زهرا سلام الله علیها را در مفاتیح الجنان پیدا کنید و آن را بنویسید و همراه خود کنید.",
+    249: "بسیار بسیار خوب، خدا به شما کمک می‌کند، سعی کنید اسرار خود را بازگو نکنید چرا که بعضی از اطرافیان شما تحمل بعضی از مسائل شما را ندارند.",
+    251: "بد، به نتیجه ای که در نظر دارید نخواهید رسید در آخرین لحظات نا امید خواهید شد و از راه راست گمراه می‌شوید.",
+    253: "بسیار خوب، آینده خوبی دارد. آبرو عزت و عاقبت به خیری دارد.",
+    255: "بسیار خوب، اگرچه مخالفت‌هایی می‌شود اما اهمیت ندهید خدا به شما کمک خواهد کرد.",
+    257: "بسیار خوب، به خدا توکل کنید ترس به خود راه ندهید و از رحمت خدا مأیوس نباشید، اگرچه مشکلاتی دارد به قدر توکل شما بر خداوند به شما کمک می‌شود اقدام کنید و روی کسی حساب نکنید.",
+    259: "خوب، زود انجام دهید، فرصت این کار کم است هرچه زودتر اقدام کنید ثمرات معنوی دارد.",
+    261: "بسیار بد، دچار افرادی بی خرد و کم ایمان خواهید شد، خطر آبرویی و جانی در پی دارد، حتماً ترک کنید.",
+    263: "خوب، آبروی شما زیاد می‌شود، اگرچه بر عده ای سخت است و در پی خرابی کار هستند لکن خداوند به شما کمک می‌کند سعی کنید اسرارتان را برای کسی بازگو نکنید.",
+    265: "خوب، سعی شود جزئیات کار را از بعضی افرادی که می‌دانید مخفی کنید وگرنه شیطنت خواهند کرد و به شما ضربه می‌زنند به خدا توکل کنید و اقدام نمایید به حضرت امام جواد الائمه علیه السلام توسل پیدا کنید.",
+    267: "بسیار بد، با افرادی بی ایمان که مذهب را آلت دست برای رسیدن به اهداف خود کرده‌اند روبرو می‌شوید، صبر کنید و برای پیشرفت در کارهایتان ذکر سبحان الله بیشتر بگویید.",
+    269: "خوب، احتمالاً در این کار سفر پربارکتی پیش می‌آید، برای پیشرفت در کارهایتان احتیاج به دعای پدر و مادرتان دارید، اگر زنده هستند، آنها را احترام بیشتر بگذارید و از آنها درخواست دعا کنید و اگر از دنیا رفته‌اند برای آنها استغفار و دعا و خیرات انجام دهید تا شما را دعا کنند.",
+    271: "خوب، لکن به تمام نتیجه ای که می‌خواهید نمی‌رسید، از باب اتمام حجت برطرف مقابل خوب است مراقب باشید مرتکب حرام نشوید.",
+    273: "بد، عواقب بدی در پیش دارد، مورد افتراء تهمت و بدبینی واقع می‌شوید، این کار اصلا درمورد شما خوب نیست حتماً آن را ترک کنید در ضمن جواب رد می‌شنوید و به نتیجه نمی‌رسید.",
+    275: "بد، اگرچه خیال می‌کنید می‌توانید این کار را انجام دهید لکن از عهده شما بر نمی‌آید صبر کنید خدا به شما کمک خواهد کرد به شرطی که روی کسی حساب نکنید و به خدا توکل داشته باشید.",
+    277: "بسیار بد، مورد عذاب الهی و خسران مالی شدید و آبرویی واقع می‌شوید به شما تهمت و افتراء خواهند بست، حتماً ترک کنید صبر کنید در آینده فکر خوبی به ذهن شما خواهد رسید.",
+    279: "خوب، با زبان خوش مطرح کنید انشاءالله ثمربخش است کسانی که با شما در این کار مخالفت می‌کنند به زودی پی به اشتباهش خواهند برد در صورتی که مورد تهمت و بهتان واقع شدید نترسید و ناراحت نباشید خدا به شما کمک خواهد کرد و به صورتی خوب جبران می‌شود انشاءالله به خدا توکل کنید.",
+    281: "بسیار خوب، جبران عقب ماندگی‌های گذشته می‌شود آب ریخته شده جمع خواهد شد ناراحتی‌های گذشته جبران شده و از بین می‌رود مواظب باشید در حین این کار مخصوصا مرتکب گناه نشوید با توکل به خدا اقدام کنید صدقه ای در خور شأن این کار بدهید.",
+    283: "بسیار بد، بطور ناخواسته دچار مشکلات زیادی می‌شوید که هرچه تلاش کنید بیشتر فرو می‌روید حتماً ترک شود.",
+    285: "خوب، باید به رویی باز و زبانی خوش عمل کنید و درمورد جزئیات کار با حساب و کتاب و روی قاعده عمل کنید وگرنه ضرر آبرویی و مالی خواهید دید در عین حال به خدا توکل کنید و روی کسی حساب نکنید مواظب باشید مرتکب حرام نشوید.",
+    287: "بسیار بسیار بد، حتماً ترک کنید هرچه زحمت به خود بدهید فایده ای جز ضرر ندارد حرف شما را باور نخواهند کرد در نتیجه این کار با افرادی دورو و دروغگو و ضعیف ایمان برخورد می‌کنید که شما را به لجنزار می‌کشند حتماً ترک کنید وقتی پشیمان می‌شوید که دیر شده است.",
+    289: "بسیار بد، با افرادی بی وفا برخورد می‌کنید هرچه زحمت بکشید جز کفران نعمت چیزی نخواهند داشت شما در بدترین شرایط تنها می‌گذارند شما را وسیله ای برای رسیدن به پیشرفتهای خود قرار می‌دهند صبر کنید در آینده پیشنهاد خوبی به شما خواهد شد.",
+    291: "بسیار خوب، مورد تحیر و حسرت عده ای قرار می‌گیرید صدقه دهید که چشم نخورید فکر خوبی به ذهن شما رسیده است در صورتی که به تمام شرایط آن عمل کنید نتیجه خوبی خواهید دید مورد لطف و رحمت خداوندی قرار گرفته‌اید حتماً اقدام کنید.",
+    293: "بسیار خوب، فکر بسیار خوبی به ذهن شما رسیده است سبب راحتی و آسایش شما خواهد بود عزت و آبروی شما زیاد می‌شود اقدام کنید.",
+    295: "خوب، خداوند به شما کمک می‌کند و اسباب این کار پشت سرهم برایتان فراهم می‌گردد باعث گره گشایی از مشکلات شما می‌شود انشاءالله، ترس به خود راه ندهید و اقدام کنید به خدا توکل کنید مراقب باشید مرتکب حرام نشوید.",
+    297: "بد، دچار افرادی غافل از خداوند و لاابالی خواهید شد خطر جانی و آبرویی دارد صبر کنید و از رحمت خدا ناامید نباشید حتماً ترک شود.",
+    299: "خوب، فقط باید مواظب باشید مرتکب حرام نشوید و شما را فریب ندهند این کار حتماً باید با توسل به حضرت امام حسین علیه السلام انجام شود تا به نتیجه برسد.",
+    301: "بسیار خوب، خیلی زود اقدام کنید در صورتی که قصد مسافرت دارید سفری خوب و پر برکت خواهد بود حتماً مواظب باشید حرام مرتکب نشوید ثمرات مادی و خصوصا سکونت روحی خوبی همراه دارد.",
+    303: "بسیار خوب، خداوند اسباب این کار را برای شما فراهم می‌کند اگرچه باور نمی‌کنید ولی به نتیجه دلخواه می‌رسید انشاءالله. نترسید و اقدام کنید به خدا توکل کنید مراقب باشید مرتکب حرام نشوید.",
+    305: "بسیار بسیار عالی، مایه راحتی و آسایش شما می‌شود با آنکه باور ندارید ولی خداوند خیر و صلاح شما را در این کار قرار داده است با کسی اسرار خود را مطرح نکنید خصوصا درمورد این کار مراقب باشید مرتکب حرام نشوید به خدا توکل کنید و حتماً اقدام نمایید.",
+    307: "بسیار خوب، مایه چشم روشنی شما می‌شود اگرچه مشکلاتی دارد و احتمالا تهمت‌ها و حرف و نقلهایی بوجود می‌آید لکن به کمک خداوند رفع شده و عزت شما چند برابر می‌شود به پدر و مادرتان برای پیشرفت در کارهایتان خصوصا در این کار بیشتر اهمیت دهید و آنها را دعا کرده و راضی نگه دارید اگرهم از دنیا رفته‌اند برای آنها صدقه و کار خیر انجام دهید.",
+    309: "بسیار بسیار عالی، شخصی از نزدیکان به شما کمک خواهد کرد محبوب القلوب خواهید شد به موارد زیر بیشتر اهمیت دهید: نماز، وعده، راستگویی، گناهان چشم و گوش؛ تا در کارهایتان پیشرفت نمایید.",
+    311: "بسیار بد، به گفته‌های مطرح شده عمل نمی‌شود، این کار درست خلاف نتیجه ای که در نظر دارید نتیجه می‌دهد مایه نگرانی و سلب آرامش شما می‌شود حتماً ترک کنید.",
+    313: "بسیار خوب، خداوند شما را برای انجام این کار برگزیده است سبب آسایش روحی شما خواهد شد حاجت عده ای نیز برآورده می‌شود و به شما دعا می‌کنند مواظب باشید خلف وعده ای نکنید و یا آنکه مرتکب حرام نشوید و اجر خود را از بین نبرید.",
+    315: "خوب، سعی کنید سنجیده عمل کنید تا می‌توانید کارهایتان را مخفی نگه دارید اسرارتان را بازگو نکنید به نصیحتهایی که می‌شود عمل کنید.",
+    317: "خوب، ترس به خود راه ندهید عده ای نیز درصدد ضربه زدن برمی‌آیند لکن با توکل به خدا و توسل به ائمه اطهار علیهم السلام دفع خواهد شد آینده روشنی دارد عزت و آبرو و اعتبار شما زیاد می‌شود مراقب باشید مرتکب حرام نشوید به خدا توکل کنید و اقدام کنید.",
+    319: "خوب، و اگر انجام ندهید ضربه سختی می‌خورید حتماً و هرچه زودتر اقدام کنید که خیر و مصلحت شما در انجام این کار است مواظب باشید حرام مرتکب نشوید وقت این کار تنگ است آینده خوب و روشنی دارد از اضطراب و نگرانی خلاص می‌شوید انشاءالله.",
+    321: "بد، خطراتی را که احتمال می‌دهید گریبانگیر شما می‌شود و دچار مشکلات عجیبی خواهید شد، پشیمانی دارد و مرتکب حرام خواهید شد اقدام نکنید.",
+    323: "بد، سختی و مشکلات زیادی دارد پشیمان می‌شوید به شما ظلم شده و می‌شود و در نتیجه اگر تعهدی بدهید به آن عمل نمی‌شود، حتماً ترک شود.",
+    325: "بد، اگرچه تردید دارید و این کار وسوسه انگیز است لکن شما را به مسخره گی می‌گیرند و ملعبه و بازیچه قرار خواهید گرفت به آنچه می‌گویند هرگز عمل نمی‌کنند، حتماً ترک کنید خسارت اعتباری و آبرویی دارد، عجله نکنید و فعلاً صبر کنید.",
+    327: "خوب، در این کار بت شکنی دیده می‌شود عزت و آبروی شما زیاد شده و عده ای که کارهای خوبی انجام نمی‌دهند به واسطه این کار رسوا می‌شوند اگرچه تهمت و افتراء دارد لکن دفع می‌شود.",
+    329: "بسیارخوب، اگرچه عده ای شیطنت می‌کنند لکن خداوند شما را حفظ خواهد کرد سعی کنید با مشکلاتی که پیش می‌آید سنجیده و با مشورت برخورد کنید صبر را نیز پیشه کار خود سازید تا نتیجه ببینید.",
+    331: "بسیارخوب، از مشکلات و سختیها نجات پیدا می‌کنید آرامش عجیبی به شما دست می‌دهد سعی کنید قدر بدانید و این کار را بیهوده از دست ندهید.",
+    333: "خوب، وقت این کار تنگ است زود انجام دهید در آینده شما تأثیر مثبت دارد به خدا توکل کنید مراقب باشید مرتکب حرام نشوید و اقدام کنید.",
+    335: "بسیارخوب، باید با زبانی خوش و رویی باز پیش بروید تا به نتیجه برسید زود اقدام کنید که اگر دیر شود از اثر می‌افتد و نتیجه ای ندارد، آخرین فرصت است برای این کار کسی به شما کمک خواهد کرد.",
+    337: "خوب، اگرچه مشکلاتی دارد لکن به انجام دادنش می‌ارزد، خدا به شما کمک می‌کند سعی کنید در حین کار مرتکب حرام نشوید اگر شما را تکذیب کردند اهمیت ندهید احتمالا در این کار سفرهایی هم پیش می‌آید که باید برای آنها نیز جداگانه استخاره کنید.",
+    339: "بسیارخوب، خیلی سریع اقدام کنید اگر دیر شود از اثر می‌افتد، موقعیت استثنایی است خدا به شما کمک می‌کند اگرچه مخالفت‌هایی می‌شود لکن اهمیت ندهید رزق خوبی در این کار است عزت و آبروی شما زیاد می‌شود به خدا توکل کنید و اقدام کنید.",
+    341: "بسیاربد، هم شما و هم طرف مقابل شما قادر به انجام این کار نیستید از راه راست منحرف می‌شوید و مرتکب گناه و معصیت می‌شوید به خدا توکل کنید و روی کسی حساب نکنید.",
+    343: "میانه خوب، مشکلات زیادی دارد، حرف و نقل زیادی دارد به شما نسبت دروغگویی می‌دهند و دیر به نتیجه می‌رسید، ولی بالاخره به نتیجه می‌رسید شکل انجام این کار را مقداری تغییر دهید و دومرتبه استخاره بگیرید در صورت اقدام حتماً نماز استخاره را بخوانید.",
+    345: "بد، شما را تکذیب می‌کنند مشکلات زیادی برای شما بوجود می‌آورند فعلاً صبر کنید شخصی به شما کمک خواهد کرد.",
+    347: "بسیار بد، مواردی از شما مخفی نگه داشته شده است نقشه ای برای شما کشیده شده با انسانهای شیاد مواجه خواهید شد که به شما رحم نمی‌کنند اگرچه در ظاهر زبان بازی زیادی دارند و اظهار خدمت گذاری می‌کنند لکن اینطور نیست حتماً بپرهیزید و حتماً ترک شود اقدام نکنید که پشیمانی دارد.",
+    349: "بد، نزاع و درگیری در پی دارد حتماً ترک کنید و صبر کنید از خیر و برکت کار دیگری باز می‌مانید انجام ندهید.",
+    351: "بد، از وقت این کار گذشته است فعلاً اقدام نکنید مورد سوءظن و بدگمانی واقع می‌شوید بهتان دروغ و تهمت در کار است حتماً ترک کنید شخصی به شما نصیحت می‌کند حرفهای منطقی او را گوش کنید خیر و صلاح شما را می‌خواهد.",
+    353: "میانه خوب، برای به نتیجه رسیدن این کار نیاز به اذن و اجازه و یا نظر متخصص در این کار می‌باشد، حتماً مواظب باشید حرام مرتکب نشوید خطر مادی و معنوی دارد.",
+    355: "بسیاربسیارخوب، حتماً اقدام کنید باعث ازدیاد عمر و رزق و روزی و معلومات دینی و تدین شما خواهد شد با افرادی خدا ترس و با تجربه در کار خود برخورد می‌کنید اعتماد کنید و به خدا توکل کنید و مراقب باشید مرتکب حرام نشوید اقدام کنید.",
+    357: "میانه خوب، از باب اتمام حجت خوب است به نتیجه دلخواه شاید نرسید ولی بهتر است اقدام کنید که بهانه ای که به دست دیگران نداده باشید انجام این کار در آینده شما سهم بسزایی دارد انشاءالله به خدا توکل کنید و اقدام کنید.",
+    359: "خوب، حتماً مشورت نمایید، ظاهراً احتیاج به اذن و اجازه و نظر شخصی خبره در این کار می‌باشد، با توسل به اهل البیت علیهم السلام انشاءالله خوب است به خدا توکل کنید و اقدام کنید.",
+    361: "بد، مورد خشم و غضب دیگران قرار گرفته و از نقطه مرکزی دور افتاده و در مکانی تنگ قرار می‌گیرد که عرصه بر شما تنگ شده و اظهار پشیمانی می‌کنید و تأسف بر گذشته خود می‌خورید.",
+    363: "خوب، آینده خوب و درخشانی دارد البته مشکلاتی دیده می‌شود که باید سعی کنید صبر و مقاومت از خود نشان داده و خود را تسلیم مشکلات ننمایید عده ای هم در پی خرابی کار هستند لکن به کمک خداوند و توسل به اهل البیت علیهم السلام خصوصاً حضرت علی بن موسی الرضا علیه السلام منکوب و مذلول می‌شوند.",
+    365: "بسیار خوب، به خدا توکل کنید جبران بعضی موارد منفی گذشته خواهد شد استقبال می‌شود در امور معنوی شما تأثیر گذار است.",
+    367: "بسیار خوب، آینده ای روشن دارد به نتیجه دلخواه انشاءالله خواهید رسید اگر مخالفتهایی شود اهمیت ندهید خود را نیز در این کار زیاد به زحمت نیندازید.",
+    369: "بسیار بد، مکر و حیله در کار است مواظب باشید شما را در چاهی بدون ته می‌اندازند روی دست می‌خورید حتماً ترک شود پشیمانی دارد.",
+    371: "خوب، خداوند به شما کمک خواهد کرد با زبانی خوش مطرح کنید مواظب باشید حرام مرتکب نشوید که عقوبت سختی خواهید دید نیت خود را در این کار بهتر کنید تا اثر مطلوب را بدست آورید و به نتیجه برسید.",
+    373: "بد، تکذیب می‌شوید نسبت دروغ به شما خواهند داد به گفته‌های خود عمل نخواهند کرد حتماً ترک شود.",
+    375: "بد، به گناه و حرام می‌افتید حتماً ترک شود آبروی شما می‌رود مورد تکذیب قرار گرفته و با افرادی که در شأن شما نیستند برخورد می‌نمایید به نتیجه نمی‌رسید حتماً ترک شود.",
+    377: "بسیار خوب و عالی، مایه راحتی و نجات از مشکلات خواهد بود مواظب باشید حرام مرتکب نشوید که در نتیجه کار اثر بدی خواهد گذاشت.",
+    379: "خوب، اگرچه در ظاهر خطراتی دارد و مشکلاتی هم دیده می‌شود لکن خداوند برای شما در این کار خیری قرار داده است اقدام کنید عاقبت به خیری دارد انشاءالله.",
+    381: "بد، اختلاف و نزاع دیده می‌شود با آنکه زحمات زیادی به خود می‌دهید لکن به نتیجه نمی‌رسید و به شما روی دست خواهند زد.",
+    383: "میانه بد، مورد مؤاخذه قرار خواهید گرفت با افرادی که شعور کافی ندارند برخورد خواهید کرد بهتر است ترک شود.",
+    385: "بسیار خوب، آثار خوبی دارد از گرفتاری نجات پیدا می‌کنید انشاءالله خداوند به شما کمک خواهد کرد اقدام کنید و به خدا توکل کنید.",
+    387: "خوب، وقت این کار شده است انشاءالله به اهداف خود می‌رسید البته مشکلاتی دیده می‌شود که خداوند در حل آنها به شما کمک خواهد کرد.",
+    389: "بسیار خوب، اگرچه مشکلاتی دارد لکن صبر کنید و تحمل نمایید در خانوادگی شما تأثیر مثبت می‌گذارد مورد تحیر اطرافیان خود قرار می‌گیرید به خدا توکل کنید و اقدام نمایید.",
+    391: "خوب، اگرچه باور ندارید لکن خداوند خیری برای شما در این کار قرار داده است اقدام کنید و به خداوند توکل کنید.",
+    393: "بد، فریب می‌خورید به هدف نمی‌رسید از کار خیری دیگر باز می‌مانید ضرر آخرتی دارد پشیمانی دارد حتماً ترک شود.",
+    395: "بد، چرا کاری را که می‌دانید دچار مشکل می‌شوید در آن تردید می‌کنید؟! خطراتی را که احتمال می‌دهید گریبانگیر شما می‌شود به هلاک و بدبختی دچار می‌شوید پشیمانی دارد حتماً حتماً ترک شود.",
+    397: "خوب، خداوند به شما کمک خواهد کرد بیشتر مراقب پدر و مادر خود باشید آنها را حتماً احترام کنید که خوشبختی شما در گرو دعاهای آنهاست به خدا توکل کنید و اقدام نمایید.",
+    399: "میانه، اگرچه خطراتی دارد لکن خداوند به شما کمک کرده و شما را حفظ خواهد کرد درصورتی که مراقب باشید فریب نخورید و درمورد جزئیات کار نیز استخاره بگیرید خوب است درغیر این صورت بد است.",
+    401: "بد، اگرچه ظاهری فریبنده دارد لکن هرچه تلاش کنید به نتیجه دلخواه نمی‌رسید بی فایده است هرگز اقدام نکنید پشیمانی دارد.",
+    403: "بد، شما را در چاهی بدون ته می‌اندازند بدون آنکه پیش بینی کرده باشید دچار مشکلات عجیبی خواهید شد با افرادی که شعور کافی ندارند برخورد می‌کنید حتماً ترک شود که پشیمانی دارد در ضمن خطر جانی و آبرویی در این کار دیده می‌شود.",
+    405: "بد، صبر کنید خداوند به شما کمک خواهد کرد نا امید نشوید برای پیشرفت در کارهایتان نماز امام زمان علیه السلام را قبل از ظهر جمعه‌ها همراه با غسل جمعه بخوانید در نتیجه این کار با افرادی که شما را درک نمی‌کنند برخورد خواهید کرد حتماً ترک شود پشیمانی دارد.",
+    407: "خوب، باید سنجیده و با تحقیق و مشورت اقدام کنید وگرنه ضربه می‌خورید و وقت شما هدر می‌رود مراقب باشید حرام مرتکب نشوید با توکل به خدا و توسل به حضرت امام حسن مجتبی علیه السلام اقدام کنید تا به نتیجه دلخواه برسید.",
+    409: "بد، اگرچه باور ندارید لکن سختیها و مشکلات زیادی دارد که از طاقت شما خارج است صبرکنید و به خدا توکل کنید حتماً ترک شود پشیمانی دارد.",
+    411: "بسیار بسیار خوب، ثمرات مادی و معنوی دارد انشاءالله به نتیجه خواهید رسید مواظب باشید مرتکب حرام نشوید اقدام نمایید و به خدا توکل کنید سعی کنید جزئیات کارتان را برای کسی بازگو نکنید صدقه ای بدهید خداوند به شما کمک خواهد کرد خدا خیر شما را خواسته است انشاءالله از مشکلات روحی و جسمی زیادی شما را نجات می‌دهد.",
+    413: "بد، اگرچه ظاهر این کار خوب نشان می‌دهد و شما نیز با نیت خوبی قصد اقدام به این کار را دارید لکن عده ای مزاحمت ایجاد کرده و با افرادی بهانه جو و کم ظرفیت برخورد می‌کنید که نادانسته اظهار نظر می‌کنند اقدام نکنید که دچار مشکلات زیادی خواهید شد حتماً ترک شود.",
+    415: "بسیار خوب، مورد حسرت و تحیر دیگران واقع می‌شوید انشاءالله نتیجه بخش است ثمرات مادی و معنوی زیادی دارد به خدا توکل کنید و اقدام نمایید اگرچه مشکلاتی دارد لکن اهمیت ندهید چون آنچه بدست می‌آورید به مراتب بیشتر از زحماتی است که کشیده‌اید اقدام نمایید.",
+    417: "بسیار بد، دچار عذاب شدید الهی و خسران و زیان مالی شدید خواهید شد آینده خطرناکی دارد پشیمانی دارد حتماً ترک شود بطور ناخودآگاه در مخمصه عجیبی می‌افتید و مورد انتقام جویی قرار می‌گیرد برای پیشرفت در کارهایتان از توبه کردن و ذکر استغفار غافل نشوید و نماز توبه را حتماً بخوانید.",
+    419: "بد، این کار رسوایی دارد مورد مؤاخذه و پرس و سؤال قرار می‌گیرد به شما تهمت می‌زنند پشیمانی دارد حتماً ترک شود صبر کنید.",
+    421: "بسیار خوب، به تعهدات و آنچه شما انتظار دارید عمل می‌شود انشاءالله سعی کنید به شرایطی که در نظر دارید کاملاً عمل کنید و تغییری در روش انجام دادن این کار ندهید و به همین صورت عمل کنید به نتیجه می‌رسید انشاءالله به خدا توکل کنید و اقدام نمایید مواظب باشید مرتکب حرام نشوید.",
+    423: "بد، خطرهایی را که احتمال می‌دهید گریبانگیر شما می‌شود، بطور ناخواسته مرتکب حرام می‌شوید و در باتلاقی خطرناک می‌افتید، مورد نفرت بعضی از اطرافیان واقع می‌شوید و به نتیجه هم نمی‌رسید حتماً ترک شود.",
+    425: "میانه، این کار تحت یک سری شرایط خاصی خوب است باید محدوده این کار را با جزئیات آن کاملاً مشخص کنید و پا را از آن محدوده فرا نگذارید تا به نتیجه برسید درغیر این صورت بسیار بد است و پشیمانی دارد.",
+    427: "بد، این کار با این صورت اصلا در شأن شما نیست و جز پشیمانی سودی ندارد جواب رد می‌شنوید و به نتیجه نمی‌رسید خسارت مالی و جانی و آبرویی دارد حتماً ترک شود.",
+    429: "بد، از اقدام دیگران عبرت بگیرید خطرات احتمالی در این کار حتمی است با آنکه زحمات زیادی می‌کشید ولی نتیجه ای نخواهید دید ثمره ای جز پشیمانی ندارد حتماً ترک شود.",
+    431: "میانه خوب، در صورتی که این کار با اذن و اجازه و یا با مشورت اهل خبره و متخصص انجام گیرد خوب است باید تحقیق بیشتری کنید کاملاً به گفته‌های مشاور خود عمل کنید تا به نتیجه برسید فرصت این کار بسیار کم است زود باید اقدام کنید وگرنه باید دومرتبه استخاره بگیرید.",
+    433: "میانه، از وقت این کار مقداری گذشته است صبر کنید و در موقعیت دیگر دوباره اقدام کنید در صورت اقدام حتماً صدقه بدهید و مراقب باشید حرام مرتکب نشوید که رسوا شده و آبروی شما می‌رود.",
+    435: "بد، مورد خدعه و نیرنگ قرار می‌گیرد شما را فریب می‌دهند به نتیجه نمی‌رسید با آنکه زحمات زیادی می‌کشید ولی فایده ندارد پشیمانی دارد حتماً ترک شود.",
+    437: "بد، آنطور که فکر می‌کنید خیالاتی بیش نیست سعی کنید بیشتر فکر کنید مطالبی از شما مخفی مانده است تحقیق بیشتر و مشورت کنید تا مطلب بر شما روشن شود.",
+    439: "بد، با دست خود، خود را در هلاک نیندازید نتیجه ای جز پشیمانی ندارد دچار مشکلات زیادی می‌شوید که هرچه تلاش کنید فایده ای ندارد و بیشتر در مشکلات فرو می‌روید حتماً ترک شود پشیمانی دارد.",
+    441: "بد، شما را تکذیب می‌کنند با آنکه زحمت زیادی می‌کشید ولی بدون نتیجه است دچار مشکلات زیادی خواهید شد که راه فرار نخواهید داشت حتماً ترک شود.",
+    443: "بد، به نتیجه نمی‌رسید دچار دردسرهای زیادی می‌شوید هرچه زحمت می‌کشید بیشتر پشیمان می‌شوید سعی کنید به خدا توکل کنید و اسرار زندگی خود را برای کسی بازگو نکنید تا در زندگی موفق شوید برای پیشرفت در زندگی و کارهایتان به حضرت امام موسی بن جعفر علیه السلام توسل پیدا کنید.",
+    445: "بد، با آنکه مقدماتی برای انجام این کار از نظر فکری و ... فراهم کرده‌اید ولی اقدام نکنید که پشیمانی دارد.",
+    447: "بد، مورد بازپرسی و سؤال و جواب قرارمی گیرد آبروی شما می‌رود درسخت‌ترین شرایط شما را تنها می‌گذارند حتماً ترک شود پشیمانی دارد.",
+    449: "بسیار خوب، از گرفتاری و مشکلات تا حدی نجات پیدا می‌کنید به آرامش و امنیت دست پیدا می‌کنید به شرطی که قدر بدانید و از فرصت استفاده کنید وقت این کار کم است اقدام کنید و به خدا توکل کنید و مواظب باشید مرتکب حرام نشوید.",
+    451: "فعلاً بد است صبر کنید و در موقعیت و شرایط بعدی اقدام کنید.",
+    453: "خوب، اگرچه مشکلاتی دارد ولی به انجام دادن آن می‌ارزد مواظب باشید مرتکب حرام نشوید به خدا توکل کنید و اقدام نمایید حتماً درصورت اقدام صدقه دهید و تا حد ممکن اسرار این کار را مخفی کنید.",
+    455: "بد، مورد سوء ظن و بدگمانی واقع می‌شوید صبر کنید خداوند به شما کمک خواهد کرد اقدام نکنید حتماً ترک شود.",
+    457: "بد، مورد مسخره گی و دشمن به شادی قرار می‌گیرید به نزاع و درگیری کشیده می‌شود به نتیجه نمی‌رسید پشیمانی دارد حتماً ترک شود.",
+    459: "میانه خوب، درصورتی که به همین صورت که قصد دارید انجام دهید و هیچگونه تغییری در روند این کار ندهید خوب است و به نتیجه می‌رسید انشاءالله ولی درصورتی که تغییری دهید خوب نیست و دچار مشکل می‌شوید مواظب باشید مرتکب حرام نشوید.",
+    461: "بد، اگرچه ظاهری فریبنده دارد ولی بعد از مدت کمی دچار دردسر می‌شوید صبر کنید و برای انجام این کار بیشتر تحقیق کنید در خلاف این کار هم فکری کنید و بیشتر مشورت نمایید.",
+    463: "میانه، درصورتی که مواظب باشید مرتکب حرام نشوید و به تعهدات خود عمل کنید و از موقعیت هایی که پیش می‌آید استفاده کنید خوب است البته مراقب باشید احتمالا در رابطه با این کار با افرادی گمراه برخورد می‌کنید باید مواظب باشید فریب نخورید درغیر این صورت بسیار بد است.",
+    465: "بسیار بد، انتظار بی خودی دارید که از عهده خارج است اقدام نکنید که پشیمانی دارد به زودی دچار مشکلات می‌شوید خطرهای احتمالی به زودی گریبانگیر شما می‌شود صبر کنید و به خدا توکل کنید حتماً ترک شود.",
+    467: "خوب، به شما کمک می‌شود و انشاءالله به نتیجه می‌رسید مقدمات این کار فراهم است خیر و برکت دارد به خدا توکل کنید و اقدام کنید.",
+    469: "میانه، شرایط زیادی برای نتیجه گیری دارد درصورت اتمام شرایط خوب است وگرنه بسیار بد است خصوصا اگر گناهی در رابطه با این کار مرتکب شوید عقوبت بسیار بدی خواهید داشت درصورت اقدام مواظب باشید مرتکب حرام نشوید.",
+    471: "بد، بدون دلیل مورد سوءظن و تهمت قرار می‌گیرید صبر کنید موقعیت بهتری پیش خواهد آمد.",
+    473: "بد، با شما بدقولی و عهدشکنی می‌شود فایده و ثمری ندارد به گمراهی کشیده می‌شوید ترک کنید پشیمانی دارد حتماً ترک شود.",
+    475: "بد، اگرچه در ظاهر به صلاح به نظر می‌رسد، لکن ختم به خیر نمی‌شود مجادله و نزاع و اختلاف دیده می‌شود حتماً ترک شود.",
+    477: "بسیار خوب، خیلی زود انجام دهید وقت این کار تنگ است عزت و آبرو و اعتبار شما زیاد می‌شود به خدا توکل کنید و اقدام نمایید مواظب باشید مرتکب حرام نشوید.",
+    479: "بد، به ضرر شما تمام می‌شود، مورد مؤاخذه قرار می‌گیرد درست به خلاف نتیجه می‌رسید پشیمانی دارد حتماً ترک شود.",
+    481: "خوب، انشاءالله به نتیجه دلخواه می‌رسید، مؤثر واقع می‌شود، وقت این کار تنگ است حرف شما بقدرت خدا تأثیرگذار است.",
+    483: "بسیار خوب، مورد رحمت خداوند قرار می‌گیرید خداوند به شما کمک خواهد کرد مورد حسرت و تحیر دیگران قرار می‌گیرید به خدا توکل کنید و اقدام نمایید.",
+    485: "بسیار بد، با آنکه خطرهای این کار را می‌دانید ولی از آنجا که این کار فریبنده است می‌خواهید اقدام کنید اما بدانید که خطرهای احتمالی گریبانگیر شما می‌شود دچار مشکلات زیادی می‌شوید و اعصاب شما بهم می‌ریزد و به معصیت می‌افتید ناراحتی بوجود می‌آید حتماً ترک شود صبر کنید در آینده ای نزدیک فکر بهتری به ذهن شما می‌رسد.",
+    487: "خوب، لکن باید برای نتیجه گیری صبر کنید در این کار احتیاج به صبر زیادی دارد خداوند به شما کمک خواهد کرد به خدا توکل کنید و مواظب باشید مرتکب حرام نشوید.",
+    489: "بسیار خوب، به هدفتان نزدیک می‌شوید آینده ای خوب دارد به خدا توکل کنید و اقدام نمایید ثمرات مادی و معنوی دارد به راه راست هدایت می‌شوید و از بعضی ناراحتی‌ها نجات پیدا می‌کنید به شرطی که مواظب باشید مرتکب حرام نشوید.",
+    491: "بد، هرچه زحمت می‌کشید ولی فایده ای ندارد زحمات زیادی این کار دارد که بی نتیجه هم هست حتماً ترک شود.",
+    493: "بد، به نتیجه ای که در نظر دارید نمی‌رسید، بلکه به عکس نتیجه می‌دهد کدورت پیش می‌آید اختلاف برانگیز است حتماً ترک شود.",
+    495: "بسیار بد، دچار مشکلات زیادی می‌شوید که راه فرار از آنها را هم نخواهید داشت با افرادی ناباب و دور از شأن خود برخورد می‌کنید پشیمانی شدیدی دارد با آنکه می‌دانید چرا خود را به ندانستن می‌زنید خطرهایی را که احتمال می‌دهید گریبانگیر شما می‌شود حتماً ترک شود.",
+    497: "بد، به نتیجه ای نمی‌رسید بلکه به نتیجه عکس می‌رسید و از هدف دور می‌شوید اقدام نکنید که پشیمانی دارد و دچار نزاع و درگیریهای لفظی قرار می‌گیرد، مایه کدورت و پشیمانی است حتماً ترک شود.",
+    499: "بسیار خوب، موقعیت بسیار خوبی است پیشرفت مادی و معنوی دارد سعی کنید از این موقعیت به خوبی استفاده کنید به خدا توکل کنید و مواظب باشید مرتکب حرام نشوید اقدام کنید.",
+    501: "بسیار بد، چرا از گذشته‌ها و تجربه‌های بدست آمده استفاده نمی‌کنید و عبرت نمی‌گیرید شما را به انحراف می‌کشند و از راه راست منحرف می‌شوید به نتیجه دلخواه نمی‌رسید جز اتلاف وقت و عمر فایده ای ندارد حتماً ترک شود.",
+    503: "بسیار بد، به نتیجه نمی‌رسید با افرادی بی وفا و غیر متعهد برخورد می‌کنید شما را در سخت‌ترین شرایط تنها می‌گذارند مورد خدعه و نیرنگ قرار می‌گیرد حتماً ترک شود.",
+    505: "بسیار بد، از گذشته‌ها و تجربه‌های بدست آمده استفاده کنید و عبرت بگیرید به نتیجه دلخواه نمی‌رسید جز اتلاف وقت و عمر فایده ای ندارد حتماً ترک شود.",
+    507: "بسیار بد، مشکلاتی دارد که ارزش عمل کردن را ندارد از وقت این کار گذشته است در صورتی که انجام دهید پشیمان می‌شوید عجله نکنید و یا در نیت خود تغییرات کلی دهید و دومرتبه استخاره بگیرید.",
+    509: "بد، دچار افرادی بی خرد و منحرف می‌شوید هرگز اقدام نکنید خطر جانی و آبرویی دارد حتماً ترک شود.",
+    511: "بسیار بسیار خوب و عالی، حتماً اقدام کنید کلید مشکلات شما در این کار است با نیت خوب انجام دهید مراقب باشید مرتکب حرام نشوید.",
+    513: "بد، دچار افرادی بی خرد و بی رحم خواهید شد به نزاع و درگیری کشیده می‌شود اختلاف دیده می‌شود حتماً ترک شود.",
+    515: "خوب، شخصی در رسیدن به هدف، شما را در این کار کمک می‌کند اقدام کنید و به خدا توکل کنید البته در انجام این کار مشکلاتی پیش می‌آید که خداوند بطور عجیبی به شما کمک خواهد کرد.",
+    517: "میانه، درصورتی که به شرایطی که در نظر دارید کاملاً عمل کنید و پا را از حد معین فراتر نگذارید خوب است و درصورتی که طبق شرایط مورد نظر عمل نکنید بد است و دچار مشکلات زیادی خواهید شد.",
+    519: "بد، به نتیجه مورد نظر نمی‌رسید و از مسیر اصلی منحرف می‌شوید و به کسانی که دنبال بهانه جویی از شما هستند بهانه می‌دهید موجب حرف و نقل زیادی است که از طاقت شما خارج است از کسانی که انتظار ندارید ضربه می‌خورید حتماً ترک شود.",
+    521: "بسیار بد، مرتکب حرام خواهید شد در چاهی بدون ته می‌افتید که هرچه تلاش برای نجات کنید بیشتر فرو می‌روید آبروی شما در خطر قرار می‌گیرد حتماً ترک شود.",
+    523: "بد، مورد تهمت و افتراء قرار می‌گیرد که دفع تهمت نیز نمی‌توانید از خود کنید از این کار حتماً روی برگردانید صبر کنید برای پیشرفت در کارهایتان به حضرت جواد الائمه علیه السلام متوسل شوید حتماً ترک شود.",
+    525: "بد، پشیمانی دارد صبر کنید فکر بهتری به ذهن شما خواهد رسید در کارهایتان بیشتر مشورت کنید و تصمیمات عجولانه نگیرید البته اسرارتان را برای کسی بازگو نکنید سعی کنید سربسته دیگران را مورد مشورت قرار دهید.",
+    527: "بسیار بد، حتماً ترک شود مورد سوء ظن و تهمت قرار می‌گیرد به نتیجه دلخواه نمی‌رسید بلکه مشکلاتتان دو چندان می‌شود بطوریکه راه خلاصی نخواهید داشت حتماً ترک شود.",
+    529: "بسیار بد، دچار مشکلات زیاد و بی نتیجه ای خواهید شد خسارت مالی و آبرویی در بر دارد حتماً ترک شود دریچه ای به شهر مشکلات بروی شما باز می‌شود.",
+    531: "بد، اگرچه به ظاهر این کار به صلاح شماست لکن فعلاً اقدام نکنید در موقعیت بعدی با استخاره ای دیگر اقدام کنید فعلاً خطراتی دیده می‌شود که اقدام به این کار اصلا به صلاح شما نیست حتماً ترک شود.",
+    533: "بسیار بد، خطرات و مشکلات احتمالی درمورد این کار گریبانگیر شما می‌شود پشیمانی دارد از گذشته عبرت بگیرید و از تجربه دیگران بیشتر استفاده نمایید که هرکس کار تجربه شده ای را بخواهد دوباره تجربه کند پشیمانی بر او حلال است.",
+    535: "بسیار خوب، حتماً اقدام کنید خیلی زود خداوند شما را مورد لطف خود قرار می‌دهد خداوند شما را برای انجام این کار مأمور کرده است از هرجهت خوب است سبب آرامش و آسایش شما می‌باشد خیر و برکت عجیبی دارد.",
+    537: "بسیار خوب، زمینه رشد و تعالی شما در امور مادی و معنوی خواهد بود پیشرفت زیادی خواهید کرد فرصت کم است اقدام کنید و برای پیشرفت در کارهایتان بیشتر قرآن بخوانید.",
+    539: "بسیار بسیار خوب، سرمایه ای معنوی بدست می‌آورید که باید در حفظ آن کوشا باشید از مشکلات و رنجها نجات پیدا می‌کنید حتماً اقدام کنید البته فرصت این کار کم است سعی کنید که شما را از این کار منصرف نکنند.",
+    541: "خوب، لکن باید یک سری شرایطی در این کار رعایت شود سعی کنید شرایط این کار را کاملاً در ابتدا معین کنید و با برنامه ریزی اقدام به این کار کنید تا در ضمن کار دچار نگرانی نشوید گوش به حرف مردم ندهید وگرنه در چاهی بدون ته می‌افتید هرگز نمی‌شود همه اطرافیانتان را راضی نگه دارید.",
+    543: "میانه، بستگی دارد که به چه نیتی این کار را انجام دهید درصورتی که به قصد رضای خدا انجام گیرد و گناه و معصیتی در این کار مرتکب نشوید خوب است در غیر این صورت بسیار بد است.",
+    545: "بسیار خوب، خیال بد نکنید بلکه حسن ظن داشته باشید آنطور که فکر می‌کنید نیست بلکه بهتر می‌باشد انشاءالله نتیجه بخش است و با افرادی با ایمان برخورد می‌کنید درآینده شما اثر مثبت می‌گذارد اقدام کنید و به خدا توکل کنید.",
+    547: "بسیار خوب، فرصت این کار زیاد نیست سعی کنید زود اقدام کنید تا به نتیجه برسید با افرادی متخصص در کار خود برخورد می‌کنید که از عهده کار بر می‌آیند افرادی خوش قلب و مهربان به خدا توکل کنید و اقدام نمایید.",
+    549: "بسیار خوب، البته مشکلاتی دیده می‌شود که خداوند به شما کمک می‌کند برای نتیجه بخش بودن حتماً به امام زین العابدین علیه السلام متوسل شوید مراقب باشید که احتمالا در انجام این کار با موردی گناه برخورد می‌کنید که باید کاملاً خود را کنترل کنید و مواظب باشید مرتکب حرام نشوید که ضربه می‌خورید.",
+    551: "خوب، انشاءالله مشکلاتی با انجام این کار از سر راه شما برداشته می‌شود سعی کنید از خود انعطاف نشان دهید و اطمینان داشته باشید که مسئله ای پیش نمی‌آید ولی باید کاملاً مواظب باشید مرتکب حرام نشوید که در این صورت بسیار بد است و خسارت آبرویی دیده می‌شود.",
+    553: "بسیار خوب، سبب راحتی و آسایش و پیشرفت در امور مادی و معنوی شما خواهد شد به خدا توکل کنید و اقدام نمایید برای پیشرفت در کارهایتان از غسل جمعه غافل نشوید.",
+    555: "بسیار بد، هرچه زحمت بکشید و به خود رنج دهید فایده ای جز پشیمانی ندارد حتماً ترک شود به نتیجه دلخواه نمی‌رسید نتیجه عکس می‌دهد صبر کنید خداوند در آینده به شما کمک خواهد کرد.",
+    557: "بسیار بسیار بد، دچار گرفتاریهای زیادی خواهید شد خطر جانی دارد آبروی شما می‌رود و به نتیجه هم نمی‌رسید با افرادی بی ایمان برخورد می‌کنید صبر کنید خداوند به شما کمک خواهد کرد این کار حتماً ترک شود.",
+    559: "خوب، باید این کار با برنامه ریزی و شرایطی انجام بگیرد و پا را از حد شرایط تعیین شده فراتر نگذارید در غیر این صورت دچار مشکلات خواهید شد و بطور ناخواسته مرتکب حرام می‌شوید.",
+    561: "خوب، باید این کار را حساب کرده و سنجیده انجام دهید و سعی کنید در زندگی از اشتباهات گذشته خود درس بگیرید و دوباره مرتکب نشوید که ضربه می‌خورید کسی که کار تجربه شده ای را خواهد دوباره تجربه کند ندامت و پشیمانی بر او حلال است به خدا توکل کنید و مواظب باشید مرتکب حرام نشوید به خدا توکل کنید و اقدام نمایید.",
+    563: "خوب، سبب راحتی و آسایش شما و حل شدن مشکلی از شما خواهد شد البته اگر چه به نتیجه کاملی نرسید لکن ارزش عمل کردن را دارد بعضی از مسائل این کار را باید با افراد خبره مشورت کنید و بعضی مسائل دیگر را باید از دیگران مخفی کنید.",
+    565: "بسیار بد، استغفار و طلب عفو و بخشش از خداوند کنید صدقه دهید درصورتی که این کار را انجام دهید به شدت و سختیهای زیادی مبتلا می‌شوید رزق و روزی شما تنگ می‌شود و دچار مشکلات زیادی می‌شوید حتماً ترک شود.",
+    567: "بد، به نتیجه نمی‌رسید وقت و عمر شما تلف می‌شود دچار مشکلات زیادی می‌شوید صبر کنید در آینده خداوند به شما کمک خواهد کرد هرگز این کار را نکنید پشیمانی دارد.",
+    569: "بسیار بد، مورد باز خواست و پرس وسؤال قرار می‌گیرد دچار افرادی بی رحم و بی انصاف می‌شوید که به شما رحم نمی‌کنند پشیمانی دارد حتماً ترک شود.",
+    571: "خوب، سبب راحتی و آسایش شما می‌شود باید کاملاً ازاین موقعیت استفاده کنید ومواظب باشید مرتکب حرام نشوید به خدا توکل کنید و اقدام نمایید.",
+    573: "بد، وقت این کار گذشته است اقدام نکنید که پشیمانی دارد به نتیجه نمی‌رسید دچار خطرهای احتمالی می‌شوید.",
+    575: "بسیارخوب، زحمتهای زیادی دارد لکن نتیجه خوبی نیز دارد ارزش انجام دادن را دارد حتماً اقدام کنید که سبب راحتی و آسایش شما خواهد شد در زندگی شما تأثیر گذار است به خدا توکل کنید و اقدام نمایید.",
+    577: "بسیاربد، مورد توبیخ و بازجویی و پرس و سؤالهای خسته کننده قرار می‌گیرد، صبر کنید و به خدا توکل کنید خداوند در آینده ای نزدیک به شما کمک می‌کند اقدام نکنید پشیمانی دارد.",
+    579: "بسیاربسیار خوب، با افرادی بسیار خوب و مؤمن برخورد می‌کنید این کار سبب تعالی روحی و جسمی شما می‌شود، به خدا توکل کنید و حتماً اقدام نمایید ترس به خود راه ندهید خداوند به شما کمک خواهد کرد.",
+    581: "بد، با آنکه زحمتهای زیادی می‌کشید و آزارهای زیادی می‌بینید ولی نتیجه ای ندارد پشیمانی دارد حتماً ترک شود.",
+    583: "بسیاربسیارخوب، مشکلات شما کم می‌شود دریچه ای به خوشبختی و آسایش بر روی شما باز می‌شود در آینده شما تأثیر گذار است این کار را خداوند به ذهن شما انداخته است آن هم بخاطر احسانی که به کسی نموده‌اید نترسید و با اراده ای قوی اقدام کنید انشاءالله نتیجه بخش است مواظب باشید مرتکب حرام نشوید.",
+    585: "خوب، البته مشکلات زیادی دارد که به انجام دادن آن می‌ارزد باید تحمل کنید تا به نتیجه برسید سعی کنید حرفهایتان را برای کسی بازگو نکنید بعضی از اطرافیانتان تحمل پیشرفت شما را ندارند به خدا توکل کنید و مواظب باشید مرتکب حرام نشوید اقدام نمایید.",
+    587: "خوب، سختیهایی دارد که قابل تحمل است نتیجه بخش است به تجربه‌های شما افزوده می‌شود که در آینده به درد شما می‌خورد به خدا توکل کنید و اقدام نمایید.",
+    589: "بسیار بد، دچار مشکلات احتمالی می‌شوید خطرهای احتمالی درست است و گریبانگیر شما می‌شود درصورتی که بعضی از افراد اسرار دارند که شما این کار را انجام دهید گوش نکنید چون بعد که دچار شدید کاری از دست آنها بر نمی‌آید حتماً ترک شود.",
+    591: "میانه خوب، باید این کار را کاملاً سنجیده عمل کنید مشورت بیشتری کنید هنوز نکاتی بر شما مخفی مانده است بعد از روشن شدن آن مطالب خوب است درغیراین صورت بد است باید کاملاً مواظب باشید مرتکب حرام نشوید که ضربه می‌خورید.",
+    593: "بسیار بسیار خوب، انشاءالله نتیجه بخش است باید از تجربه‌های بدست آمده استفاده کنید و آنها را به کار ببندید مشکلاتی در این کار دیده می‌شود که به کمک خداوند و اراده قوی که دارید قابل حل شدن است برای نتیجه گیری به حضرت اباعبدالله الحسین علیه السلام متوسل شوید.",
+    595: "خوب، البته مشکلاتی دیده می‌شود که با مشورت با اهلش از آن مشکلات نجات پیدا می‌کنید سعی کنید با برنامه ریزی اقدام به این کار کنید و به نصیحت هایی که می‌شود اهمیت دهید به خدا توکل کنید و اقدام نمایید ومواظب باشید مرتکب حرام نشوید.",
+    597: "خوب، آینده خوبی دارد سبب راحتی شما و خلاصی شما از یک مشکل مهمی در زندگی خواهد شد به خدا توکل کنید و اقدام نمایید.",
+    599: "بسیارخوب، اگرچه باور نمی‌کنید لکن خداوند خیر شما را در انجام این کار قرار داده است خداوند به شما کمک خواهد کرد به خدا توکل کنید و اسرار شخصی خود را برای کسی بازگو نکنید سبب راحتی شما خواهد شد به خدا توکل کنید و اقدام نمایید.",
+    601: "بسیاربسیارخوب، البته باید برای نتیجه گیری مقداری صبر کنید و به امام زمان علیه السلام متوسل شوید مواظب باشید مرتکب حرام نشوید به خدا توکل کنید و اقدام نمایید.",
+    603: "میانه، درصورتی که کاملاً مواظب باشید مرتکب حرام نشوید و دروغی گفته نشود خوب است موارد حرام پیش می‌آید که باید کاملاً مواظب باشید درغیراین صورت بد است بهتر است فعلا اقدام نکنید و در موقعیت بعدی دوباره استخاره بگیرید."
+};
 
-            <!-- ✅ فیلد متنی برای تایپ حروف و اعداد -->
-            <input type="text" class="password-text-input" id="adminTextInput" 
-                   placeholder="🔤 رمز ادمین را تایپ کنید" 
-                   oninput="onAdminType(this.value)" 
-                   autocomplete="off" 
-                   spellcheck="false">
+// ================================================================
+// ابزارها
+// ================================================================
+function toEnglishNumber(str) {
+    if (!str) return '';
+    var map = {
+        '۰':'0','۱':'1','۲':'2','۳':'3','۴':'4','۵':'5','۶':'6','۷':'7','۸':'8','۹':'9',
+        '٠':'0','١':'1','٢':'2','٣':'3','٤':'4','٥':'5','٦':'6','٧':'7','٨':'8','٩':'9'
+    };
+    var result = '';
+    for (var i = 0; i < str.length; i++) {
+        var ch = str.charAt(i);
+        result += (map[ch] !== undefined) ? map[ch] : ch;
+    }
+    return result;
+}
 
-            <div class="password-display" id="adminPasswordDisplay">----</div>
+function getAllOddPages() {
+    var pages = [];
+    for (var i = 1; i <= 603; i += 2) pages.push(i);
+    return pages;
+}
+var allPages = getAllOddPages();
 
-            <div class="numpad">
-                <button onclick="addAdminDigit('1')">1</button>
-                <button onclick="addAdminDigit('2')">2</button>
-                <button onclick="addAdminDigit('3')">3</button>
-                <button onclick="addAdminDigit('4')">4</button>
-                <button onclick="addAdminDigit('5')">5</button>
-                <button onclick="addAdminDigit('6')">6</button>
-                <button onclick="addAdminDigit('7')">7</button>
-                <button onclick="addAdminDigit('8')">8</button>
-                <button onclick="addAdminDigit('9')">9</button>
-                <button onclick="clearAdminPassword()" style="background: rgba(239, 68, 68, 0.1); color: #ef4444;">✕</button>
-                <button class="zero" onclick="addAdminDigit('0')">0</button>
-                <button onclick="deleteAdminDigit()" style="background: rgba(245, 158, 11, 0.1); color: #f59e0b;">⌫</button>
-            </div>
+function saveAyah(page, value) {
+    try { localStorage.setItem('ayah_' + page, value); } catch(e) {}
+}
+function getAyah(page) {
+    try { return localStorage.getItem('ayah_' + page) || ''; } catch(e) { return ''; }
+}
 
-            <div class="modal-actions">
-                <button class="btn-cancel" onclick="closeAdminModal()">انصراف</button>
-                <button class="btn-confirm" onclick="submitAdminPassword()">🔓 تأیید</button>
-            </div>
-        </div>
-    </div>
+// ================================================================
+// فرمت‌دهی آیه به HTML رنگی
+// ================================================================
+function escapeHtml(text) {
+    var div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
 
-    <!-- ===== مودال تغییر رمز ===== -->
-    <div class="modal-overlay" id="changePasswordModal">
-        <div class="modal-box">
-            <div class="modal-icon" style="background: linear-gradient(135deg, #d97706, #fbbf24);">✏️</div>
-            <h3 class="modal-title" id="changePwTitle">تغییر رمز</h3>
-            <p class="modal-subtitle" id="changePwSubtitle">رمز جدید را وارد کنید</p>
+function formatAyahToHTML(text) {
+    if (!text) return '';
+    text = String(text).trim();
+    if (!text) return '';
 
-            <div class="form-group">
-                <label>رمز جدید</label>
-                <input type="text" id="newPassword" placeholder="رمز جدید" dir="ltr" style="direction: ltr; text-align: center; font-weight: 700; letter-spacing: 3px; font-size: 1.1rem;">
-            </div>
+    var match = text.match(/^([^\/]*)(\/)?([\s\S]*)$/);
+    if (!match) {
+        return '<span class="ayah-surah-text">' + escapeHtml(text) + '</span>';
+    }
 
-            <div class="form-group">
-                <label>تکرار رمز جدید</label>
-                <input type="text" id="confirmNewPassword" placeholder="تکرار رمز" dir="ltr" style="direction: ltr; text-align: center; font-weight: 700; letter-spacing: 3px; font-size: 1.1rem;">
-            </div>
+    var surah = (match[1] || '').trim();
+    var slash = match[2] || '';
+    var num = (match[3] || '').trim();
 
-            <div class="modal-actions">
-                <button class="btn-cancel" onclick="closeChangePasswordModal()">انصراف</button>
-                <button class="btn-confirm" onclick="submitChangePassword()">💾 ذخیره</button>
-            </div>
-        </div>
-    </div>
+    var html = '';
+    if (surah) html += '<span class="ayah-surah-text">' + escapeHtml(surah) + '</span>';
+    if (slash) html += '<span class="ayah-slash-text">' + slash + '</span>';
+    if (num) html += '<span class="ayah-num-text">' + escapeHtml(num) + '</span>';
+    return html;
+}
 
-    <script>
-        // ===== اطلاعات پیش‌فرض =====
-        var DEFAULT_PASSWORD = '1234';
-        var DEFAULT_ADMIN_PASSWORD = '@Mahdi110121';
+function formatAyahContent(editable) {
+    var text = (editable.textContent || '').trim();
+    var html = formatAyahToHTML(text);
+    if (editable.innerHTML !== html) {
+        editable.innerHTML = html;
+        try {
+            var range = document.createRange();
+            range.selectNodeContents(editable);
+            range.collapse(false);
+            var sel = window.getSelection();
+            sel.removeAllRanges();
+            sel.addRange(range);
+        } catch (e) {}
+    }
+}
 
-        var systems = [];
-        var adminPassword = DEFAULT_ADMIN_PASSWORD;
-        var currentPasswordInput = '';
-        var currentSystemId = null;
-        var editingSystemId = null;
-        var currentAdminInput = '';
-        var adminCallback = null;
-        var pendingConfirmCallback = null;
-        var changePasswordTarget = null;
+// ================================================================
+// کپی متن
+// ================================================================
+function copyText(text, btn) {
+    if (!text) return;
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(function() {
+            showCopySuccess(btn);
+        })['catch'](function() {
+            fallbackCopy(text, btn);
+        });
+    } else {
+        fallbackCopy(text, btn);
+    }
+}
 
-        var adminPwVisible = false;
-        var systemsPwVisible = {};
+function fallbackCopy(text, btn) {
+    try {
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.setAttribute('readonly', '');
+        ta.style.position = 'absolute';
+        ta.style.left = '-9999px';
+        ta.style.top = '0';
+        ta.style.fontSize = '16px';
+        document.body.appendChild(ta);
 
-        var availableIcons = [
-            '🕌', '🕋', '✡️', '✝️', '🕉️', '☸️', '☯️', '🛐', '📖', '📜',
-            '📊', '📈', '📉', '🎯', '🎨', '🔬', '🔭', '📚', '📝', '✏️',
-            '💼', '🏢', '🎓', '⚙️', '🔧', '💡', '🌟', '⭐', '🏆', '🥇',
-            '🗂️', '📁', '💾', '🖥️', '📱', '🌐', '🔐', '🗝️', '👥', '🌿',
-            '⚖️', '❤️', '🤝', '🎁', '🎉', '🔔', '📢', '🗞️', '📰', '🏛️'
-        ];
-
-        var availableColors = [
-            '#0a2540', '#1e4976', '#00a8e8', '#4dc3ff',
-            '#10b981', '#34d399', '#f59e0b', '#fbbf24',
-            '#ef4444', '#dc2626', '#8b5cf6', '#a78bfa',
-            '#ec4899', '#f472b6', '#16a085', '#1abc9c',
-            '#2c3e50', '#34495e', '#e67e22', '#d35400'
-        ];
-
-        // ===== بارگذاری =====
-        function loadFromStorage() {
-            try {
-                var stored = localStorage.getItem('sama_systems');
-                if (stored) systems = JSON.parse(stored);
-                var adminPw = localStorage.getItem('sama_admin_password');
-                if (adminPw) adminPassword = adminPw;
-                var version = localStorage.getItem('sama_version');
-                if (version) {
-                    document.getElementById('panelVersion').textContent = version;
-                    document.getElementById('footerVersion').textContent = version;
-                }
-            } catch (e) { console.error(e); }
-
-            if (systems.length === 0) {
-                systems = [{
-                    id: 'sys_' + Date.now(),
-                    name: 'فام: فرق، ادیان و مذاهب',
-                    description: 'سامانه ارزیابی و رتبه‌بندی مبلغین بر اساس شاخص‌های تخصصی علمی و مهارتی',
-                    category: 'مذهبی',
-                    url: 'fam.html',
-                    password: '1234',
-                    icon: '🕌',
-                    color: '#0a2540',
-                    favorite: true,
-                    logins: 0,
-                    lastLogin: null,
-                    order: 1
-                }];
-                saveToStorage();
-            }
-        }
-
-        function saveToStorage() {
-            try {
-                localStorage.setItem('sama_systems', JSON.stringify(systems));
-                localStorage.setItem('sama_admin_password', adminPassword);
-            } catch (e) { console.error(e); }
-        }
-
-        // ===== حالت شب =====
-        function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
-            var isDark = document.body.classList.contains('dark-mode');
-            document.getElementById('darkModeBtn').textContent = isDark ? '☀️' : '🌙';
-            try { localStorage.setItem('sama_dark_mode', isDark ? '1' : '0'); } catch (e) {}
-        }
-
-        function loadDarkMode() {
-            try {
-                if (localStorage.getItem('sama_dark_mode') === '1') {
-                    document.body.classList.add('dark-mode');
-                    document.getElementById('darkModeBtn').textContent = '☀️';
-                }
-            } catch (e) {}
-        }
-
-        // ===== نوتیفیکیشن =====
-        function showNotification(message, type) {
-            type = type || 'success';
-            var notif = document.createElement('div');
-            notif.className = 'notification ' + type;
-            notif.textContent = message;
-            document.body.appendChild(notif);
-            setTimeout(function() {
-                notif.style.transition = 'all 0.3s ease';
-                notif.style.transform = 'translateX(-150%)';
-                notif.style.opacity = '0';
-                setTimeout(function() { notif.remove(); }, 300);
-            }, 3000);
-        }
-
-        // ===== رندر =====
-        function renderSystems() {
-            var grid = document.getElementById('systemsGrid');
-            var search = document.getElementById('searchBox').value.trim().toLowerCase();
-            var categoryFilter = document.getElementById('categoryFilter').value;
-
-            var filtered = systems.filter(function(s) {
-                if (categoryFilter && s.category !== categoryFilter) return false;
-                if (!search) return true;
-                return s.name.toLowerCase().includes(search) ||
-                       (s.description || '').toLowerCase().includes(search) ||
-                       (s.category || '').toLowerCase().includes(search);
-            });
-
-            filtered.sort(function(a, b) {
-                if (a.favorite && !b.favorite) return -1;
-                if (!a.favorite && b.favorite) return 1;
-                return (a.order || 0) - (b.order || 0);
-            });
-
-            document.getElementById('statTotal').textContent = systems.length;
-            document.getElementById('statLogins').textContent = systems.reduce(function(sum, s) { return sum + (s.logins || 0); }, 0);
-            document.getElementById('statFavorites').textContent = systems.filter(function(s) { return s.favorite; }).length;
-            var cats = {};
-            systems.forEach(function(s) { if (s.category) cats[s.category] = true; });
-            document.getElementById('statCategories').textContent = Object.keys(cats).length;
-
-            updateCategoryFilter();
-
-            if (filtered.length === 0) {
-                grid.innerHTML = '<div class="empty-state"><div class="icon">📭</div><h3>' + 
-                    (systems.length === 0 ? 'هنوز سامانه‌ای اضافه نشده' : 'نتیجه‌ای یافت نشد') +
-                    '</h3><p>' + (systems.length === 0 ? 'روی «افزودن سامانه جدید» کلیک کنید' : 'جستجو یا فیلتر را تغییر دهید') + '</p></div>';
-                return;
-            }
-
-            var html = '';
-            filtered.forEach(function(s) {
-                var favClass = s.favorite ? ' favorite' : '';
-                var lastLogin = s.lastLogin ? '<span>🕒 ' + s.lastLogin + '</span>' : '<span>🕒 هرگز</span>';
-                html += '<div class="system-card' + favClass + '" onclick="openPasswordModal(\'' + s.id + '\')">' +
-                    '<div class="system-header">' +
-                        '<div class="system-icon" style="background: linear-gradient(135deg, ' + s.color + ', ' + lightenColor(s.color, 30) + ');">' + s.icon + '</div>' +
-                        '<div class="system-actions" onclick="event.stopPropagation()">' +
-                            '<button class="action-btn fav-btn" onclick="toggleFavorite(\'' + s.id + '\')" title="' + (s.favorite ? 'حذف از علاقه‌مندی' : 'افزودن به علاقه‌مندی') + '">' + (s.favorite ? '⭐' : '☆') + '</button>' +
-                            '<button class="action-btn move-btn" onclick="moveSystem(\'' + s.id + '\', -1)" title="بالا">⬆️</button>' +
-                            '<button class="action-btn move-btn" onclick="moveSystem(\'' + s.id + '\', 1)" title="پایین">⬇️</button>' +
-                            '<button class="action-btn move-btn" onclick="editSystem(\'' + s.id + '\')" title="ویرایش">✏️</button>' +
-                            '<button class="action-btn del-btn" onclick="deleteSystem(\'' + s.id + '\')" title="حذف">🗑️</button>' +
-                        '</div>' +
-                    '</div>' +
-                    '<div class="system-title">' + escapeHtml(s.name) + '</div>' +
-                    (s.category ? '<div class="system-category">📁 ' + escapeHtml(s.category) + '</div>' : '') +
-                    '<div class="system-desc">' + escapeHtml(s.description || 'بدون توضیحات') + '</div>' +
-                    '<div class="system-footer">' +
-                        '<div class="system-meta">' +
-                            '<span>👁️ ' + (s.logins || 0) + ' بار</span>' +
-                            '<span>|</span>' +
-                            lastLogin +
-                        '</div>' +
-                        '<button class="enter-btn" onclick="event.stopPropagation(); openPasswordModal(\'' + s.id + '\')">🔓 ورود</button>' +
-                    '</div>' +
-                '</div>';
-            });
-            grid.innerHTML = html;
-        }
-
-        function escapeHtml(text) {
-            if (!text) return '';
-            return String(text).replace(/[&<>"']/g, function(m) {
-                return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m];
-            });
-        }
-
-        function lightenColor(hex, percent) {
-            var num = parseInt(hex.replace('#', ''), 16);
-            var amt = Math.round(2.55 * percent);
-            var R = Math.min(255, (num >> 16) + amt);
-            var G = Math.min(255, ((num >> 8) & 0x00FF) + amt);
-            var B = Math.min(255, (num & 0x0000FF) + amt);
-            return '#' + (0x1000000 + R * 0x10000 + G * 0x100 + B).toString(16).slice(1);
-        }
-
-        function updateCategoryFilter() {
-            var cats = {};
-            systems.forEach(function(s) { if (s.category) cats[s.category] = true; });
-            var select = document.getElementById('categoryFilter');
-            var currentVal = select.value;
-            select.innerHTML = '<option value="">همه دسته‌بندی‌ها</option>' +
-                Object.keys(cats).sort().map(function(c) { return '<option value="' + escapeHtml(c) + '">' + escapeHtml(c) + '</option>'; }).join('');
-            if (cats[currentVal]) select.value = currentVal;
-
-            var datalist = document.getElementById('categoryList');
-            if (datalist) {
-                datalist.innerHTML = Object.keys(cats).map(function(c) { return '<option value="' + escapeHtml(c) + '">'; }).join('');
-            }
-        }
-
-        // ===== مودال رمز سامانه =====
-        function openPasswordModal(systemId) {
-            var s = systems.find(function(x) { return x.id === systemId; });
-            if (!s) return;
-
-            currentSystemId = systemId;
-            currentPasswordInput = '';
-
-            document.getElementById('pwModalIcon').textContent = s.icon;
-            document.getElementById('pwModalIcon').style.background = 'linear-gradient(135deg, ' + s.color + ', ' + lightenColor(s.color, 30) + ')';
-            document.getElementById('pwModalTitle').textContent = s.name;
-            document.getElementById('pwModalSubtitle').textContent = 'رمز اختصاصی این سامانه را وارد کنید';
-            document.getElementById('passwordDisplay').textContent = '----';
-            document.getElementById('passwordTextInput').value = '';
-            document.getElementById('passwordModal').classList.add('active');
-
-            // فوکوس خودکار روی فیلد متنی
-            setTimeout(function() { 
-                var input = document.getElementById('passwordTextInput');
-                if (input) input.focus();
-            }, 150);
-        }
-
-        function closePasswordModal() {
-            document.getElementById('passwordModal').classList.remove('active');
-            currentPasswordInput = '';
-            currentSystemId = null;
-        }
-
-        // ✅ همگام‌سازی فیلد متنی با numpad
-        function onPasswordType(value) {
-            currentPasswordInput = value;
-            updatePasswordDisplay();
-        }
-
-        function addDigit(d) {
-            if (currentPasswordInput.length < 30) {
-                currentPasswordInput += d;
-                document.getElementById('passwordTextInput').value = currentPasswordInput;
-                updatePasswordDisplay();
-            }
-        }
-
-        function deleteDigit() {
-            currentPasswordInput = currentPasswordInput.slice(0, -1);
-            document.getElementById('passwordTextInput').value = currentPasswordInput;
-            updatePasswordDisplay();
-        }
-
-        function clearPassword() {
-            currentPasswordInput = '';
-            document.getElementById('passwordTextInput').value = '';
-            updatePasswordDisplay();
-        }
-
-        function updatePasswordDisplay() {
-            if (currentPasswordInput.length === 0) {
-                document.getElementById('passwordDisplay').textContent = '----';
-            } else {
-                document.getElementById('passwordDisplay').textContent = currentPasswordInput.split('').map(function() { return '●'; }).join('');
-            }
-        }
-
-        function submitPassword() {
-            var s = systems.find(function(x) { return x.id === currentSystemId; });
-            if (!s) return;
-
-            if (currentPasswordInput === (s.password || DEFAULT_PASSWORD)) {
-                s.logins = (s.logins || 0) + 1;
-                s.lastLogin = new Date().toLocaleDateString('fa-IR');
-                saveToStorage();
-
-                closePasswordModal();
-                showNotification('✅ ورود موفق! در حال باز کردن سامانه...', 'success');
-
-                setTimeout(function() {
-                    if (s.url) {
-                        window.open(s.url, '_blank');
-                    } else {
-                        showNotification('⚠️ آدرس سامانه تنظیم نشده', 'error');
-                    }
-                }, 800);
-            } else {
-                showNotification('❌ رمز اشتباه است!', 'error');
-                currentPasswordInput = '';
-                document.getElementById('passwordTextInput').value = '';
-                updatePasswordDisplay();
-            }
-        }
-
-        // ===== پنل مدیر رمزها =====
-        function openPasswordManager() {
-            requestAdminAccess(function() {
-                renderPasswordTable();
-                document.getElementById('passwordManagerModal').classList.add('active');
-            });
-        }
-
-        function closePasswordManager() {
-            document.getElementById('passwordManagerModal').classList.remove('active');
-            adminPwVisible = false;
-            systemsPwVisible = {};
-        }
-
-        function renderPasswordTable() {
-            var adminCell = document.getElementById('adminPasswordCell');
-            if (adminPwVisible) {
-                adminCell.textContent = adminPassword;
-                adminCell.classList.remove('hidden');
-                document.getElementById('adminPwToggleBtn').textContent = '🙈';
-            } else {
-                adminCell.textContent = '••••••••';
-                adminCell.classList.add('hidden');
-                document.getElementById('adminPwToggleBtn').textContent = '👁️';
-            }
-
-            var tbody = document.getElementById('passwordTableBody');
-            if (systems.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="3" style="text-align: center; padding: 30px; color: #95a5a6;">هنوز سامانه‌ای ثبت نشده است</td></tr>';
-                return;
-            }
-
-            var html = '';
-            systems.forEach(function(s) {
-                var isVisible = systemsPwVisible[s.id];
-                var pwDisplay = isVisible ? escapeHtml(s.password || DEFAULT_PASSWORD) : '••••••••';
-                var pwClass = isVisible ? 'password-cell' : 'password-cell hidden';
-                html += '<tr>' +
-                    '<td>' +
-                        '<div class="sys-name-cell">' +
-                            '<div class="sys-icon-mini" style="background: linear-gradient(135deg, ' + s.color + ', ' + lightenColor(s.color, 30) + ');">' + s.icon + '</div>' +
-                            '<span>' + escapeHtml(s.name) + '</span>' +
-                        '</div>' +
-                    '</td>' +
-                    '<td class="' + pwClass + '" id="pw-cell-' + s.id + '">' + pwDisplay + '</td>' +
-                    '<td style="text-align: center;">' +
-                        '<button class="pw-action-btn show-btn" onclick="toggleSystemPassword(\'' + s.id + '\')" title="نمایش/مخفی">' + (isVisible ? '🙈' : '👁️') + '</button>' +
-                        '<button class="pw-action-btn copy-btn" onclick="copySystemPassword(\'' + s.id + '\')" title="کپی">📋</button>' +
-                        '<button class="pw-action-btn edit-btn" onclick="changeSystemPassword(\'' + s.id + '\')" title="تغییر">✏️</button>' +
-                        '<button class="pw-action-btn reset-btn" onclick="resetSystemPassword(\'' + s.id + '\')" title="بازنشانی به 1234">🔄</button>' +
-                    '</td>' +
-                '</tr>';
-            });
-            tbody.innerHTML = html;
-        }
-
-        function toggleAdminPasswordVisibility() {
-            adminPwVisible = !adminPwVisible;
-            renderPasswordTable();
-        }
-
-        function toggleSystemPassword(systemId) {
-            systemsPwVisible[systemId] = !systemsPwVisible[systemId];
-            renderPasswordTable();
-        }
-
-        function copyAdminPassword() {
-            copyToClipboard(adminPassword, 'رمز ادمین کپی شد');
-        }
-
-        function copySystemPassword(systemId) {
-            var s = systems.find(function(x) { return x.id === systemId; });
-            if (!s) return;
-            copyToClipboard(s.password || DEFAULT_PASSWORD, 'رمز «' + s.name + '» کپی شد');
-        }
-
-        function copyToClipboard(text, successMsg) {
-            if (navigator.clipboard) {
-                navigator.clipboard.writeText(text).then(function() {
-                    showNotification('📋 ' + successMsg, 'success');
-                }).catch(function() {
-                    fallbackCopy(text, successMsg);
-                });
-            } else {
-                fallbackCopy(text, successMsg);
-            }
-        }
-
-        function fallbackCopy(text, successMsg) {
-            var ta = document.createElement('textarea');
-            ta.value = text;
-            ta.style.position = 'fixed';
-            ta.style.opacity = '0';
-            document.body.appendChild(ta);
+        if (navigator.userAgent.match(/ipad|iphone/i)) {
+            var range = document.createRange();
+            range.selectNodeContents(ta);
+            var sel = window.getSelection();
+            sel.removeAllRanges();
+            sel.addRange(range);
+            ta.setSelectionRange(0, 999999);
+        } else {
             ta.select();
-            try {
-                document.execCommand('copy');
-                showNotification('📋 ' + successMsg, 'success');
-            } catch (e) {
-                showNotification('❌ کپی نشد', 'error');
-            }
-            document.body.removeChild(ta);
+            ta.setSelectionRange(0, 999999);
         }
 
-        function changeAdminPassword() {
-            changePasswordTarget = 'admin';
-            document.getElementById('changePwTitle').textContent = 'تغییر رمز ادمین';
-            document.getElementById('changePwSubtitle').textContent = 'رمز جدید ادمین را وارد کنید';
-            document.getElementById('newPassword').value = '';
-            document.getElementById('confirmNewPassword').value = '';
-            document.getElementById('changePasswordModal').classList.add('active');
+        var ok = document.execCommand('copy');
+        document.body.removeChild(ta);
+
+        if (ok) {
+            showCopySuccess(btn);
+        } else {
+            showCopyError(btn);
         }
+    } catch(e) {
+        showCopyError(btn);
+    }
+}
 
-        function changeSystemPassword(systemId) {
-            var s = systems.find(function(x) { return x.id === systemId; });
-            if (!s) return;
-            changePasswordTarget = systemId;
-            document.getElementById('changePwTitle').textContent = 'تغییر رمز «' + s.name + '»';
-            document.getElementById('changePwSubtitle').textContent = 'رمز جدید سامانه را وارد کنید';
-            document.getElementById('newPassword').value = '';
-            document.getElementById('confirmNewPassword').value = '';
-            document.getElementById('changePasswordModal').classList.add('active');
-        }
+function showCopySuccess(btn) {
+    var origHTML = btn.innerHTML;
+    btn.classList.add('copied');
+    btn.innerHTML = '<span class="icon">✅</span> کپی شد!';
+    setTimeout(function() {
+        btn.classList.remove('copied');
+        btn.innerHTML = origHTML;
+    }, 1800);
+}
 
-        function closeChangePasswordModal() {
-            document.getElementById('changePasswordModal').classList.remove('active');
-            changePasswordTarget = null;
-        }
+function showCopyError(btn) {
+    var origHTML = btn.innerHTML;
+    btn.innerHTML = '<span class="icon">❌</span> خطا در کپی';
+    setTimeout(function() {
+        btn.innerHTML = origHTML;
+    }, 1800);
+}
 
-        function submitChangePassword() {
-            var newPw = document.getElementById('newPassword').value.trim();
-            var confirmPw = document.getElementById('confirmNewPassword').value.trim();
+function showError(msg) {
+    var el = document.getElementById('errorMsg');
+    el.textContent = msg;
+    el.classList.add('show');
+    setTimeout(function() { el.classList.remove('show'); }, 3000);
+}
 
-            if (!newPw) {
-                showNotification('❌ رمز جدید را وارد کنید', 'error');
-                return;
-            }
-            if (newPw.length < 3) {
-                showNotification('❌ رمز باید حداقل 3 کاراکتر باشد', 'error');
-                return;
-            }
-            if (newPw !== confirmPw) {
-                showNotification('❌ رمزها یکسان نیستند', 'error');
-                return;
-            }
+// ================================================================
+// ساخت کارت نتیجه
+// ================================================================
+function createCard(page, index) {
+    var text = explanations[page] || '';
 
-            if (changePasswordTarget === 'admin') {
-                adminPassword = newPw;
-                showNotification('✅ رمز ادمین تغییر کرد', 'success');
-            } else {
-                var s = systems.find(function(x) { return x.id === changePasswordTarget; });
-                if (s) {
-                    s.password = newPw;
-                    showNotification('✅ رمز «' + s.name + '» تغییر کرد', 'success');
-                }
-            }
+    var card = document.createElement('div');
+    card.className = 'result-card';
 
-            saveToStorage();
-            renderPasswordTable();
-            closeChangePasswordModal();
-        }
+    // ---- ردیف ۱: صفحه + آیه ----
+    var row1 = document.createElement('div');
+    row1.className = 'card-row-1';
 
-        function resetSystemPassword(systemId) {
-            var s = systems.find(function(x) { return x.id === systemId; });
-            if (!s) return;
-            showConfirm('بازنشانی رمز', 'رمز «' + s.name + '» به 1234 بازگردانی شود؟', function() {
-                s.password = DEFAULT_PASSWORD;
-                saveToStorage();
-                renderPasswordTable();
-                showNotification('🔄 رمز به 1234 بازنشانی شد', 'info');
+    var pageBadge = document.createElement('div');
+    pageBadge.className = 'page-badge';
+    pageBadge.innerHTML = '<span class="label">صفحه:</span> <span class="value">' + page + '</span>';
+    row1.appendChild(pageBadge);
+
+    var ayahWrap = document.createElement('div');
+    ayahWrap.className = 'ayah-input-wrap';
+
+    var ayahLabel = document.createElement('label');
+    ayahLabel.innerHTML = '📖 آیه:';
+    ayahWrap.appendChild(ayahLabel);
+
+    // ---- فیلد آیه رنگی ----
+    var ayahComposite = document.createElement('div');
+    ayahComposite.className = 'ayah-composite';
+
+    var ayahEditable = document.createElement('div');
+    ayahEditable.className = 'ayah-editable';
+    ayahEditable.contentEditable = 'true';
+    ayahEditable.setAttribute('data-page', page);
+    ayahEditable.setAttribute('data-placeholder', 'بقره/۶');
+    ayahEditable.setAttribute('spellcheck', 'false');
+
+    var savedValue = getAyah(page);
+    if (savedValue) {
+        ayahEditable.innerHTML = formatAyahToHTML(savedValue);
+    }
+
+    var isComposing = false;
+    ayahEditable.addEventListener('compositionstart', function() { isComposing = true; });
+    ayahEditable.addEventListener('compositionend', function() {
+        isComposing = false;
+        formatAyahContent(ayahEditable);
+        saveAyah(page, ayahEditable.textContent || '');
+    });
+
+    ayahEditable.addEventListener('input', function() {
+        if (isComposing) return;
+        formatAyahContent(this);
+        saveAyah(page, this.textContent || '');
+    });
+
+    ayahEditable.addEventListener('paste', function(e) {
+        e.preventDefault();
+        var text = (e.clipboardData || window.clipboardData).getData('text');
+        text = (text || '').replace(/[\r\n\t]+/g, ' ').trim();
+        document.execCommand('insertText', false, text);
+    });
+
+    ayahEditable.addEventListener('blur', function() {
+        formatAyahContent(this);
+        saveAyah(page, this.textContent || '');
+    });
+
+    ayahComposite.appendChild(ayahEditable);
+    ayahWrap.appendChild(ayahComposite);
+    row1.appendChild(ayahWrap);
+    card.appendChild(row1);
+
+    // ---- ردیف ۲: توضیحات ----
+    var row2 = document.createElement('div');
+    row2.className = 'card-row-2';
+
+    var label = document.createElement('div');
+    label.className = 'card-label';
+    label.innerHTML = '✨ توضیحات استخاره';
+    row2.appendChild(label);
+
+    var textDiv = document.createElement('div');
+    textDiv.className = 'card-text';
+    if (text.trim() !== '') {
+        textDiv.textContent = text;
+    } else {
+        textDiv.textContent = 'توضیحاتی برای این صفحه ثبت نشده است.';
+        textDiv.classList.add('empty');
+    }
+    row2.appendChild(textDiv);
+    card.appendChild(row2);
+
+    // ---- ردیف ۳: دکمه کپی ----
+    if (text.trim() !== '') {
+        var row3 = document.createElement('div');
+        row3.className = 'card-row-3';
+
+        var copyBtn = document.createElement('button');
+        copyBtn.type = 'button';
+        copyBtn.className = 'copy-btn';
+        copyBtn.innerHTML = '<span class="icon">📋</span> کپی توضیحات';
+
+        (function(txt, b) {
+            b.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                copyText(txt, b);
             });
+        })(text, copyBtn);
+
+        row3.appendChild(copyBtn);
+        card.appendChild(row3);
+    }
+
+    return card;
+}
+
+// ================================================================
+// رندر
+// ================================================================
+function renderResult(filterPage) {
+    var container = document.getElementById('cardsContainer');
+    var counter = document.getElementById('resultCounter');
+    var resultArea = document.getElementById('resultArea');
+
+    resultArea.classList.add('hidden-section');
+    resultArea.classList.remove('visible-section');
+
+    var filteredPages = [];
+    if (filterPage !== null && !isNaN(filterPage) && filterPage > 0) {
+        if (filterPage % 2 === 1 && allPages.indexOf(filterPage) !== -1) {
+            filteredPages = [filterPage];
         }
+    }
 
-        function resetAllPasswords() {
-            showConfirm('بازنشانی همه رمزها', 'همه رمزهای سامانه‌ها به 1234 بازگردانی شوند؟', function() {
-                systems.forEach(function(s) { s.password = DEFAULT_PASSWORD; });
-                saveToStorage();
-                renderPasswordTable();
-                showNotification('🔄 همه رمزها به 1234 بازنشانی شد', 'success');
-            });
+    if (filteredPages.length === 0) {
+        container.innerHTML = '<div class="no-result">❌ صفحه‌ای با این شماره پیدا نشد.<br><small style="font-size:14px;color:#999;">فقط صفحات فرد ۱ تا ۶۰۳</small></div>';
+        counter.textContent = 'نتیجه‌ای یافت نشد';
+        resultArea.classList.add('visible-section');
+        return;
+    }
+
+    counter.textContent = 'صفحه ' + filteredPages[0];
+    container.innerHTML = '';
+
+    filteredPages.forEach(function(page, i) {
+        container.appendChild(createCard(page, i));
+    });
+
+    resultArea.classList.add('visible-section');
+}
+
+// ================================================================
+// جستجو
+// ================================================================
+function searchPage() {
+    var input = document.getElementById('pageSearch');
+    var raw = (input.value || '').toString().trim();
+    if (!raw) { showError('لطفاً عدد صفحه را وارد کنید.'); return; }
+
+    var eng = toEnglishNumber(raw);
+    var cleaned = eng.replace(/[^0-9]/g, '');
+
+    if (!cleaned) { showError('لطفاً فقط عدد وارد کنید.'); return; }
+
+    var val = parseInt(cleaned, 10);
+    if (isNaN(val) || val < 1 || val > 603) {
+        showError('عدد باید بین ۱ تا ۶۰۳ باشد.');
+        return;
+    }
+    renderResult(val);
+}
+
+// ================================================================
+// اتصال رویدادها
+// ================================================================
+function bindEvents() {
+    var input = document.getElementById('pageSearch');
+    var btn = document.getElementById('searchBtn');
+    if (!input || !btn) return;
+
+    btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        searchPage();
+    });
+
+    input.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.keyCode === 13) {
+            e.preventDefault();
+            searchPage();
         }
+    });
 
-        // ===== مودال افزودن/ویرایش =====
-        function openAddModal() {
-            requestAdminAccess(function() {
-                editingSystemId = null;
-                document.getElementById('sysModalIcon').textContent = '➕';
-                document.getElementById('sysModalTitle').textContent = 'افزودن سامانه جدید';
-                document.getElementById('sysModalSubtitle').textContent = 'اطلاعات سامانه را وارد کنید';
-                document.getElementById('sysName').value = '';
-                document.getElementById('sysDesc').value = '';
-                document.getElementById('sysCategory').value = '';
-                document.getElementById('sysUrl').value = '';
-                document.getElementById('sysPassword').value = DEFAULT_PASSWORD;
-                buildIconPicker();
-                buildColorPicker();
-                document.getElementById('systemModal').classList.add('active');
-            });
+    input.addEventListener('keyup', function(e) {
+        if (e.key === 'Enter' || e.keyCode === 13) {
+            e.preventDefault();
+            searchPage();
         }
+    });
+}
 
-        function editSystem(systemId) {
-            requestAdminAccess(function() {
-                var s = systems.find(function(x) { return x.id === systemId; });
-                if (!s) return;
-                editingSystemId = systemId;
-                document.getElementById('sysModalIcon').textContent = s.icon;
-                document.getElementById('sysModalIcon').style.background = 'linear-gradient(135deg, ' + s.color + ', ' + lightenColor(s.color, 30) + ')';
-                document.getElementById('sysModalTitle').textContent = 'ویرایش سامانه';
-                document.getElementById('sysModalSubtitle').textContent = 'اطلاعات را تغییر دهید';
-                document.getElementById('sysName').value = s.name;
-                document.getElementById('sysDesc').value = s.description || '';
-                document.getElementById('sysCategory').value = s.category || '';
-                document.getElementById('sysUrl').value = s.url || '';
-                document.getElementById('sysPassword').value = s.password || DEFAULT_PASSWORD;
-                buildIconPicker(s.icon);
-                buildColorPicker(s.color);
-                document.getElementById('systemModal').classList.add('active');
-            });
-        }
-
-        function closeSystemModal() {
-            document.getElementById('systemModal').classList.remove('active');
-            editingSystemId = null;
-        }
-
-        function buildIconPicker(selectedIcon) {
-            var picker = document.getElementById('iconPicker');
-            var currentSelected = selectedIcon || '📊';
-            picker.innerHTML = availableIcons.map(function(icon) {
-                var sel = icon === currentSelected ? ' selected' : '';
-                return '<div class="icon-option' + sel + '" onclick="selectIcon(\'' + icon + '\', this)">' + icon + '</div>';
-            }).join('');
-            picker.setAttribute('data-selected', currentSelected);
-        }
-
-        function selectIcon(icon, el) {
-            document.querySelectorAll('#iconPicker .icon-option').forEach(function(x) { x.classList.remove('selected'); });
-            el.classList.add('selected');
-            document.getElementById('iconPicker').setAttribute('data-selected', icon);
-            document.getElementById('sysModalIcon').textContent = icon;
-        }
-
-        function buildColorPicker(selectedColor) {
-            var picker = document.getElementById('colorPicker');
-            var currentSelected = selectedColor || '#0a2540';
-            picker.innerHTML = availableColors.map(function(color) {
-                var sel = color === currentSelected ? ' selected' : '';
-                return '<div class="color-option' + sel + '" style="background: ' + color + ';" onclick="selectColor(\'' + color + '\', this)"></div>';
-            }).join('');
-            picker.setAttribute('data-selected', currentSelected);
-        }
-
-        function selectColor(color, el) {
-            document.querySelectorAll('#colorPicker .color-option').forEach(function(x) { x.classList.remove('selected'); });
-            el.classList.add('selected');
-            document.getElementById('colorPicker').setAttribute('data-selected', color);
-            document.getElementById('sysModalIcon').style.background = 'linear-gradient(135deg, ' + color + ', ' + lightenColor(color, 30) + ')';
-        }
-
-        function saveSystem() {
-            var name = document.getElementById('sysName').value.trim();
-            var desc = document.getElementById('sysDesc').value.trim();
-            var category = document.getElementById('sysCategory').value.trim();
-            var url = document.getElementById('sysUrl').value.trim();
-            var password = document.getElementById('sysPassword').value.trim() || DEFAULT_PASSWORD;
-            var icon = document.getElementById('iconPicker').getAttribute('data-selected') || '📊';
-            var color = document.getElementById('colorPicker').getAttribute('data-selected') || '#0a2540';
-
-            if (!name) {
-                showNotification('❌ نام سامانه الزامی است', 'error');
-                return;
-            }
-
-            if (editingSystemId) {
-                var s = systems.find(function(x) { return x.id === editingSystemId; });
-                if (!s) return;
-                s.name = name;
-                s.description = desc;
-                s.category = category;
-                s.url = url;
-                s.password = password;
-                s.icon = icon;
-                s.color = color;
-                showNotification('✅ سامانه ویرایش شد', 'success');
-            } else {
-                var newSystem = {
-                    id: 'sys_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6),
-                    name: name,
-                    description: desc,
-                    category: category,
-                    url: url,
-                    password: password,
-                    icon: icon,
-                    color: color,
-                    favorite: false,
-                    logins: 0,
-                    lastLogin: null,
-                    order: systems.length + 1,
-                    createdAt: new Date().toISOString()
-                };
-                systems.push(newSystem);
-                showNotification('✅ سامانه جدید اضافه شد', 'success');
-            }
-
-            saveToStorage();
-            renderSystems();
-            closeSystemModal();
-        }
-
-        // ===== حذف =====
-        function deleteSystem(systemId) {
-            requestAdminAccess(function() {
-                var s = systems.find(function(x) { return x.id === systemId; });
-                if (!s) return;
-                showConfirm('حذف سامانه', 'آیا از حذف «' + s.name + '» اطمینان دارید؟', function() {
-                    systems = systems.filter(function(x) { return x.id !== systemId; });
-                    saveToStorage();
-                    renderSystems();
-                    showNotification('🗑️ سامانه حذف شد', 'info');
-                });
-            });
-        }
-
-        // ===== جابجایی =====
-        function moveSystem(systemId, direction) {
-            var sorted = systems.slice().sort(function(a, b) {
-                if (a.favorite && !b.favorite) return -1;
-                if (!a.favorite && b.favorite) return 1;
-                return (a.order || 0) - (b.order || 0);
-            });
-            var idx = sorted.findIndex(function(s) { return s.id === systemId; });
-            if (idx === -1) return;
-            var newIdx = idx + direction;
-            if (newIdx < 0 || newIdx >= sorted.length) return;
-            var temp = sorted[idx];
-            sorted[idx] = sorted[newIdx];
-            sorted[newIdx] = temp;
-            sorted.forEach(function(s, i) { s.order = i + 1; });
-            saveToStorage();
-            renderSystems();
-        }
-
-        // ===== علاقه‌مندی =====
-        function toggleFavorite(systemId) {
-            var s = systems.find(function(x) { return x.id === systemId; });
-            if (!s) return;
-            s.favorite = !s.favorite;
-            saveToStorage();
-            renderSystems();
-            showNotification(s.favorite ? '⭐ به علاقه‌مندی‌ها اضافه شد' : 'حذف از علاقه‌مندی‌ها', 'info');
-        }
-
-        // ===== رمز ادمین =====
-        function requestAdminAccess(callback) {
-            adminCallback = callback;
-            currentAdminInput = '';
-            document.getElementById('adminPasswordDisplay').textContent = '----';
-            document.getElementById('adminTextInput').value = '';
-            document.getElementById('adminModal').classList.add('active');
-            
-            // فوکوس خودکار روی فیلد
-            setTimeout(function() {
-                var input = document.getElementById('adminTextInput');
-                if (input) input.focus();
-            }, 150);
-        }
-
-        function closeAdminModal() {
-            document.getElementById('adminModal').classList.remove('active');
-            currentAdminInput = '';
-            adminCallback = null;
-        }
-
-        // ✅ همگام‌سازی فیلد متنی ادمین
-        function onAdminType(value) {
-            currentAdminInput = value;
-            var display = currentAdminInput.length === 0 ? '----' : currentAdminInput.split('').map(function() { return '●'; }).join('');
-            document.getElementById('adminPasswordDisplay').textContent = display;
-        }
-
-        function addAdminDigit(d) {
-            if (currentAdminInput.length < 30) {
-                currentAdminInput += d;
-                document.getElementById('adminTextInput').value = currentAdminInput;
-                var display = currentAdminInput.length === 0 ? '----' : currentAdminInput.split('').map(function() { return '●'; }).join('');
-                document.getElementById('adminPasswordDisplay').textContent = display;
-            }
-        }
-
-        function deleteAdminDigit() {
-            currentAdminInput = currentAdminInput.slice(0, -1);
-            document.getElementById('adminTextInput').value = currentAdminInput;
-            var display = currentAdminInput.length === 0 ? '----' : currentAdminInput.split('').map(function() { return '●'; }).join('');
-            document.getElementById('adminPasswordDisplay').textContent = display;
-        }
-
-        function clearAdminPassword() {
-            currentAdminInput = '';
-            document.getElementById('adminTextInput').value = '';
-            document.getElementById('adminPasswordDisplay').textContent = '----';
-        }
-
-        function submitAdminPassword() {
-            if (currentAdminInput === adminPassword) {
-                var cb = adminCallback;
-                closeAdminModal();
-                if (cb) cb();
-            } else {
-                showNotification('❌ رمز ادمین اشتباه است!', 'error');
-                clearAdminPassword();
-            }
-        }
-
-        // ===== تأیید =====
-        function showConfirm(title, message, callback) {
-            document.getElementById('confirmTitle').textContent = title;
-            document.getElementById('confirmMessage').textContent = message;
-            pendingConfirmCallback = callback;
-            document.getElementById('confirmModal').classList.add('active');
-        }
-
-        function closeConfirmModal() {
-            document.getElementById('confirmModal').classList.remove('active');
-            pendingConfirmCallback = null;
-        }
-
-        function confirmAction() {
-            var cb = pendingConfirmCallback;
-            closeConfirmModal();
-            if (cb) cb();
-        }
-
-        // ===== پاک کردن همه =====
-        function openClearModal() {
-            requestAdminAccess(function() {
-                showConfirm('پاک کردن همه اطلاعات', 'آیا از پاک کردن تمام سامانه‌ها اطمینان دارید؟', function() {
-                    systems = [];
-                    saveToStorage();
-                    renderSystems();
-                    showNotification('🗑️ همه اطلاعات پاک شد', 'info');
-                });
-            });
-        }
-
-        // ===== پشتیبان =====
-        function backupData() {
-            if (systems.length === 0) {
-                showNotification('⚠️ اطلاعاتی برای پشتیبان‌گیری وجود ندارد', 'error');
-                return;
-            }
-            var data = {
-                version: '3',
-                date: new Date().toISOString(),
-                systems: systems,
-                adminPassword: adminPassword
-            };
-            var blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-            var url = URL.createObjectURL(blob);
-            var a = document.createElement('a');
-            a.href = url;
-            a.download = 'sama_backup_' + new Date().toISOString().split('T')[0] + '.json';
-            a.click();
-            URL.revokeObjectURL(url);
-            showNotification('💾 پشتیبان‌گیری انجام شد', 'success');
-        }
-
-        // ===== بازیابی =====
-        function restoreData() {
-            var input = document.createElement('input');
-            input.type = 'file';
-            input.accept = '.json';
-            input.onchange = function(e) {
-                var file = e.target.files[0];
-                if (!file) return;
-                var reader = new FileReader();
-                reader.onload = function(evt) {
-                    try {
-                        var data = JSON.parse(evt.target.result);
-                        if (data.systems && Array.isArray(data.systems)) {
-                            showConfirm('بازیابی اطلاعات', 'اطلاعات فعلی جایگزین می‌شود. ادامه می‌دهید؟', function() {
-                                systems = data.systems;
-                                if (data.adminPassword) adminPassword = data.adminPassword;
-                                saveToStorage();
-                                renderSystems();
-                                showNotification('📂 بازیابی انجام شد (' + systems.length + ' سامانه)', 'success');
-                            });
-                        } else {
-                            showNotification('❌ فایل نامعتبر است', 'error');
-                        }
-                    } catch (err) {
-                        showNotification('❌ خطا: ' + err.message, 'error');
-                    }
-                };
-                reader.readAsText(file);
-            };
-            input.click();
-        }
-
-        // ===== بستن با پس‌زمینه =====
-        document.querySelectorAll('.modal-overlay').forEach(function(modal) {
-            modal.addEventListener('click', function(e) {
-                if (e.target === this) {
-                    this.classList.remove('active');
-                }
-            });
-        });
-
-        // ===== کیبورد =====
-        document.addEventListener('keydown', function(e) {
-            // Enter در فیلد ادمین
-            if (document.getElementById('adminModal').classList.contains('active')) {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    submitAdminPassword();
-                } else if (e.key === 'Escape') {
-                    closeAdminModal();
-                }
-            }
-            // Enter در فیلد رمز سامانه
-            else if (document.getElementById('passwordModal').classList.contains('active')) {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    submitPassword();
-                } else if (e.key === 'Escape') {
-                    closePasswordModal();
-                }
-            }
-        });
-
-        // ===== شروع =====
-        window.onload = function() {
-            loadDarkMode();
-            loadFromStorage();
-            renderSystems();
-        };
-    </script>
-
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bindEvents);
+} else {
+    bindEvents();
+}
+</script>
 </body>
 </html>
