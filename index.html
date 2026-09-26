@@ -1,0 +1,1838 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پنل سما | مرکز سامانه‌ها</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+    <style>
+        :root {
+            --primary: #0a2540;
+            --primary-dark: #061829;
+            --primary-light: #1e4976;
+            --accent: #00a8e8;
+            --accent-light: #4dc3ff;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --gold: #fbbf24;
+            --bg: #f0f4f8;
+            --card-bg: #ffffff;
+            --text: #0a2540;
+            --text-light: #64748b;
+            --border: #e2e8f0;
+            --shadow: 0 10px 40px rgba(10, 37, 64, 0.1);
+            --shadow-lg: 0 20px 60px rgba(10, 37, 64, 0.15);
+        }
+
+        body.dark-mode {
+            --primary: #0f172a;
+            --primary-dark: #020617;
+            --primary-light: #1e293b;
+            --bg: #0a0f1e;
+            --card-bg: #111827;
+            --text: #f1f5f9;
+            --text-light: #94a3b8;
+            --border: #1e293b;
+            --shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Vazirmatn', Tahoma, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            transition: background 0.3s ease, color 0.3s ease;
+            background-image:
+                radial-gradient(circle at 10% 20%, rgba(0, 168, 232, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(10, 37, 64, 0.08) 0%, transparent 40%);
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 50%, var(--accent) 100%);
+            color: white;
+            padding: 25px 40px;
+            box-shadow: 0 10px 40px rgba(10, 37, 64, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 15s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-30px, 30px) scale(1.1); }
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .brand { display: flex; align-items: center; gap: 15px; }
+
+        .brand-logo {
+            width: 55px;
+            height: 55px;
+            background: rgba(255,255,255,0.15);
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .brand-text h1 { font-size: 1.6rem; font-weight: 800; letter-spacing: 1px; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); }
+        .brand-text p { font-size: 0.85rem; opacity: 0.9; margin-top: 2px; }
+
+        .header-tools { display: flex; gap: 10px; align-items: center; }
+
+        .tool-btn {
+            background: rgba(255,255,255,0.15);
+            border: 2px solid rgba(255,255,255,0.25);
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .tool-btn:hover { background: rgba(255,255,255,0.3); transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
+        .tool-btn.danger { background: rgba(239, 68, 68, 0.3); border-color: rgba(239, 68, 68, 0.5); }
+        .tool-btn.danger:hover { background: rgba(239, 68, 68, 0.6); }
+        .tool-btn.gold { background: rgba(251, 191, 36, 0.3); border-color: rgba(251, 191, 36, 0.5); }
+        .tool-btn.gold:hover { background: rgba(251, 191, 36, 0.6); }
+
+        .version-badge {
+            background: rgba(255,255,255,0.2);
+            border: 2px solid rgba(255,255,255,0.3);
+            padding: 8px 18px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            backdrop-filter: blur(10px);
+        }
+
+        .container { max-width: 1400px; margin: 0 auto; padding: 30px 40px; }
+
+        .welcome-section {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 6px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--accent), var(--primary));
+        }
+
+        .welcome-section h2 { font-size: 1.5rem; color: var(--primary); margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
+        .welcome-section p { color: var(--text-light); font-size: 0.95rem; }
+
+        .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px; }
+
+        .stat-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 22px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover { transform: translateY(-5px); }
+
+        .stat-icon { width: 55px; height: 55px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; color: white; flex-shrink: 0; }
+        .stat-icon.blue { background: linear-gradient(135deg, #0a2540, #1e4976); }
+        .stat-icon.cyan { background: linear-gradient(135deg, #00a8e8, #4dc3ff); }
+        .stat-icon.green { background: linear-gradient(135deg, #10b981, #34d399); }
+        .stat-icon.gold { background: linear-gradient(135deg, #f59e0b, #fbbf24); }
+
+        .stat-info .stat-label { font-size: 0.85rem; color: var(--text-light); margin-bottom: 5px; font-weight: 600; }
+        .stat-info .stat-value { font-size: 1.8rem; font-weight: 800; color: var(--primary); }
+
+        .toolbar {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+            padding: 12px 18px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            background: var(--bg);
+            color: var(--text);
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-box:focus { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(0, 168, 232, 0.15); }
+
+        .filter-select {
+            padding: 12px 18px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            background: var(--bg);
+            color: var(--text);
+            cursor: pointer;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .filter-select:focus { border-color: var(--accent); }
+
+        .btn-primary {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 6px 20px rgba(0, 168, 232, 0.3);
+        }
+
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0, 168, 232, 0.4); }
+
+        .systems-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; }
+
+        .system-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            border: 2px solid var(--border);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            min-height: 280px;
+        }
+
+        .system-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--accent), var(--primary));
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.4s ease;
+        }
+
+        .system-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); border-color: var(--accent); }
+        .system-card:hover::before { transform: scaleX(1); }
+        .system-card.favorite { border-color: var(--gold); }
+        .system-card.favorite::before { background: linear-gradient(90deg, var(--gold), #f59e0b); transform: scaleX(1); }
+
+        .system-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 15px; }
+
+        .system-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            color: white;
+            box-shadow: 0 8px 25px rgba(0, 168, 232, 0.3);
+            flex-shrink: 0;
+        }
+
+        .system-actions { display: flex; gap: 6px; opacity: 0; transition: opacity 0.3s ease; flex-wrap: wrap; max-width: 150px; justify-content: flex-end; }
+        .system-card:hover .system-actions { opacity: 1; }
+
+        .action-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            background: var(--bg);
+            color: var(--text-light);
+        }
+
+        .action-btn:hover { transform: scale(1.15); }
+        .action-btn.fav-btn:hover { background: rgba(251, 191, 36, 0.2); color: var(--gold); }
+        .action-btn.move-btn:hover { background: rgba(0, 168, 232, 0.2); color: var(--accent); }
+        .action-btn.del-btn:hover { background: rgba(239, 68, 68, 0.2); color: var(--danger); }
+
+        .system-title { font-size: 1.15rem; font-weight: 800; color: var(--primary); margin-bottom: 8px; line-height: 1.4; }
+
+        .system-category {
+            display: inline-block;
+            padding: 3px 10px;
+            background: rgba(0, 168, 232, 0.1);
+            color: var(--accent);
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .system-desc { color: var(--text-light); font-size: 0.85rem; line-height: 1.6; flex: 1; margin-bottom: 15px; }
+
+        .system-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 15px; border-top: 1px solid var(--border); }
+
+        .system-meta { font-size: 0.75rem; color: var(--text-light); display: flex; align-items: center; gap: 5px; }
+
+        .enter-btn {
+            padding: 8px 18px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .enter-btn:hover { transform: scale(1.05); box-shadow: 0 6px 20px rgba(0, 168, 232, 0.4); }
+
+        .empty-state { grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: var(--text-light); }
+        .empty-state .icon { font-size: 5rem; margin-bottom: 15px; opacity: 0.4; }
+        .empty-state h3 { font-size: 1.3rem; margin-bottom: 10px; color: var(--text); }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(10, 37, 64, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(8px);
+            padding: 20px;
+        }
+
+        .modal-overlay.active { display: flex; }
+
+        .modal-box {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 35px;
+            max-width: 480px;
+            width: 100%;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+            animation: modalIn 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-box.wide { max-width: 800px; }
+
+        @keyframes modalIn {
+            from { transform: scale(0.85) translateY(20px); opacity: 0; }
+            to { transform: scale(1) translateY(0); opacity: 1; }
+        }
+
+        .modal-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            box-shadow: 0 10px 30px rgba(0, 168, 232, 0.3);
+        }
+
+        .modal-title { text-align: center; font-size: 1.4rem; font-weight: 800; color: var(--primary); margin-bottom: 8px; }
+        .modal-subtitle { text-align: center; color: var(--text-light); font-size: 0.9rem; margin-bottom: 25px; }
+
+        .form-group { margin-bottom: 18px; }
+
+        .form-group label { display: block; font-size: 0.85rem; font-weight: 700; color: var(--primary); margin-bottom: 6px; }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            background: var(--bg);
+            color: var(--text);
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(0, 168, 232, 0.15); }
+
+        .form-group textarea { resize: vertical; min-height: 80px; }
+
+        .icon-picker {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+            gap: 8px;
+            max-height: 180px;
+            overflow-y: auto;
+            padding: 10px;
+            background: var(--bg);
+            border-radius: 10px;
+            border: 2px solid var(--border);
+        }
+
+        .icon-option {
+            aspect-ratio: 1;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            background: var(--card-bg);
+            cursor: pointer;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .icon-option:hover { transform: scale(1.1); border-color: var(--accent); }
+        .icon-option.selected { border-color: var(--accent); background: rgba(0, 168, 232, 0.15); transform: scale(1.05); }
+
+        .color-picker {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            padding: 10px;
+            background: var(--bg);
+            border-radius: 10px;
+            border: 2px solid var(--border);
+        }
+
+        .color-option {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .color-option:hover { transform: scale(1.15); }
+        .color-option.selected { border-color: var(--primary); transform: scale(1.1); box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+
+        .modal-actions { display: flex; gap: 10px; margin-top: 25px; }
+
+        .modal-actions button {
+            flex: 1;
+            padding: 13px;
+            border: none;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .modal-actions .btn-cancel { background: var(--bg); color: var(--text); border: 2px solid var(--border); }
+        .modal-actions .btn-cancel:hover { background: var(--border); }
+        .modal-actions .btn-confirm { background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; box-shadow: 0 6px 20px rgba(0, 168, 232, 0.3); }
+        .modal-actions .btn-confirm:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0, 168, 232, 0.4); }
+        .modal-actions .btn-danger { background: linear-gradient(135deg, #dc2626, #ef4444); color: white; }
+        .modal-actions .btn-danger:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(239, 68, 68, 0.4); }
+        .modal-actions .btn-warning { background: linear-gradient(135deg, #d97706, #f59e0b); color: white; }
+        .modal-actions .btn-warning:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(245, 158, 11, 0.4); }
+
+        .password-display {
+            text-align: center;
+            font-size: 2rem;
+            letter-spacing: 12px;
+            font-weight: 800;
+            padding: 15px;
+            background: var(--bg);
+            border-radius: 15px;
+            border: 2px dashed var(--accent);
+            color: var(--accent);
+            margin-bottom: 15px;
+            direction: ltr;
+            font-family: 'Courier New', monospace;
+            min-height: 65px;
+        }
+
+        /* فیلد متنی رمز */
+        .password-text-input {
+            width: 100%;
+            padding: 15px 18px;
+            border: 3px solid var(--border);
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-align: center;
+            letter-spacing: 3px;
+            background: var(--card-bg);
+            color: var(--text);
+            outline: none;
+            transition: all 0.3s ease;
+            margin-bottom: 12px;
+            direction: ltr;
+        }
+
+        .password-text-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 5px rgba(0, 168, 232, 0.15);
+        }
+
+        .numpad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 15px; }
+
+        .numpad button {
+            aspect-ratio: 1.6;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            background: var(--bg);
+            color: var(--text);
+            font-size: 1.4rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            font-family: inherit;
+        }
+
+        .numpad button:hover { background: var(--accent); color: white; border-color: var(--accent); transform: scale(1.05); }
+        .numpad button:active { transform: scale(0.95); }
+        .numpad button.zero { grid-column: span 2; aspect-ratio: 3.3; }
+
+        .password-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            font-size: 0.9rem;
+        }
+
+        .password-table th {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            padding: 12px 10px;
+            text-align: right;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        .password-table th:first-child { border-top-right-radius: 10px; }
+        .password-table th:last-child { border-top-left-radius: 10px; }
+
+        .password-table td {
+            padding: 12px 10px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text);
+            vertical-align: middle;
+        }
+
+        .password-table tr:hover { background: rgba(0, 168, 232, 0.05); }
+
+        .password-table .sys-name-cell {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+        }
+
+        .password-table .sys-icon-mini {
+            width: 35px;
+            height: 35px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .password-cell {
+            font-family: 'Courier New', monospace;
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: 3px;
+            color: var(--accent);
+            direction: ltr;
+            text-align: center;
+            min-width: 100px;
+        }
+
+        .password-cell.hidden { color: var(--text-light); letter-spacing: 5px; }
+
+        .pw-action-btn {
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            margin: 0 2px;
+            background: var(--bg);
+            color: var(--text-light);
+        }
+
+        .pw-action-btn:hover { transform: scale(1.15); }
+        .pw-action-btn.show-btn:hover { background: rgba(0, 168, 232, 0.2); color: var(--accent); }
+        .pw-action-btn.copy-btn:hover { background: rgba(16, 185, 129, 0.2); color: var(--success); }
+        .pw-action-btn.edit-btn:hover { background: rgba(245, 158, 11, 0.2); color: var(--warning); }
+        .pw-action-btn.reset-btn:hover { background: rgba(239, 68, 68, 0.2); color: var(--danger); }
+
+        .admin-info-box {
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.1), rgba(245, 158, 11, 0.05));
+            border: 2px solid var(--gold);
+            border-radius: 12px;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .admin-info-box .icon { font-size: 1.8rem; }
+        .admin-info-box .info-text { flex: 1; }
+        .admin-info-box .info-text strong { color: var(--warning); font-size: 0.95rem; display: block; margin-bottom: 3px; }
+        .admin-info-box .info-text small { color: var(--text-light); font-size: 0.8rem; }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            padding: 14px 22px;
+            border-radius: 12px;
+            color: white;
+            font-weight: 700;
+            font-size: 0.9rem;
+            z-index: 9999;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            animation: slideIn 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            max-width: 400px;
+        }
+
+        .notification.success { background: linear-gradient(135deg, #10b981, #34d399); }
+        .notification.error { background: linear-gradient(135deg, #dc2626, #ef4444); }
+        .notification.info { background: linear-gradient(135deg, #0a2540, #00a8e8); }
+        .notification.warning { background: linear-gradient(135deg, #d97706, #f59e0b); }
+
+        @keyframes slideIn {
+            from { transform: translateX(-120%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .footer { text-align: center; padding: 25px; color: var(--text-light); font-size: 0.85rem; }
+        .footer strong { color: var(--accent); }
+
+        @media (max-width: 768px) {
+            .header { padding: 20px; }
+            .header-inner { flex-direction: column; gap: 15px; }
+            .container { padding: 20px; }
+            .toolbar { flex-direction: column; align-items: stretch; }
+            .systems-grid { grid-template-columns: 1fr; }
+            .stats-row { grid-template-columns: 1fr 1fr; }
+            .stat-card { padding: 15px; flex-direction: column; text-align: center; }
+            .stat-icon { margin: 0 auto; }
+            .system-actions { opacity: 1; }
+            .password-table { font-size: 0.75rem; }
+            .password-table th, .password-table td { padding: 8px 5px; }
+        }
+
+        @media (max-width: 480px) {
+            .stats-row { grid-template-columns: 1fr; }
+            .modal-box { padding: 25px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-inner">
+            <div class="brand">
+                <div class="brand-logo">🌿</div>
+                <div class="brand-text">
+                    <h1>پنل سما</h1>
+                    <p>مرکز سامانه‌های تخصصی</p>
+                </div>
+            </div>
+            <div class="header-tools">
+                <button class="tool-btn gold" onclick="openPasswordManager()" title="مدیریت رمزها">🔑</button>
+                <button class="tool-btn" onclick="toggleDarkMode()" title="حالت شب/روز" id="darkModeBtn">🌙</button>
+                <button class="tool-btn" onclick="backupData()" title="پشتیبان‌گیری">💾</button>
+                <button class="tool-btn" onclick="restoreData()" title="بازیابی">📂</button>
+                <button class="tool-btn danger" onclick="openClearModal()" title="پاک کردن همه">🗑️</button>
+                <div class="version-badge">نسخه <span id="panelVersion">3</span></div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="welcome-section">
+            <h2>👋 خوش آمدید به پنل سما</h2>
+            <p>اینجا مرکز همه سامانه‌های تخصصی شماست. برای ورود به هر سامانه، روی کارت آن کلیک کنید و رمز اختصاصی را وارد نمایید. رمز پیش‌فرض: <strong>1234</strong></p>
+        </div>
+
+        <div class="stats-row">
+            <div class="stat-card">
+                <div class="stat-icon blue">📊</div>
+                <div class="stat-info">
+                    <div class="stat-label">تعداد سامانه‌ها</div>
+                    <div class="stat-value" id="statTotal">0</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon cyan">🔐</div>
+                <div class="stat-info">
+                    <div class="stat-label">کل ورودها</div>
+                    <div class="stat-value" id="statLogins">0</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon green">⭐</div>
+                <div class="stat-info">
+                    <div class="stat-label">مورد علاقه</div>
+                    <div class="stat-value" id="statFavorites">0</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon gold">📁</div>
+                <div class="stat-info">
+                    <div class="stat-label">دسته‌بندی‌ها</div>
+                    <div class="stat-value" id="statCategories">0</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="toolbar">
+            <input type="text" class="search-box" id="searchBox" placeholder="🔍 جستجو در سامانه‌ها..." oninput="renderSystems()">
+            <select class="filter-select" id="categoryFilter" onchange="renderSystems()">
+                <option value="">همه دسته‌بندی‌ها</option>
+            </select>
+            <button class="btn-primary" onclick="openAddModal()">➕ افزودن سامانه جدید</button>
+        </div>
+
+        <div class="systems-grid" id="systemsGrid"></div>
+    </div>
+
+    <footer class="footer">
+        طراحی شده توسط <strong>برند سما</strong> | پنل سما &copy; سامانه ۱۱ - نسخه <span id="footerVersion">3</span>
+    </footer>
+
+    <!-- ===== مودال ورود رمز سامانه ===== -->
+    <div class="modal-overlay" id="passwordModal">
+        <div class="modal-box">
+            <div class="modal-icon" id="pwModalIcon">🔐</div>
+            <h3 class="modal-title" id="pwModalTitle">ورود به سامانه</h3>
+            <p class="modal-subtitle" id="pwModalSubtitle">رمز اختصاصی را وارد کنید</p>
+
+            <!-- فیلد متنی برای تایپ -->
+            <input type="text" class="password-text-input" id="passwordTextInput" 
+                   placeholder="🔤 رمز را تایپ کنید" 
+                   oninput="onPasswordType(this.value)" 
+                   autocomplete="off" 
+                   spellcheck="false">
+
+            <div class="password-display" id="passwordDisplay">----</div>
+
+            <div class="numpad">
+                <button onclick="addDigit('1')">1</button>
+                <button onclick="addDigit('2')">2</button>
+                <button onclick="addDigit('3')">3</button>
+                <button onclick="addDigit('4')">4</button>
+                <button onclick="addDigit('5')">5</button>
+                <button onclick="addDigit('6')">6</button>
+                <button onclick="addDigit('7')">7</button>
+                <button onclick="addDigit('8')">8</button>
+                <button onclick="addDigit('9')">9</button>
+                <button onclick="clearPassword()" style="background: rgba(239, 68, 68, 0.1); color: #ef4444;">✕</button>
+                <button class="zero" onclick="addDigit('0')">0</button>
+                <button onclick="deleteDigit()" style="background: rgba(245, 158, 11, 0.1); color: #f59e0b;">⌫</button>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn-cancel" onclick="closePasswordModal()">انصراف</button>
+                <button class="btn-confirm" onclick="submitPassword()">🔓 ورود</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== مودال پنل مدیر رمزها ===== -->
+    <div class="modal-overlay" id="passwordManagerModal">
+        <div class="modal-box wide">
+            <div class="modal-icon" style="background: linear-gradient(135deg, #d97706, #fbbf24);">🔑</div>
+            <h3 class="modal-title">مدیریت رمزهای عبور</h3>
+            <p class="modal-subtitle">رمزهای سامانه‌ها و رمز ادمین را مدیریت کنید</p>
+
+            <div class="admin-info-box">
+                <div class="icon">👤</div>
+                <div class="info-text">
+                    <strong>رمز ادمین فعلی</strong>
+                    <small>برای ویرایش، حذف و افزودن سامانه جدید نیاز دارید</small>
+                </div>
+                <div class="password-cell" id="adminPasswordCell" style="min-width: 130px;">••••••••</div>
+                <button class="pw-action-btn show-btn" onclick="toggleAdminPasswordVisibility()" id="adminPwToggleBtn" title="نمایش/مخفی">👁️</button>
+                <button class="pw-action-btn copy-btn" onclick="copyAdminPassword()" title="کپی">📋</button>
+                <button class="pw-action-btn edit-btn" onclick="changeAdminPassword()" title="تغییر">✏️</button>
+            </div>
+
+            <div style="overflow-x: auto;">
+                <table class="password-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 35%;">سامانه</th>
+                            <th style="width: 25%;">رمز عبور</th>
+                            <th style="width: 40%;">عملیات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="passwordTableBody">
+                        <tr><td colspan="3" style="text-align: center; padding: 30px; color: #95a5a6;">هنوز سامانه‌ای ثبت نشده است</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn-warning" onclick="resetAllPasswords()">🔄 بازنشانی همه به 1234</button>
+                <button class="btn-cancel" onclick="closePasswordManager()">بستن</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== مودال افزودن/ویرایش سامانه ===== -->
+    <div class="modal-overlay" id="systemModal">
+        <div class="modal-box">
+            <div class="modal-icon" id="sysModalIcon">➕</div>
+            <h3 class="modal-title" id="sysModalTitle">افزودن سامانه جدید</h3>
+            <p class="modal-subtitle" id="sysModalSubtitle">اطلاعات سامانه را وارد کنید</p>
+
+            <div class="form-group">
+                <label>نام سامانه *</label>
+                <input type="text" id="sysName" placeholder="مثال: فام: فرق، ادیان و مذاهب" maxlength="80">
+            </div>
+
+            <div class="form-group">
+                <label>توضیحات کوتاه</label>
+                <textarea id="sysDesc" placeholder="توضیح مختصر درباره این سامانه..." maxlength="200"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>دسته‌بندی</label>
+                <input type="text" id="sysCategory" placeholder="مثال: مذهبی، آموزشی، پژوهشی" maxlength="30" list="categoryList">
+                <datalist id="categoryList"></datalist>
+            </div>
+
+            <div class="form-group">
+                <label>لینک فایل سامانه (مثلاً fam.html)</label>
+                <input type="text" id="sysUrl" placeholder="fam.html" dir="ltr" style="direction: ltr; text-align: left;">
+            </div>
+
+            <div class="form-group">
+                <label>رمز ورود سامانه</label>
+                <input type="text" id="sysPassword" placeholder="1234" value="1234" dir="ltr" style="direction: ltr; text-align: center; font-weight: 700; letter-spacing: 5px;">
+            </div>
+
+            <div class="form-group">
+                <label>آیکون سامانه</label>
+                <div class="icon-picker" id="iconPicker"></div>
+            </div>
+
+            <div class="form-group">
+                <label>رنگ سامانه</label>
+                <div class="color-picker" id="colorPicker"></div>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn-cancel" onclick="closeSystemModal()">انصراف</button>
+                <button class="btn-confirm" onclick="saveSystem()" id="sysSaveBtn">💾 ذخیره</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== مودال تأیید ===== -->
+    <div class="modal-overlay" id="confirmModal">
+        <div class="modal-box">
+            <div class="modal-icon" style="background: linear-gradient(135deg, #dc2626, #ef4444);">⚠️</div>
+            <h3 class="modal-title" id="confirmTitle">تأیید عملیات</h3>
+            <p class="modal-subtitle" id="confirmMessage">آیا مطمئن هستید؟</p>
+            <div class="modal-actions">
+                <button class="btn-cancel" onclick="closeConfirmModal()">انصراف</button>
+                <button class="btn-danger" onclick="confirmAction()" id="confirmBtn">🗑️ تأیید</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== مودال رمز ادمین (اصلاح‌شده) ===== -->
+    <div class="modal-overlay" id="adminModal">
+        <div class="modal-box">
+            <div class="modal-icon">👤</div>
+            <h3 class="modal-title" id="adminModalTitle">دسترسی ادمین</h3>
+            <p class="modal-subtitle" id="adminModalSubtitle">برای این عملیات رمز ادمین را وارد کنید</p>
+
+            <!-- ✅ فیلد متنی برای تایپ حروف و اعداد -->
+            <input type="text" class="password-text-input" id="adminTextInput" 
+                   placeholder="🔤 رمز ادمین را تایپ کنید" 
+                   oninput="onAdminType(this.value)" 
+                   autocomplete="off" 
+                   spellcheck="false">
+
+            <div class="password-display" id="adminPasswordDisplay">----</div>
+
+            <div class="numpad">
+                <button onclick="addAdminDigit('1')">1</button>
+                <button onclick="addAdminDigit('2')">2</button>
+                <button onclick="addAdminDigit('3')">3</button>
+                <button onclick="addAdminDigit('4')">4</button>
+                <button onclick="addAdminDigit('5')">5</button>
+                <button onclick="addAdminDigit('6')">6</button>
+                <button onclick="addAdminDigit('7')">7</button>
+                <button onclick="addAdminDigit('8')">8</button>
+                <button onclick="addAdminDigit('9')">9</button>
+                <button onclick="clearAdminPassword()" style="background: rgba(239, 68, 68, 0.1); color: #ef4444;">✕</button>
+                <button class="zero" onclick="addAdminDigit('0')">0</button>
+                <button onclick="deleteAdminDigit()" style="background: rgba(245, 158, 11, 0.1); color: #f59e0b;">⌫</button>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn-cancel" onclick="closeAdminModal()">انصراف</button>
+                <button class="btn-confirm" onclick="submitAdminPassword()">🔓 تأیید</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== مودال تغییر رمز ===== -->
+    <div class="modal-overlay" id="changePasswordModal">
+        <div class="modal-box">
+            <div class="modal-icon" style="background: linear-gradient(135deg, #d97706, #fbbf24);">✏️</div>
+            <h3 class="modal-title" id="changePwTitle">تغییر رمز</h3>
+            <p class="modal-subtitle" id="changePwSubtitle">رمز جدید را وارد کنید</p>
+
+            <div class="form-group">
+                <label>رمز جدید</label>
+                <input type="text" id="newPassword" placeholder="رمز جدید" dir="ltr" style="direction: ltr; text-align: center; font-weight: 700; letter-spacing: 3px; font-size: 1.1rem;">
+            </div>
+
+            <div class="form-group">
+                <label>تکرار رمز جدید</label>
+                <input type="text" id="confirmNewPassword" placeholder="تکرار رمز" dir="ltr" style="direction: ltr; text-align: center; font-weight: 700; letter-spacing: 3px; font-size: 1.1rem;">
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn-cancel" onclick="closeChangePasswordModal()">انصراف</button>
+                <button class="btn-confirm" onclick="submitChangePassword()">💾 ذخیره</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== اطلاعات پیش‌فرض =====
+        var DEFAULT_PASSWORD = '1234';
+        var DEFAULT_ADMIN_PASSWORD = '@Mahdi110121';
+
+        var systems = [];
+        var adminPassword = DEFAULT_ADMIN_PASSWORD;
+        var currentPasswordInput = '';
+        var currentSystemId = null;
+        var editingSystemId = null;
+        var currentAdminInput = '';
+        var adminCallback = null;
+        var pendingConfirmCallback = null;
+        var changePasswordTarget = null;
+
+        var adminPwVisible = false;
+        var systemsPwVisible = {};
+
+        var availableIcons = [
+            '🕌', '🕋', '✡️', '✝️', '🕉️', '☸️', '☯️', '🛐', '📖', '📜',
+            '📊', '📈', '📉', '🎯', '🎨', '🔬', '🔭', '📚', '📝', '✏️',
+            '💼', '🏢', '🎓', '⚙️', '🔧', '💡', '🌟', '⭐', '🏆', '🥇',
+            '🗂️', '📁', '💾', '🖥️', '📱', '🌐', '🔐', '🗝️', '👥', '🌿',
+            '⚖️', '❤️', '🤝', '🎁', '🎉', '🔔', '📢', '🗞️', '📰', '🏛️'
+        ];
+
+        var availableColors = [
+            '#0a2540', '#1e4976', '#00a8e8', '#4dc3ff',
+            '#10b981', '#34d399', '#f59e0b', '#fbbf24',
+            '#ef4444', '#dc2626', '#8b5cf6', '#a78bfa',
+            '#ec4899', '#f472b6', '#16a085', '#1abc9c',
+            '#2c3e50', '#34495e', '#e67e22', '#d35400'
+        ];
+
+        // ===== بارگذاری =====
+        function loadFromStorage() {
+            try {
+                var stored = localStorage.getItem('sama_systems');
+                if (stored) systems = JSON.parse(stored);
+                var adminPw = localStorage.getItem('sama_admin_password');
+                if (adminPw) adminPassword = adminPw;
+                var version = localStorage.getItem('sama_version');
+                if (version) {
+                    document.getElementById('panelVersion').textContent = version;
+                    document.getElementById('footerVersion').textContent = version;
+                }
+            } catch (e) { console.error(e); }
+
+            if (systems.length === 0) {
+                systems = [{
+                    id: 'sys_' + Date.now(),
+                    name: 'فام: فرق، ادیان و مذاهب',
+                    description: 'سامانه ارزیابی و رتبه‌بندی مبلغین بر اساس شاخص‌های تخصصی علمی و مهارتی',
+                    category: 'مذهبی',
+                    url: 'fam.html',
+                    password: '1234',
+                    icon: '🕌',
+                    color: '#0a2540',
+                    favorite: true,
+                    logins: 0,
+                    lastLogin: null,
+                    order: 1
+                }];
+                saveToStorage();
+            }
+        }
+
+        function saveToStorage() {
+            try {
+                localStorage.setItem('sama_systems', JSON.stringify(systems));
+                localStorage.setItem('sama_admin_password', adminPassword);
+            } catch (e) { console.error(e); }
+        }
+
+        // ===== حالت شب =====
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            var isDark = document.body.classList.contains('dark-mode');
+            document.getElementById('darkModeBtn').textContent = isDark ? '☀️' : '🌙';
+            try { localStorage.setItem('sama_dark_mode', isDark ? '1' : '0'); } catch (e) {}
+        }
+
+        function loadDarkMode() {
+            try {
+                if (localStorage.getItem('sama_dark_mode') === '1') {
+                    document.body.classList.add('dark-mode');
+                    document.getElementById('darkModeBtn').textContent = '☀️';
+                }
+            } catch (e) {}
+        }
+
+        // ===== نوتیفیکیشن =====
+        function showNotification(message, type) {
+            type = type || 'success';
+            var notif = document.createElement('div');
+            notif.className = 'notification ' + type;
+            notif.textContent = message;
+            document.body.appendChild(notif);
+            setTimeout(function() {
+                notif.style.transition = 'all 0.3s ease';
+                notif.style.transform = 'translateX(-150%)';
+                notif.style.opacity = '0';
+                setTimeout(function() { notif.remove(); }, 300);
+            }, 3000);
+        }
+
+        // ===== رندر =====
+        function renderSystems() {
+            var grid = document.getElementById('systemsGrid');
+            var search = document.getElementById('searchBox').value.trim().toLowerCase();
+            var categoryFilter = document.getElementById('categoryFilter').value;
+
+            var filtered = systems.filter(function(s) {
+                if (categoryFilter && s.category !== categoryFilter) return false;
+                if (!search) return true;
+                return s.name.toLowerCase().includes(search) ||
+                       (s.description || '').toLowerCase().includes(search) ||
+                       (s.category || '').toLowerCase().includes(search);
+            });
+
+            filtered.sort(function(a, b) {
+                if (a.favorite && !b.favorite) return -1;
+                if (!a.favorite && b.favorite) return 1;
+                return (a.order || 0) - (b.order || 0);
+            });
+
+            document.getElementById('statTotal').textContent = systems.length;
+            document.getElementById('statLogins').textContent = systems.reduce(function(sum, s) { return sum + (s.logins || 0); }, 0);
+            document.getElementById('statFavorites').textContent = systems.filter(function(s) { return s.favorite; }).length;
+            var cats = {};
+            systems.forEach(function(s) { if (s.category) cats[s.category] = true; });
+            document.getElementById('statCategories').textContent = Object.keys(cats).length;
+
+            updateCategoryFilter();
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '<div class="empty-state"><div class="icon">📭</div><h3>' + 
+                    (systems.length === 0 ? 'هنوز سامانه‌ای اضافه نشده' : 'نتیجه‌ای یافت نشد') +
+                    '</h3><p>' + (systems.length === 0 ? 'روی «افزودن سامانه جدید» کلیک کنید' : 'جستجو یا فیلتر را تغییر دهید') + '</p></div>';
+                return;
+            }
+
+            var html = '';
+            filtered.forEach(function(s) {
+                var favClass = s.favorite ? ' favorite' : '';
+                var lastLogin = s.lastLogin ? '<span>🕒 ' + s.lastLogin + '</span>' : '<span>🕒 هرگز</span>';
+                html += '<div class="system-card' + favClass + '" onclick="openPasswordModal(\'' + s.id + '\')">' +
+                    '<div class="system-header">' +
+                        '<div class="system-icon" style="background: linear-gradient(135deg, ' + s.color + ', ' + lightenColor(s.color, 30) + ');">' + s.icon + '</div>' +
+                        '<div class="system-actions" onclick="event.stopPropagation()">' +
+                            '<button class="action-btn fav-btn" onclick="toggleFavorite(\'' + s.id + '\')" title="' + (s.favorite ? 'حذف از علاقه‌مندی' : 'افزودن به علاقه‌مندی') + '">' + (s.favorite ? '⭐' : '☆') + '</button>' +
+                            '<button class="action-btn move-btn" onclick="moveSystem(\'' + s.id + '\', -1)" title="بالا">⬆️</button>' +
+                            '<button class="action-btn move-btn" onclick="moveSystem(\'' + s.id + '\', 1)" title="پایین">⬇️</button>' +
+                            '<button class="action-btn move-btn" onclick="editSystem(\'' + s.id + '\')" title="ویرایش">✏️</button>' +
+                            '<button class="action-btn del-btn" onclick="deleteSystem(\'' + s.id + '\')" title="حذف">🗑️</button>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="system-title">' + escapeHtml(s.name) + '</div>' +
+                    (s.category ? '<div class="system-category">📁 ' + escapeHtml(s.category) + '</div>' : '') +
+                    '<div class="system-desc">' + escapeHtml(s.description || 'بدون توضیحات') + '</div>' +
+                    '<div class="system-footer">' +
+                        '<div class="system-meta">' +
+                            '<span>👁️ ' + (s.logins || 0) + ' بار</span>' +
+                            '<span>|</span>' +
+                            lastLogin +
+                        '</div>' +
+                        '<button class="enter-btn" onclick="event.stopPropagation(); openPasswordModal(\'' + s.id + '\')">🔓 ورود</button>' +
+                    '</div>' +
+                '</div>';
+            });
+            grid.innerHTML = html;
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            return String(text).replace(/[&<>"']/g, function(m) {
+                return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m];
+            });
+        }
+
+        function lightenColor(hex, percent) {
+            var num = parseInt(hex.replace('#', ''), 16);
+            var amt = Math.round(2.55 * percent);
+            var R = Math.min(255, (num >> 16) + amt);
+            var G = Math.min(255, ((num >> 8) & 0x00FF) + amt);
+            var B = Math.min(255, (num & 0x0000FF) + amt);
+            return '#' + (0x1000000 + R * 0x10000 + G * 0x100 + B).toString(16).slice(1);
+        }
+
+        function updateCategoryFilter() {
+            var cats = {};
+            systems.forEach(function(s) { if (s.category) cats[s.category] = true; });
+            var select = document.getElementById('categoryFilter');
+            var currentVal = select.value;
+            select.innerHTML = '<option value="">همه دسته‌بندی‌ها</option>' +
+                Object.keys(cats).sort().map(function(c) { return '<option value="' + escapeHtml(c) + '">' + escapeHtml(c) + '</option>'; }).join('');
+            if (cats[currentVal]) select.value = currentVal;
+
+            var datalist = document.getElementById('categoryList');
+            if (datalist) {
+                datalist.innerHTML = Object.keys(cats).map(function(c) { return '<option value="' + escapeHtml(c) + '">'; }).join('');
+            }
+        }
+
+        // ===== مودال رمز سامانه =====
+        function openPasswordModal(systemId) {
+            var s = systems.find(function(x) { return x.id === systemId; });
+            if (!s) return;
+
+            currentSystemId = systemId;
+            currentPasswordInput = '';
+
+            document.getElementById('pwModalIcon').textContent = s.icon;
+            document.getElementById('pwModalIcon').style.background = 'linear-gradient(135deg, ' + s.color + ', ' + lightenColor(s.color, 30) + ')';
+            document.getElementById('pwModalTitle').textContent = s.name;
+            document.getElementById('pwModalSubtitle').textContent = 'رمز اختصاصی این سامانه را وارد کنید';
+            document.getElementById('passwordDisplay').textContent = '----';
+            document.getElementById('passwordTextInput').value = '';
+            document.getElementById('passwordModal').classList.add('active');
+
+            // فوکوس خودکار روی فیلد متنی
+            setTimeout(function() { 
+                var input = document.getElementById('passwordTextInput');
+                if (input) input.focus();
+            }, 150);
+        }
+
+        function closePasswordModal() {
+            document.getElementById('passwordModal').classList.remove('active');
+            currentPasswordInput = '';
+            currentSystemId = null;
+        }
+
+        // ✅ همگام‌سازی فیلد متنی با numpad
+        function onPasswordType(value) {
+            currentPasswordInput = value;
+            updatePasswordDisplay();
+        }
+
+        function addDigit(d) {
+            if (currentPasswordInput.length < 30) {
+                currentPasswordInput += d;
+                document.getElementById('passwordTextInput').value = currentPasswordInput;
+                updatePasswordDisplay();
+            }
+        }
+
+        function deleteDigit() {
+            currentPasswordInput = currentPasswordInput.slice(0, -1);
+            document.getElementById('passwordTextInput').value = currentPasswordInput;
+            updatePasswordDisplay();
+        }
+
+        function clearPassword() {
+            currentPasswordInput = '';
+            document.getElementById('passwordTextInput').value = '';
+            updatePasswordDisplay();
+        }
+
+        function updatePasswordDisplay() {
+            if (currentPasswordInput.length === 0) {
+                document.getElementById('passwordDisplay').textContent = '----';
+            } else {
+                document.getElementById('passwordDisplay').textContent = currentPasswordInput.split('').map(function() { return '●'; }).join('');
+            }
+        }
+
+        function submitPassword() {
+            var s = systems.find(function(x) { return x.id === currentSystemId; });
+            if (!s) return;
+
+            if (currentPasswordInput === (s.password || DEFAULT_PASSWORD)) {
+                s.logins = (s.logins || 0) + 1;
+                s.lastLogin = new Date().toLocaleDateString('fa-IR');
+                saveToStorage();
+
+                closePasswordModal();
+                showNotification('✅ ورود موفق! در حال باز کردن سامانه...', 'success');
+
+                setTimeout(function() {
+                    if (s.url) {
+                        window.open(s.url, '_blank');
+                    } else {
+                        showNotification('⚠️ آدرس سامانه تنظیم نشده', 'error');
+                    }
+                }, 800);
+            } else {
+                showNotification('❌ رمز اشتباه است!', 'error');
+                currentPasswordInput = '';
+                document.getElementById('passwordTextInput').value = '';
+                updatePasswordDisplay();
+            }
+        }
+
+        // ===== پنل مدیر رمزها =====
+        function openPasswordManager() {
+            requestAdminAccess(function() {
+                renderPasswordTable();
+                document.getElementById('passwordManagerModal').classList.add('active');
+            });
+        }
+
+        function closePasswordManager() {
+            document.getElementById('passwordManagerModal').classList.remove('active');
+            adminPwVisible = false;
+            systemsPwVisible = {};
+        }
+
+        function renderPasswordTable() {
+            var adminCell = document.getElementById('adminPasswordCell');
+            if (adminPwVisible) {
+                adminCell.textContent = adminPassword;
+                adminCell.classList.remove('hidden');
+                document.getElementById('adminPwToggleBtn').textContent = '🙈';
+            } else {
+                adminCell.textContent = '••••••••';
+                adminCell.classList.add('hidden');
+                document.getElementById('adminPwToggleBtn').textContent = '👁️';
+            }
+
+            var tbody = document.getElementById('passwordTableBody');
+            if (systems.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="3" style="text-align: center; padding: 30px; color: #95a5a6;">هنوز سامانه‌ای ثبت نشده است</td></tr>';
+                return;
+            }
+
+            var html = '';
+            systems.forEach(function(s) {
+                var isVisible = systemsPwVisible[s.id];
+                var pwDisplay = isVisible ? escapeHtml(s.password || DEFAULT_PASSWORD) : '••••••••';
+                var pwClass = isVisible ? 'password-cell' : 'password-cell hidden';
+                html += '<tr>' +
+                    '<td>' +
+                        '<div class="sys-name-cell">' +
+                            '<div class="sys-icon-mini" style="background: linear-gradient(135deg, ' + s.color + ', ' + lightenColor(s.color, 30) + ');">' + s.icon + '</div>' +
+                            '<span>' + escapeHtml(s.name) + '</span>' +
+                        '</div>' +
+                    '</td>' +
+                    '<td class="' + pwClass + '" id="pw-cell-' + s.id + '">' + pwDisplay + '</td>' +
+                    '<td style="text-align: center;">' +
+                        '<button class="pw-action-btn show-btn" onclick="toggleSystemPassword(\'' + s.id + '\')" title="نمایش/مخفی">' + (isVisible ? '🙈' : '👁️') + '</button>' +
+                        '<button class="pw-action-btn copy-btn" onclick="copySystemPassword(\'' + s.id + '\')" title="کپی">📋</button>' +
+                        '<button class="pw-action-btn edit-btn" onclick="changeSystemPassword(\'' + s.id + '\')" title="تغییر">✏️</button>' +
+                        '<button class="pw-action-btn reset-btn" onclick="resetSystemPassword(\'' + s.id + '\')" title="بازنشانی به 1234">🔄</button>' +
+                    '</td>' +
+                '</tr>';
+            });
+            tbody.innerHTML = html;
+        }
+
+        function toggleAdminPasswordVisibility() {
+            adminPwVisible = !adminPwVisible;
+            renderPasswordTable();
+        }
+
+        function toggleSystemPassword(systemId) {
+            systemsPwVisible[systemId] = !systemsPwVisible[systemId];
+            renderPasswordTable();
+        }
+
+        function copyAdminPassword() {
+            copyToClipboard(adminPassword, 'رمز ادمین کپی شد');
+        }
+
+        function copySystemPassword(systemId) {
+            var s = systems.find(function(x) { return x.id === systemId; });
+            if (!s) return;
+            copyToClipboard(s.password || DEFAULT_PASSWORD, 'رمز «' + s.name + '» کپی شد');
+        }
+
+        function copyToClipboard(text, successMsg) {
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(text).then(function() {
+                    showNotification('📋 ' + successMsg, 'success');
+                }).catch(function() {
+                    fallbackCopy(text, successMsg);
+                });
+            } else {
+                fallbackCopy(text, successMsg);
+            }
+        }
+
+        function fallbackCopy(text, successMsg) {
+            var ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.position = 'fixed';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.select();
+            try {
+                document.execCommand('copy');
+                showNotification('📋 ' + successMsg, 'success');
+            } catch (e) {
+                showNotification('❌ کپی نشد', 'error');
+            }
+            document.body.removeChild(ta);
+        }
+
+        function changeAdminPassword() {
+            changePasswordTarget = 'admin';
+            document.getElementById('changePwTitle').textContent = 'تغییر رمز ادمین';
+            document.getElementById('changePwSubtitle').textContent = 'رمز جدید ادمین را وارد کنید';
+            document.getElementById('newPassword').value = '';
+            document.getElementById('confirmNewPassword').value = '';
+            document.getElementById('changePasswordModal').classList.add('active');
+        }
+
+        function changeSystemPassword(systemId) {
+            var s = systems.find(function(x) { return x.id === systemId; });
+            if (!s) return;
+            changePasswordTarget = systemId;
+            document.getElementById('changePwTitle').textContent = 'تغییر رمز «' + s.name + '»';
+            document.getElementById('changePwSubtitle').textContent = 'رمز جدید سامانه را وارد کنید';
+            document.getElementById('newPassword').value = '';
+            document.getElementById('confirmNewPassword').value = '';
+            document.getElementById('changePasswordModal').classList.add('active');
+        }
+
+        function closeChangePasswordModal() {
+            document.getElementById('changePasswordModal').classList.remove('active');
+            changePasswordTarget = null;
+        }
+
+        function submitChangePassword() {
+            var newPw = document.getElementById('newPassword').value.trim();
+            var confirmPw = document.getElementById('confirmNewPassword').value.trim();
+
+            if (!newPw) {
+                showNotification('❌ رمز جدید را وارد کنید', 'error');
+                return;
+            }
+            if (newPw.length < 3) {
+                showNotification('❌ رمز باید حداقل 3 کاراکتر باشد', 'error');
+                return;
+            }
+            if (newPw !== confirmPw) {
+                showNotification('❌ رمزها یکسان نیستند', 'error');
+                return;
+            }
+
+            if (changePasswordTarget === 'admin') {
+                adminPassword = newPw;
+                showNotification('✅ رمز ادمین تغییر کرد', 'success');
+            } else {
+                var s = systems.find(function(x) { return x.id === changePasswordTarget; });
+                if (s) {
+                    s.password = newPw;
+                    showNotification('✅ رمز «' + s.name + '» تغییر کرد', 'success');
+                }
+            }
+
+            saveToStorage();
+            renderPasswordTable();
+            closeChangePasswordModal();
+        }
+
+        function resetSystemPassword(systemId) {
+            var s = systems.find(function(x) { return x.id === systemId; });
+            if (!s) return;
+            showConfirm('بازنشانی رمز', 'رمز «' + s.name + '» به 1234 بازگردانی شود؟', function() {
+                s.password = DEFAULT_PASSWORD;
+                saveToStorage();
+                renderPasswordTable();
+                showNotification('🔄 رمز به 1234 بازنشانی شد', 'info');
+            });
+        }
+
+        function resetAllPasswords() {
+            showConfirm('بازنشانی همه رمزها', 'همه رمزهای سامانه‌ها به 1234 بازگردانی شوند؟', function() {
+                systems.forEach(function(s) { s.password = DEFAULT_PASSWORD; });
+                saveToStorage();
+                renderPasswordTable();
+                showNotification('🔄 همه رمزها به 1234 بازنشانی شد', 'success');
+            });
+        }
+
+        // ===== مودال افزودن/ویرایش =====
+        function openAddModal() {
+            requestAdminAccess(function() {
+                editingSystemId = null;
+                document.getElementById('sysModalIcon').textContent = '➕';
+                document.getElementById('sysModalTitle').textContent = 'افزودن سامانه جدید';
+                document.getElementById('sysModalSubtitle').textContent = 'اطلاعات سامانه را وارد کنید';
+                document.getElementById('sysName').value = '';
+                document.getElementById('sysDesc').value = '';
+                document.getElementById('sysCategory').value = '';
+                document.getElementById('sysUrl').value = '';
+                document.getElementById('sysPassword').value = DEFAULT_PASSWORD;
+                buildIconPicker();
+                buildColorPicker();
+                document.getElementById('systemModal').classList.add('active');
+            });
+        }
+
+        function editSystem(systemId) {
+            requestAdminAccess(function() {
+                var s = systems.find(function(x) { return x.id === systemId; });
+                if (!s) return;
+                editingSystemId = systemId;
+                document.getElementById('sysModalIcon').textContent = s.icon;
+                document.getElementById('sysModalIcon').style.background = 'linear-gradient(135deg, ' + s.color + ', ' + lightenColor(s.color, 30) + ')';
+                document.getElementById('sysModalTitle').textContent = 'ویرایش سامانه';
+                document.getElementById('sysModalSubtitle').textContent = 'اطلاعات را تغییر دهید';
+                document.getElementById('sysName').value = s.name;
+                document.getElementById('sysDesc').value = s.description || '';
+                document.getElementById('sysCategory').value = s.category || '';
+                document.getElementById('sysUrl').value = s.url || '';
+                document.getElementById('sysPassword').value = s.password || DEFAULT_PASSWORD;
+                buildIconPicker(s.icon);
+                buildColorPicker(s.color);
+                document.getElementById('systemModal').classList.add('active');
+            });
+        }
+
+        function closeSystemModal() {
+            document.getElementById('systemModal').classList.remove('active');
+            editingSystemId = null;
+        }
+
+        function buildIconPicker(selectedIcon) {
+            var picker = document.getElementById('iconPicker');
+            var currentSelected = selectedIcon || '📊';
+            picker.innerHTML = availableIcons.map(function(icon) {
+                var sel = icon === currentSelected ? ' selected' : '';
+                return '<div class="icon-option' + sel + '" onclick="selectIcon(\'' + icon + '\', this)">' + icon + '</div>';
+            }).join('');
+            picker.setAttribute('data-selected', currentSelected);
+        }
+
+        function selectIcon(icon, el) {
+            document.querySelectorAll('#iconPicker .icon-option').forEach(function(x) { x.classList.remove('selected'); });
+            el.classList.add('selected');
+            document.getElementById('iconPicker').setAttribute('data-selected', icon);
+            document.getElementById('sysModalIcon').textContent = icon;
+        }
+
+        function buildColorPicker(selectedColor) {
+            var picker = document.getElementById('colorPicker');
+            var currentSelected = selectedColor || '#0a2540';
+            picker.innerHTML = availableColors.map(function(color) {
+                var sel = color === currentSelected ? ' selected' : '';
+                return '<div class="color-option' + sel + '" style="background: ' + color + ';" onclick="selectColor(\'' + color + '\', this)"></div>';
+            }).join('');
+            picker.setAttribute('data-selected', currentSelected);
+        }
+
+        function selectColor(color, el) {
+            document.querySelectorAll('#colorPicker .color-option').forEach(function(x) { x.classList.remove('selected'); });
+            el.classList.add('selected');
+            document.getElementById('colorPicker').setAttribute('data-selected', color);
+            document.getElementById('sysModalIcon').style.background = 'linear-gradient(135deg, ' + color + ', ' + lightenColor(color, 30) + ')';
+        }
+
+        function saveSystem() {
+            var name = document.getElementById('sysName').value.trim();
+            var desc = document.getElementById('sysDesc').value.trim();
+            var category = document.getElementById('sysCategory').value.trim();
+            var url = document.getElementById('sysUrl').value.trim();
+            var password = document.getElementById('sysPassword').value.trim() || DEFAULT_PASSWORD;
+            var icon = document.getElementById('iconPicker').getAttribute('data-selected') || '📊';
+            var color = document.getElementById('colorPicker').getAttribute('data-selected') || '#0a2540';
+
+            if (!name) {
+                showNotification('❌ نام سامانه الزامی است', 'error');
+                return;
+            }
+
+            if (editingSystemId) {
+                var s = systems.find(function(x) { return x.id === editingSystemId; });
+                if (!s) return;
+                s.name = name;
+                s.description = desc;
+                s.category = category;
+                s.url = url;
+                s.password = password;
+                s.icon = icon;
+                s.color = color;
+                showNotification('✅ سامانه ویرایش شد', 'success');
+            } else {
+                var newSystem = {
+                    id: 'sys_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6),
+                    name: name,
+                    description: desc,
+                    category: category,
+                    url: url,
+                    password: password,
+                    icon: icon,
+                    color: color,
+                    favorite: false,
+                    logins: 0,
+                    lastLogin: null,
+                    order: systems.length + 1,
+                    createdAt: new Date().toISOString()
+                };
+                systems.push(newSystem);
+                showNotification('✅ سامانه جدید اضافه شد', 'success');
+            }
+
+            saveToStorage();
+            renderSystems();
+            closeSystemModal();
+        }
+
+        // ===== حذف =====
+        function deleteSystem(systemId) {
+            requestAdminAccess(function() {
+                var s = systems.find(function(x) { return x.id === systemId; });
+                if (!s) return;
+                showConfirm('حذف سامانه', 'آیا از حذف «' + s.name + '» اطمینان دارید؟', function() {
+                    systems = systems.filter(function(x) { return x.id !== systemId; });
+                    saveToStorage();
+                    renderSystems();
+                    showNotification('🗑️ سامانه حذف شد', 'info');
+                });
+            });
+        }
+
+        // ===== جابجایی =====
+        function moveSystem(systemId, direction) {
+            var sorted = systems.slice().sort(function(a, b) {
+                if (a.favorite && !b.favorite) return -1;
+                if (!a.favorite && b.favorite) return 1;
+                return (a.order || 0) - (b.order || 0);
+            });
+            var idx = sorted.findIndex(function(s) { return s.id === systemId; });
+            if (idx === -1) return;
+            var newIdx = idx + direction;
+            if (newIdx < 0 || newIdx >= sorted.length) return;
+            var temp = sorted[idx];
+            sorted[idx] = sorted[newIdx];
+            sorted[newIdx] = temp;
+            sorted.forEach(function(s, i) { s.order = i + 1; });
+            saveToStorage();
+            renderSystems();
+        }
+
+        // ===== علاقه‌مندی =====
+        function toggleFavorite(systemId) {
+            var s = systems.find(function(x) { return x.id === systemId; });
+            if (!s) return;
+            s.favorite = !s.favorite;
+            saveToStorage();
+            renderSystems();
+            showNotification(s.favorite ? '⭐ به علاقه‌مندی‌ها اضافه شد' : 'حذف از علاقه‌مندی‌ها', 'info');
+        }
+
+        // ===== رمز ادمین =====
+        function requestAdminAccess(callback) {
+            adminCallback = callback;
+            currentAdminInput = '';
+            document.getElementById('adminPasswordDisplay').textContent = '----';
+            document.getElementById('adminTextInput').value = '';
+            document.getElementById('adminModal').classList.add('active');
+            
+            // فوکوس خودکار روی فیلد
+            setTimeout(function() {
+                var input = document.getElementById('adminTextInput');
+                if (input) input.focus();
+            }, 150);
+        }
+
+        function closeAdminModal() {
+            document.getElementById('adminModal').classList.remove('active');
+            currentAdminInput = '';
+            adminCallback = null;
+        }
+
+        // ✅ همگام‌سازی فیلد متنی ادمین
+        function onAdminType(value) {
+            currentAdminInput = value;
+            var display = currentAdminInput.length === 0 ? '----' : currentAdminInput.split('').map(function() { return '●'; }).join('');
+            document.getElementById('adminPasswordDisplay').textContent = display;
+        }
+
+        function addAdminDigit(d) {
+            if (currentAdminInput.length < 30) {
+                currentAdminInput += d;
+                document.getElementById('adminTextInput').value = currentAdminInput;
+                var display = currentAdminInput.length === 0 ? '----' : currentAdminInput.split('').map(function() { return '●'; }).join('');
+                document.getElementById('adminPasswordDisplay').textContent = display;
+            }
+        }
+
+        function deleteAdminDigit() {
+            currentAdminInput = currentAdminInput.slice(0, -1);
+            document.getElementById('adminTextInput').value = currentAdminInput;
+            var display = currentAdminInput.length === 0 ? '----' : currentAdminInput.split('').map(function() { return '●'; }).join('');
+            document.getElementById('adminPasswordDisplay').textContent = display;
+        }
+
+        function clearAdminPassword() {
+            currentAdminInput = '';
+            document.getElementById('adminTextInput').value = '';
+            document.getElementById('adminPasswordDisplay').textContent = '----';
+        }
+
+        function submitAdminPassword() {
+            if (currentAdminInput === adminPassword) {
+                var cb = adminCallback;
+                closeAdminModal();
+                if (cb) cb();
+            } else {
+                showNotification('❌ رمز ادمین اشتباه است!', 'error');
+                clearAdminPassword();
+            }
+        }
+
+        // ===== تأیید =====
+        function showConfirm(title, message, callback) {
+            document.getElementById('confirmTitle').textContent = title;
+            document.getElementById('confirmMessage').textContent = message;
+            pendingConfirmCallback = callback;
+            document.getElementById('confirmModal').classList.add('active');
+        }
+
+        function closeConfirmModal() {
+            document.getElementById('confirmModal').classList.remove('active');
+            pendingConfirmCallback = null;
+        }
+
+        function confirmAction() {
+            var cb = pendingConfirmCallback;
+            closeConfirmModal();
+            if (cb) cb();
+        }
+
+        // ===== پاک کردن همه =====
+        function openClearModal() {
+            requestAdminAccess(function() {
+                showConfirm('پاک کردن همه اطلاعات', 'آیا از پاک کردن تمام سامانه‌ها اطمینان دارید؟', function() {
+                    systems = [];
+                    saveToStorage();
+                    renderSystems();
+                    showNotification('🗑️ همه اطلاعات پاک شد', 'info');
+                });
+            });
+        }
+
+        // ===== پشتیبان =====
+        function backupData() {
+            if (systems.length === 0) {
+                showNotification('⚠️ اطلاعاتی برای پشتیبان‌گیری وجود ندارد', 'error');
+                return;
+            }
+            var data = {
+                version: '3',
+                date: new Date().toISOString(),
+                systems: systems,
+                adminPassword: adminPassword
+            };
+            var blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = 'sama_backup_' + new Date().toISOString().split('T')[0] + '.json';
+            a.click();
+            URL.revokeObjectURL(url);
+            showNotification('💾 پشتیبان‌گیری انجام شد', 'success');
+        }
+
+        // ===== بازیابی =====
+        function restoreData() {
+            var input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            input.onchange = function(e) {
+                var file = e.target.files[0];
+                if (!file) return;
+                var reader = new FileReader();
+                reader.onload = function(evt) {
+                    try {
+                        var data = JSON.parse(evt.target.result);
+                        if (data.systems && Array.isArray(data.systems)) {
+                            showConfirm('بازیابی اطلاعات', 'اطلاعات فعلی جایگزین می‌شود. ادامه می‌دهید؟', function() {
+                                systems = data.systems;
+                                if (data.adminPassword) adminPassword = data.adminPassword;
+                                saveToStorage();
+                                renderSystems();
+                                showNotification('📂 بازیابی انجام شد (' + systems.length + ' سامانه)', 'success');
+                            });
+                        } else {
+                            showNotification('❌ فایل نامعتبر است', 'error');
+                        }
+                    } catch (err) {
+                        showNotification('❌ خطا: ' + err.message, 'error');
+                    }
+                };
+                reader.readAsText(file);
+            };
+            input.click();
+        }
+
+        // ===== بستن با پس‌زمینه =====
+        document.querySelectorAll('.modal-overlay').forEach(function(modal) {
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
+                }
+            });
+        });
+
+        // ===== کیبورد =====
+        document.addEventListener('keydown', function(e) {
+            // Enter در فیلد ادمین
+            if (document.getElementById('adminModal').classList.contains('active')) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    submitAdminPassword();
+                } else if (e.key === 'Escape') {
+                    closeAdminModal();
+                }
+            }
+            // Enter در فیلد رمز سامانه
+            else if (document.getElementById('passwordModal').classList.contains('active')) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    submitPassword();
+                } else if (e.key === 'Escape') {
+                    closePasswordModal();
+                }
+            }
+        });
+
+        // ===== شروع =====
+        window.onload = function() {
+            loadDarkMode();
+            loadFromStorage();
+            renderSystems();
+        };
+    </script>
+
+</body>
+</html>
